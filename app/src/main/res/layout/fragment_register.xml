@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_orange"
         android:text="@string/give_rides" />
 
     <TextView
@@ -38,6 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_orange"
         android:text="@string/receive_rides" />
 
     <LinearLayout
@@ -57,8 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:layout_marginLeft="5dp"
             android:text="@string/reg_info"
-         />
+            android:layout_marginStart="5dp" />
     </LinearLayout>
 
 </LinearLayout>

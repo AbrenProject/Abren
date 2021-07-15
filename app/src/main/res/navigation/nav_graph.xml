@@ -36,8 +36,32 @@
         tools:layout="@layout/fragment_register">
 
         <action
-            android:id="@+id/action_RegisterFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_RegisterFragment_to_RegisterForm1Fragment"
+            app:destination="@id/RegisterForm1Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterForm1Fragment"
+        android:name="com.example.abren.RegisterForm1Fragment"
+        tools:layout="@layout/fragment_register_form1">
+
+
+        <action
+            android:id="@+id/action_RegisterForm1Fragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/action_RegisterForm1Fragment_to_RegisterForm2Fragment2"
+            app:destination="@id/RegisterForm2Fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegisterForm2Fragment"
+        android:name="com.example.abren.RegisterForm2Fragment"
+        tools:layout="@layout/fragment_register_form2">
+
+        <action
+            android:id="@+id/action_RegisterForm2Fragment_to_RegisterForm1Fragment"
+            app:destination="@id/RegisterForm1Fragment" />
     </fragment>
 
 </navigation>
