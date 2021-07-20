@@ -121,40 +121,20 @@
         <Button
             android:id="@+id/back_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="3dp"
+            android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:paddingRight="10dp"
             android:layout_gravity="start"
-            android:drawablePadding="15dp"
-            android:textSize="12sp"
-            android:background="@drawable/round_orange"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:drawableLeft="@drawable/ic_back"
-            android:drawableStart="@drawable/ic_back"
-            android:layout_marginEnd="3dp" />
+            style="@style/App_Button.drawableStart" />
 
         <Button
             android:id="@+id/continue_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_orange"
-            android:text="@string/Continue"
-            android:drawablePadding="15dp"
+            style="@style/App_Button.drawableFinish"
             android:textAlignment="textEnd"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:paddingLeft="10dp"
-            android:layout_gravity="end"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:drawableRight="@drawable/ic_continue"
-            android:drawableEnd="@drawable/ic_continue"/>
+            android:layout_gravity="end" />
 
     </LinearLayout>
 
