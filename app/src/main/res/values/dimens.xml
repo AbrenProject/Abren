@@ -4,4 +4,6 @@
     <dimen name="app_padding">15dp</dimen>
     <dimen name="middle_space">3dp</dimen>
     <dimen name="text_size">15sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_title">17sp</dimen>
 </resources>

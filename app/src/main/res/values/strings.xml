@@ -37,6 +37,7 @@
     <string name="vehicle_info">Vehicle Information</string>
     <string name="select_image_driver_license">Select Image of Drivers License</string>
     <string name="select_vehicle_ownership">Select Image of Vehicle Ownership Document</string>
+    <string name="select_vehicle_insurance_doc">Select Image of Vehicle Insurance Document</string>
     <string name="licence_plate_number">License Plate Number</string>
     <string name="vehicle_year">Vehicle Year</string>
     <string name="vehicle_make">Vehicle Make</string>
