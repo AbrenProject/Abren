@@ -1,162 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="15dp"
     tools:context=".RegisterForm1Fragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/dark"
-        android:text="@string/profile_picture" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="182dp"
-        android:layout_height="120dp"
-        android:contentDescription="@string/profile_picture"
-        android:src="@drawable/ic_camera" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/dark"
-        android:layout_marginBottom="15dp"
-        android:text="@string/personal_information" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:padding="15dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginEnd="3dp"
-            android:textColor="@color/dark"
-            android:text="@string/eth_country_code"
-            android:background="@drawable/rounded_edittext" />
+            style="@style/App_TextView.Title"
+            android:layout_marginBottom="0dp"
+            android:text="@string/profile_picture" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:textSize="15sp"
-            android:inputType="phone"
-            android:hint="@string/phone_number"
-            android:background="@drawable/rounded_edittext" />
-
-    </LinearLayout>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:textSize="15sp"
-        android:drawablePadding="30dp"
-        android:drawableLeft="@drawable/ic_camera"
-        android:hint="@string/Select_image"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/rounded_edittext"
-        android:drawableStart="@drawable/ic_camera" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-black"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/dark"
-        android:text="@string/Emergency_info_text_view" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/profile_picture"
+            android:src="@drawable/ic_camera" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:padding="15dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginEnd="3dp"
-            android:textColor="@color/dark"
-            android:text="@string/eth_country_code"
-            android:background="@drawable/rounded_edittext" />
+            style="@style/App_TextView.Title"
+            android:text="@string/personal_information" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:textSize="15sp"
-            android:inputType="phone"
-            android:hint="@string/phone_number"
-            android:background="@drawable/rounded_edittext" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eth_country_code"
+                android:layout_marginRight="@dimen/middle_space"
+                android:background="@drawable/rounded_edittext"
+                style="@style/App_TextView" />
+
+            <EditText
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="@string/phone_number"
+                style="@style/App_EditText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/kebele_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_camera"
+            android:drawableStart="@drawable/ic_camera"
+            android:hint="@string/Select_image"
+            android:background="@drawable/rounded_edittext"
+            style="@style/App_TextView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/App_TextView.Title"
+            android:text="@string/Emergency_info_text_view" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eth_country_code"
+                android:layout_marginRight="3dp"
+                style="@style/App_TextView"
+                android:background="@drawable/rounded_edittext" />
+
+            <EditText
+                android:id="@+id/emergency_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="@string/phone_number"
+                style="@style/App_EditText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:layout_gravity="start"
+                style="@style/App_Button.drawableStart" />
+
+            <Button
+                android:id="@+id/continue_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="@style/App_Button.drawableFinish"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="3dp"
-            android:textAlignment="viewStart"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:paddingRight="10dp"
-            android:layout_gravity="start"
-            android:drawablePadding="15dp"
-            android:textSize="12sp"
-            android:background="@drawable/round_orange"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:drawableLeft="@drawable/ic_back"
-            android:drawableStart="@drawable/ic_back"
-            android:layout_marginEnd="3dp" />
-
-        <Button
-            android:id="@+id/continue_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_orange"
-            android:text="@string/Continue"
-            android:drawablePadding="15dp"
-            android:textAlignment="textEnd"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:paddingLeft="10dp"
-            android:layout_gravity="end"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:drawableRight="@drawable/ic_continue"
-            android:drawableEnd="@drawable/ic_continue"/>
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

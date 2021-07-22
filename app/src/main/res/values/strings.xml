@@ -37,13 +37,29 @@
     <string name="vehicle_info">Vehicle Information</string>
     <string name="select_image_driver_license">Select Image of Drivers License</string>
     <string name="select_vehicle_ownership">Select Image of Vehicle Ownership Document</string>
+    <string name="select_vehicle_insurance_doc">Select Image of Vehicle Insurance Document</string>
     <string name="licence_plate_number">License Plate Number</string>
     <string name="vehicle_year">Vehicle Year</string>
     <string name="vehicle_make">Vehicle Make</string>
     <string name="vehicle_model">Vehicle Model</string>
     <string name="select_vehicle_image">Select Image of Vehicle</string>
+
      <string name="enter_otp">Enter OTP</string>
     <string name="submit_button">Submit</string>
     <string name="try_again">Please try again if you havent recieved sms notification</string>
+
+
+    <!-- Strings for preferences_form_fragment-->
+    <string name="preferences">Preferences</string>
+    <string name="Select_types_of_people">Select the types of people you want to give rides to</string>
+    <string name="age_group1">Age Group\n18 – 25</string>
+    <string name="age_group2">Age Group\n25 – 50</string>
+    <string name="age_group3">Age Group\n> 50</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="finish">finish</string>
+    <string name="change_preference_anytime">You can change your preference at anytime</string>
+
+
 
 </resources>

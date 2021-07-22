@@ -5,107 +5,96 @@
     android:layout_height="match_parent">
 
 <LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="15dp"
+    android:layout_margin="@dimen/app_margin"
     tools:context=".RegisterForm1Fragment">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/dark"
-                android:layout_marginBottom="10dp"
+                style="@style/App_TextView.Title"
                 android:text="@string/vehicle_info" />
 
-            <EditText
+            <TextView
+                android:id="@+id/driver_licence_image_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:drawablePadding="15dp"
                 android:drawableLeft="@drawable/ic_camera"
+                android:drawableStart="@drawable/ic_camera"
                 android:hint="@string/select_image_driver_license"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_edittext"
-                android:drawableStart="@drawable/ic_camera" />
+                style="@style/App_TextView"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/ownership_doc_image_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:drawablePadding="15dp"
                 android:drawableLeft="@drawable/ic_camera"
-                android:hint="@string/select_image_driver_license"
-                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_camera"
+                android:hint="@string/select_vehicle_ownership"
                 android:background="@drawable/rounded_edittext"
-                android:drawableStart="@drawable/ic_camera" />
+                style="@style/App_TextView"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/insurance_doc_image_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:drawablePadding="15dp"
                 android:drawableLeft="@drawable/ic_camera"
-                android:hint="@string/select_vehicle_image"
-                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/ic_camera"
+                android:hint="@string/select_vehicle_insurance_doc"
                 android:background="@drawable/rounded_edittext"
-                android:drawableStart="@drawable/ic_camera" />
+                style="@style/App_TextView"/>
 
             <EditText
+                android:id="@+id/plate_number_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
                 android:hint="@string/licence_plate_number"
-                android:layout_marginBottom="10dp"
+                android:inputType="number"
+                style="@style/App_EditText"
                 android:background="@drawable/rounded_edittext"/>
 
             <EditText
+                android:id="@+id/vehicle_year_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
                 android:hint="@string/vehicle_year"
-                android:layout_marginBottom="10dp"
+                android:inputType="number"
+                style="@style/App_EditText"
                 android:background="@drawable/rounded_edittext"/>
 
+
             <EditText
+                android:id="@+id/vehicle_make_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
                 android:hint="@string/vehicle_make"
-                android:layout_marginBottom="10dp"
+                android:inputType="number"
+                style="@style/App_EditText"
                 android:background="@drawable/rounded_edittext"/>
 
+
             <EditText
+                android:id="@+id/vehicle_model_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
                 android:hint="@string/vehicle_model"
-                android:layout_marginBottom="10dp"
+                style="@style/App_EditText"
+                android:inputType="textAutoComplete"
                 android:background="@drawable/rounded_edittext"/>
 
-            <EditText
+            <TextView
+                android:id="@+id/vehicle_image_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:drawablePadding="15dp"
                 android:drawableLeft="@drawable/ic_camera"
+                android:drawableStart="@drawable/ic_camera"
                 android:hint="@string/select_vehicle_image"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_edittext"
-                android:drawableStart="@drawable/ic_camera" />
-
+                style="@style/App_TextView"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,38 +107,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginRight="3dp"
                     android:textAlignment="viewStart"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingRight="10dp"
                     android:layout_gravity="start"
-                    android:drawablePadding="15dp"
-                    android:textSize="12sp"
-                    android:background="@drawable/round_orange"
-                    android:text="@string/back"
-                    android:textColor="@color/white"
-                    android:drawableLeft="@drawable/ic_back"
-                    android:drawableStart="@drawable/ic_back"
-                    android:layout_marginEnd="3dp" />
+                    style="@style/App_Button.drawableStart" />
 
                 <Button
                     android:id="@+id/continue_button2"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_orange"
-                    android:text="@string/Continue"
-                    android:drawablePadding="15dp"
+                    style="@style/App_Button.drawableFinish"
                     android:textAlignment="textEnd"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
-                    android:layout_gravity="end"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    android:drawableRight="@drawable/ic_continue"
-                    android:drawableEnd="@drawable/ic_continue"/>
+                    android:layout_gravity="end" />
 
             </LinearLayout>
     </LinearLayout>

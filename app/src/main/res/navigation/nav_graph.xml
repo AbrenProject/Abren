@@ -63,6 +63,7 @@
             android:id="@+id/action_RegisterForm2Fragment_to_RegisterForm1Fragment"
             app:destination="@id/RegisterForm1Fragment" />
         <action
+
             android:id="@+id/action_RegisterForm2Fragment_to_PhoneNumberFragment"
             app:destination="@id/PhoneNumberFragment" />
     </fragment>
@@ -74,6 +75,16 @@
 <!--        <action-->
 <!--            android:id="@+id/action_PhoneNumberFragment_to_RegisterForm2Fragment2"-->
 <!--            app:destination="@id/RegisterForm2Fragment" />-->
+<action
+            android:id="@+id/action_RegisterForm2Fragment_to_PreferenceFragment"
+            app:destination="@id/PreferenceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PreferenceFragment"
+        android:name="com.example.abren.PreferenceFormFragment"
+        tools:layout="@layout/fragment_preference_form">
+
     </fragment>
 
 </navigation>

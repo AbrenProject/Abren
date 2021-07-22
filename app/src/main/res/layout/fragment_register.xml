@@ -22,9 +22,7 @@
         android:id="@+id/give_ride_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
-        android:background="@drawable/round_orange"
+        style="@style/App_Button"
         android:text="@string/give_rides" />
 
     <TextView
@@ -39,9 +37,7 @@
         android:id="@+id/receive_ride_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
-        android:background="@drawable/round_orange"
+        style="@style/App_Button"
         android:text="@string/receive_rides" />
 
     <LinearLayout
