@@ -6,29 +6,29 @@
     app:startDestination="@id/RegisterFragment">
 
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.abren.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+<!--    <fragment-->
+<!--        android:id="@+id/FirstFragment"-->
+<!--        android:name="com.example.abren.FirstFragment"-->
+<!--        android:label="@string/first_fragment_label"-->
+<!--        tools:layout="@layout/fragment_first">-->
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment2"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.abren.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+<!--        <action-->
+<!--            android:id="@+id/action_FirstFragment_to_SecondFragment"-->
+<!--            app:destination="@id/SecondFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_FirstFragment_to_SecondFragment2"-->
+<!--            app:destination="@id/SecondFragment" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/SecondFragment"-->
+<!--        android:name="com.example.abren.SecondFragment"-->
+<!--        android:label="@string/second_fragment_label"-->
+<!--        tools:layout="@layout/fragment_second">-->
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_to_FirstFragment"-->
+<!--            app:destination="@id/FirstFragment" />-->
+<!--    </fragment>-->
 
     <fragment
         android:id="@+id/RegisterFragment"
@@ -62,6 +62,18 @@
         <action
             android:id="@+id/action_RegisterForm2Fragment_to_RegisterForm1Fragment"
             app:destination="@id/RegisterForm1Fragment" />
+        <action
+            android:id="@+id/action_RegisterForm2Fragment_to_PhoneNumberFragment"
+            app:destination="@id/PhoneNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PhoneNumberFragment"
+        android:name="com.example.abren.PhoneNumberFragment"
+        tools:layout="@layout/phone_number">
+
+<!--        <action-->
+<!--            android:id="@+id/action_PhoneNumberFragment_to_RegisterForm2Fragment2"-->
+<!--            app:destination="@id/RegisterForm2Fragment" />-->
     </fragment>
 
 </navigation>
