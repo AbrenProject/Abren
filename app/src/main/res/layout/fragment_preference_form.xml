@@ -85,6 +85,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/app_margin"
             app:cardUseCompatPadding="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,15 +95,44 @@
                 android:paddingEnd="@dimen/app_padding">
 
                 <CheckBox
-                    android:id="@+id/age_group_checkbox2"
+                    android:id="@+id/ege_group_checkBox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/app_padding"
                     android:text="@string/age_group2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/app_padding"
+                    android:paddingLeft="@dimen/app_padding"
+                    android:paddingEnd="@dimen/app_padding"
+                    android:orientation="horizontal">
+
+                    <Switch
+                        android:id="@+id/switch_female2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:layout_marginRight="@dimen/app_padding"
+                        android:layout_marginEnd="@dimen/app_padding"
+                        android:switchPadding="@dimen/app_padding"
+                        android:checked="true"
+                        style="@style/App_TextView"
+                        android:text="@string/female" />
+
+                    <Switch
+                        android:id="@+id/switch_male2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:switchPadding="@dimen/app_padding"
+                        android:padding="0dp"
+                        style="@style/App_TextView"
+                        android:text="@string/male" />
+                </LinearLayout>
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
-
-
 
 
         <androidx.cardview.widget.CardView
@@ -142,11 +172,66 @@
                         android:layout_marginRight="@dimen/app_padding"
                         android:layout_marginEnd="@dimen/app_padding"
                         android:switchPadding="@dimen/app_padding"
+                        android:checked="true"
                         style="@style/App_TextView"
                         android:text="@string/female" />
 
                     <Switch
                         android:id="@+id/switch_male3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:switchPadding="@dimen/app_padding"
+                        android:padding="0dp"
+                        style="@style/App_TextView"
+                        android:text="@string/male" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/app_margin"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/app_padding"
+                android:paddingStart="@dimen/app_padding"
+                android:paddingEnd="@dimen/app_padding">
+
+                <CheckBox
+                    android:id="@+id/ege_group_checkBox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/app_padding"
+                    android:text="@string/age_group4" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/app_padding"
+                    android:paddingLeft="@dimen/app_padding"
+                    android:paddingEnd="@dimen/app_padding"
+                    android:orientation="horizontal">
+
+                    <Switch
+                        android:id="@+id/switch_female4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:layout_marginRight="@dimen/app_padding"
+                        android:layout_marginEnd="@dimen/app_padding"
+                        android:switchPadding="@dimen/app_padding"
+                        style="@style/App_TextView"
+                        android:text="@string/female" />
+
+                    <Switch
+                        android:id="@+id/switch_male4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:switchPadding="@dimen/app_padding"
