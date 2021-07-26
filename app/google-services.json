@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "989877382906",
+    "project_id": "abren-e60f9",
+    "storage_bucket": "abren-e60f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989877382906:android:5a5a0517a96dc2ccf36343",
+        "android_client_info": {
+          "package_name": "com.example.abren"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989877382906-7no4b4uiakvum9gfo84bstouve285d0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpyUGeySzBfNYxD6M0tqOthGF_je31CyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989877382906-7no4b4uiakvum9gfo84bstouve285d0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

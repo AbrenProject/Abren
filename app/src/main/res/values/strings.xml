@@ -52,6 +52,11 @@
     <string name="vehicle_model">Vehicle Model</string>
     <string name="select_vehicle_image">Select Image of Vehicle</string>
 
+     <string name="enter_otp">Enter OTP</string>
+    <string name="submit_button">Submit</string>
+    <string name="try_again">Please try again if you havent recieved sms notification</string>
+
+
     <!-- Strings for preferences_form_fragment-->
     <string name="preferences">Preferences</string>
     <string name="Select_types_of_people">Select the types of people you want to give rides to</string>
@@ -63,6 +68,7 @@
     <string name="male">Male</string>
     <string name="finish">finish</string>
     <string name="change_preference_anytime">You can change your preference at anytime</string>
+
 
 
 </resources>
