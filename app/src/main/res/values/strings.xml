@@ -27,6 +27,11 @@
         to both give and receive rides.</string>
     <string name="info_icon">Info icon</string>
 
+    <!-- phone_no_fragment-->
+    <string name="enter_otp">Enter OTP</string>
+    <string name="submit_button">Submit</string>
+    <string name="try_again">Please try again if you havent received sms notification</string>
+
     <!-- Strings for register_form1_fragment-->
     <string name="profile_picture">Profile Picture</string>
     <string name="personal_information">Personal Information</string>
@@ -51,10 +56,6 @@
     <string name="vehicle_make">Vehicle Make</string>
     <string name="vehicle_model">Vehicle Model</string>
     <string name="select_vehicle_image">Select Image of Vehicle</string>
-
-     <string name="enter_otp">Enter OTP</string>
-    <string name="submit_button">Submit</string>
-    <string name="try_again">Please try again if you havent recieved sms notification</string>
 
 
     <!-- Strings for preferences_form_fragment-->

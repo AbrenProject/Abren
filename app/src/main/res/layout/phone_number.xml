@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:layout_margin="15dp"
     tools:context=".PhoneNumberFragment">
 
@@ -12,68 +13,38 @@
         android:id="@+id/enter_otp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/dark"
-        android:layout_marginBottom="15dp"
+        android:textSize="@dimen/text_size_title"
+        style="@style/App_TextView.Title"
         android:text="@string/enter_otp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"/>
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:textSize="15sp"
-        android:drawablePadding="30dp"
-
+        style="@style/App_EditText"
+        android:layout_marginBottom="35dp"
         android:hint="@string/enter_otp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/rounded_edittext"
-         />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/rounded_edittext" />
 
         <Button
             android:id="@+id/submit_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_orange"
             android:text="@string/submit_button"
-            android:drawablePadding="10dp"
-            android:paddingRight="10dp"
-            android:paddingEnd="10dp"
-            android:paddingLeft="10dp"
-            android:layout_gravity="end"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-         />
+            style="@style/App_Button"
+            android:textSize="@dimen/text_size" />
 
-    </LinearLayout>
     <TextView
         android:id="@+id/retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="@dimen/text_size_small"
         android:fontFamily="sans-serif-black"
-        android:paddingTop="10dp"
+        android:drawableLeft="@drawable/ic_info"
+        android:drawableStart="@drawable/ic_info"
+        android:drawablePadding="@dimen/middle_space"
         android:textColor="@color/gray"
-        android:layout_marginBottom="15dp"
         android:text="@string/try_again" />
 
 </LinearLayout>

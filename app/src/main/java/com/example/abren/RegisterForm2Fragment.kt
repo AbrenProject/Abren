@@ -26,14 +26,9 @@ class RegisterForm2Fragment : Fragment() {
             findNavController().navigate(R.id.action_RegisterForm2Fragment_to_RegisterForm1Fragment)
         }
 
-        view.findViewById<Button>(R.id.continue_button).setOnClickListener {
-            findNavController().navigate(R.id.action_RegisterForm2Fragment_to_PhoneNumberFragment)
+        view.findViewById<Button>(R.id.continue_button2).setOnClickListener {
+            findNavController().navigate(R.id.action_RegisterForm2Fragment_to_PreferenceFragment)
 
-
-            view.findViewById<Button>(R.id.continue_button2).setOnClickListener {
-                findNavController().navigate(R.id.action_RegisterForm2Fragment_to_PreferenceFragment)
-
-            }
         }
     }
 }

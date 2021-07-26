@@ -25,12 +25,12 @@ class RegisterForm1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.back_button).setOnClickListener{
+        view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
-        view.findViewById<Button>(R.id.continue_button).setOnClickListener{
-            findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment2)
+        view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
+            findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
         }
     }
 }

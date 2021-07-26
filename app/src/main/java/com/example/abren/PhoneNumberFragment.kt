@@ -22,15 +22,11 @@ class PhoneNumberFragment : Fragment() {
         return inflater.inflate(R.layout.phone_number, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-////        view.findViewById<Button>(R.id.submit_button).setOnClickListener{
-////            findNavController().navigate(R.id.actio)
-////        }
-//////
-////        view.findViewById<Button>(R.id.continue_button).setOnClickListener{
-////            findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment2)
-////        }
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<Button>(R.id.submit_button).setOnClickListener{
+            findNavController().navigate(R.id.action_PhoneNumberFragment_to_RegisterFragment)
+        }
+    }
 }

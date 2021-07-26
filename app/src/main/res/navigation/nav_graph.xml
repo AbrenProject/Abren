@@ -37,6 +37,9 @@
         android:name="com.example.abren.AuthFragment"
         tools:layout="@layout/fragment_auth">
         <action
+            android:id="@+id/action_authFragment_to_PhoneNumberFragment"
+            app:destination="@id/PhoneNumberFragment" />
+        <action
             android:id="@+id/action_authFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
     </fragment>
@@ -61,8 +64,9 @@
             android:id="@+id/action_RegisterForm1Fragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
         <action
-            android:id="@+id/action_RegisterForm1Fragment_to_RegisterForm2Fragment2"
+            android:id="@+id/action_RegisterForm1Fragment_to_RegisterForm2Fragment"
             app:destination="@id/RegisterForm2Fragment" />
+
     </fragment>
 
     <fragment
@@ -74,21 +78,18 @@
             android:id="@+id/action_RegisterForm2Fragment_to_RegisterForm1Fragment"
             app:destination="@id/RegisterForm1Fragment" />
         <action
-
-            android:id="@+id/action_RegisterForm2Fragment_to_PhoneNumberFragment"
-            app:destination="@id/PhoneNumberFragment" />
+            android:id="@+id/action_RegisterForm2Fragment_to_PreferenceFragment"
+            app:destination="@id/PreferenceFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/PhoneNumberFragment"
         android:name="com.example.abren.PhoneNumberFragment"
         tools:layout="@layout/phone_number">
 
-<!--        <action-->
-<!--            android:id="@+id/action_PhoneNumberFragment_to_RegisterForm2Fragment2"-->
-<!--            app:destination="@id/RegisterForm2Fragment" />-->
-<action
-            android:id="@+id/action_RegisterForm2Fragment_to_PreferenceFragment"
-            app:destination="@id/PreferenceFragment" />
+        <action
+            android:id="@+id/action_PhoneNumberFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
     </fragment>
 
     <fragment
@@ -96,6 +97,9 @@
         android:name="com.example.abren.PreferenceFormFragment"
         tools:layout="@layout/fragment_preference_form">
 
+        <action
+            android:id="@+id/action_PreferenceFragment_to_RegisterForm2Fragment"
+            app:destination="@id/RegisterForm2Fragment" />
     </fragment>
 
 </navigation>
