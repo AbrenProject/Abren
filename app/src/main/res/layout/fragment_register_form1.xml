@@ -57,6 +57,16 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/kebele_id_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_camera"
+            android:drawableStart="@drawable/ic_camera"
+            android:hint="@string/Select_kebele_id_image"
+            android:background="@drawable/rounded_edittext"
+            style="@style/App_TextView"/>
+
+        <TextView
             android:id="@+id/kebele_id_back_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
