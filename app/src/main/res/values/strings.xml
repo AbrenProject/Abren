@@ -71,5 +71,8 @@
     <string name="change_preference_anytime">You can change your preference at anytime</string>
 
 
+    <!--Strings for Profile_fragment-->
+
+    <string name="rating"> Rating </string>
 
 </resources>
