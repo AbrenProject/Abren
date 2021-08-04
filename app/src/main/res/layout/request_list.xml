@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RequestList">
+
+
+    <com.mapbox.mapboxsdk.maps.MapView xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mapView"
+        tools:ignore="MissingClass"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"/>
+
+<LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_marginTop="400dp"
+    android:layout_width="match_parent"
+    android:padding="20dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:cardBackgroundColor="#fed8b1"
+        android:cardElevation="20dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background=" #fed8b1"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/profile_image" />
+
+            <TextView
+                android:id="@+id/fullname_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/profile_image"
+                android:includeFontPadding="false"
+                android:text="Test Driver"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/gender"
+                android:includeFontPadding="false"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Gender:"
+                android:paddingBottom="5dp"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/genderType"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="5dp"
+                android:layout_below="@+id/gender"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Female"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
+
+
+
+
+</LinearLayout>
