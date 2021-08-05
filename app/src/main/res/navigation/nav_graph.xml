@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/RegisterFragment">
 
 
 <!--    <fragment-->
@@ -32,17 +32,17 @@
 
 
 
-    <fragment
-        android:id="@+id/authFragment"
-        android:name="com.example.abren.AuthFragment"
-        tools:layout="@layout/fragment_auth">
-        <action
-            android:id="@+id/action_authFragment_to_PhoneNumberFragment"
-            app:destination="@id/PhoneNumberFragment" />
-        <action
-            android:id="@+id/action_authFragment_to_RegisterFragment"
-            app:destination="@id/RegisterFragment" />
-    </fragment>
+<!--    <activity-->
+<!--        android:id="@+id/PhoneNumber"-->
+<!--        android:name="com.example.abren.PhoneNumber"-->
+<!--        tools:layout="@layout/activity_phone_number">-->
+<!--&lt;!&ndash;        <action&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/action_authFragment_to_PhoneNumberFragment"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:destination="@id/Otp" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <action&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/action_authFragment_to_RegisterFragment"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:destination="@id/RegisterFragment" />&ndash;&gt;-->
+<!--    </activity>-->
 
     <fragment
         android:id="@+id/RegisterFragment"
@@ -82,15 +82,16 @@
             app:destination="@id/PreferenceFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/PhoneNumberFragment"
-        android:name="com.example.abren.PhoneNumberFragment"
-        tools:layout="@layout/phone_number">
+<!--    <activity-->
+<!--        android:id="@+id/Otp"-->
+<!--        android:name="com.example.abren.Otp"-->
+<!--        tools:layout="@layout/activity_otp">-->
 
-        <action
-            android:id="@+id/action_PhoneNumberFragment_to_RegisterFragment"
-            app:destination="@id/RegisterFragment" />
-    </fragment>
+<!--&lt;!&ndash;        <action&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/action_PhoneNumberFragment_to_home"&ndash;&gt;-->
+<!--&lt;!&ndash;            app:destination="@id/homeFragment" />&ndash;&gt;-->
+<!--    </activity>-->
+
 
     <fragment
         android:id="@+id/PreferenceFragment"
@@ -101,5 +102,12 @@
             android:id="@+id/action_PreferenceFragment_to_RegisterForm2Fragment"
             app:destination="@id/RegisterForm2Fragment" />
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/homeFragment"-->
+<!--        android:name="com.example.abren.home"-->
+<!--        tools:layout="@layout/fragment_home">-->
+
+
+<!--    </fragment>-->
 
 </navigation>

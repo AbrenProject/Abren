@@ -69,7 +69,9 @@
     <string name="male">Male</string>
     <string name="finish">finish</string>
     <string name="change_preference_anytime">You can change your preference at anytime</string>
-
+    <string name="title_activity_phone_number">PhoneNumber</string>
+    <string name="title_activity_otp">Otp</string>
+    <string name="title_activity_home_page">HomePage</string>
 
 
 </resources>

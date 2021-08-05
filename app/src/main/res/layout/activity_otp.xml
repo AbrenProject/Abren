@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:layout_margin="15dp"
-    tools:context=".PhoneNumberFragment">
+    tools:context=".Otp">
 
     <TextView
         android:id="@+id/enter_otp"
@@ -20,6 +20,7 @@
 
 
     <EditText
+        android:id="@+id/otp_val"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/App_EditText"
@@ -27,13 +28,13 @@
         android:hint="@string/enter_otp"
         android:background="@drawable/rounded_edittext" />
 
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/submit_button"
-            style="@style/App_Button"
-            android:textSize="@dimen/text_size" />
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_button"
+        style="@style/App_Button"
+        android:textSize="@dimen/text_size" />
 
     <TextView
         android:id="@+id/retry"
