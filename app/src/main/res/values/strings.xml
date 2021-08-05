@@ -76,6 +76,6 @@
     <string name="rating"> Rating </string>
 
     <!--Mapbox-->
-    <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
+<!--    <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>-->
 
 </resources>

@@ -58,8 +58,8 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:cardBackgroundColor="#fece2f"
-            android:cardElevation="10dp">
+            android:background="#ddd"
+            android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_height="match_parent"
@@ -70,7 +70,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_height="30dp"
                     android:layout_width="30dp"
-                    android:src="@drawable/payment_icon" />
+                    />
 
                 <TextView
                     android:id="@+id/payment_label"
@@ -120,7 +120,7 @@
             android:layout_width="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:drawableLeft="@drawable/username_small_icon"
+
                 android:drawablePadding="10dp"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" />
@@ -148,7 +148,7 @@
             android:layout_width="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:drawableLeft="@drawable/username_small_icon"
+
                 android:drawablePadding="10dp"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" />

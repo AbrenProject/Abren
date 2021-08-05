@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".RequestList">
+    tools:context=".RequestList"
+    android:orientation="horizontal">
 
 
     <com.mapbox.mapboxsdk.maps.MapView xmlns:tools="http://schemas.android.com/tools"
@@ -25,8 +26,8 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:cardBackgroundColor="#fed8b1"
-        android:cardElevation="20dp">
+        android:background="#FDFDFB"
+        android:elevation="20dp">
 
 
         <RelativeLayout
@@ -78,8 +79,72 @@
                 android:layout_width="wrap_content"
                 android:textStyle="bold"
                 android:text="Female"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:paddingBottom="5dp"/>
+            <TextView
+                android:id="@+id/rating"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="5dp"
+                android:layout_below="@+id/genderType"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Rating"
+                android:textSize="20sp"
+                android:paddingBottom="5dp"/>
 
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/rating"/>
+            <TextView
+                android:id="@+id/ageGroup"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="175dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="100dp"
+                android:text="Age Group:"
+                android:textSize="20sp"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/ageGroupType"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="175dp"
+                android:layout_below="@+id/ageGroup"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="18-25"
+                android:textSize="15sp"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/destination"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="175dp"
+                android:layout_below="@+id/ageGroupType"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Destination:"
+                android:textSize="20sp"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/destinationAnswer"
+                android:includeFontPadding="false"
+                android:layout_marginLeft="175dp"
+                android:layout_below="@+id/destination"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Roba Bakery"
+                android:textSize="15sp"
+                android:paddingBottom="5dp"/>
 
         </RelativeLayout>
 
@@ -88,7 +153,11 @@
 
 </LinearLayout>
 
-
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 
 </LinearLayout>
