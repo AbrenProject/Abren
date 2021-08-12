@@ -15,15 +15,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/App_TextView.Title"
-            android:layout_marginBottom="0dp"
             android:text="@string/profile_picture" />
 
         <ImageView
             android:id="@+id/profile_pic"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="300dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="15dp"
             android:contentDescription="@string/profile_picture"
-            android:src="@drawable/ic_camera" />
+            android:src="@drawable/ic_menu_camera" />
 
         <TextView
             android:id="@+id/textView2"

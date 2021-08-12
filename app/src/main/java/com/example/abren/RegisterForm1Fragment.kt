@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.contentValuesOf
@@ -47,15 +48,22 @@ class RegisterForm1Fragment : Fragment() {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
         }
 
-        view.findViewById<TextView>(R.id.kebele_id_textView).setOnClickListener{
-            selectImage(view)
+        view.findViewById<ImageView>(R.id.profile_pic).setOnClickListener{
+            selectImage()
         }
+        view.findViewById<TextView>(R.id.kebele_id_textView).setOnClickListener{
+            selectImage()
+        }
+        view.findViewById<TextView>(R.id.kebele_id_back_textView).setOnClickListener{
+            selectImage()
+        }
+
     }
 
-    fun selectImage(view: View){
+    fun selectImage(){
 
         val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
-        val builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Choose your profile picture")
         builder.setItems(options) { dialog, item ->
             if (options[item] == "Take Photo") {

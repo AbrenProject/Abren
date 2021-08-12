@@ -277,8 +277,6 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_finish"
-                android:drawableEnd="@drawable/ic_finish"
                 android:text="@string/finish"
                 style="@style/App_Button.drawableFinish"
                 android:textAlignment="textEnd"

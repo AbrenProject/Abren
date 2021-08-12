@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 
 
@@ -30,5 +31,9 @@ class RegisterForm2Fragment : Fragment() {
             findNavController().navigate(R.id.action_RegisterForm2Fragment_to_PreferenceFragment)
 
         }
+
+//        view.findViewById<TextView>(R.id.driver_licence_image_textview).setOnClickListener {
+//            RegisterForm1Fragment().selectImage()
+//        }
     }
 }
