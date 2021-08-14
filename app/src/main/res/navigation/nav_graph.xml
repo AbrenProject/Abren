@@ -86,10 +86,9 @@
         android:id="@+id/PhoneNumberFragment"
         android:name="com.example.abren.PhoneNumberFragment"
         tools:layout="@layout/phone_number">
-
         <action
-            android:id="@+id/action_PhoneNumberFragment_to_RegisterFragment"
-            app:destination="@id/RegisterFragment" />
+            android:id="@+id/action_PhoneNumberFragment_to_riderRoutesHome"
+            app:destination="@id/riderRoutesHome" />
     </fragment>
 
     <fragment
@@ -100,6 +99,24 @@
         <action
             android:id="@+id/action_PreferenceFragment_to_RegisterForm2Fragment"
             app:destination="@id/RegisterForm2Fragment" />
+        <action
+            android:id="@+id/action_PreferenceFragment_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
+
+    <activity
+        android:id="@+id/riderRoutesHome"
+        android:name="com.example.abren.RiderRoutesHome"
+        android:label="app_bar_rider_routes_home"
+        tools:layout="@layout/app_bar_rider_routes_home" />
+
+    <!--    <fragment-->
+<!--        android:id="@+id/HomeFragment"-->
+<!--        android:name="com.example."-->
+<!--        tools:layout="@layout/activity_rider_routes_home">-->
+
+
+<!--    </fragment>-->
+
 
 </navigation>

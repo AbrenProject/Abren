@@ -8,10 +8,10 @@
         <item name="colorAccent">@color/orange</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+<!--    <style name="AppTheme.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
 
 
     <!-- Button  -->
@@ -65,9 +65,13 @@
         <item name="android:layout_marginBottom">@dimen/app_margin</item>
     </style>
 
+<!--    <style name="NavigationMapRoute">-->
+<!--        &lt;!&ndash; colors&ndash;&gt;-->
+<!--    <item name="m">@color/mapboxBlue</item>-->
+<!--    </style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+<!--    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
 </resources>

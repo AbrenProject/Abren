@@ -1,87 +1,99 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
-
 apply plugin: 'com.android.application'
+
 // Add this line
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
 
-    compileSdkVersion 29
-    // buildToolsVersion "29.0.3"
-    buildToolsVersion "30.0.2"
-   // aaptOptions.cruncherEnabled = false
-    //aaptOptions.useNewCruncher = false
-//    buildFeatures {
-//        viewBinding = true
-//    }
+    defaultConfig {
+        applicationId "com.example.abren"
+        minSdkVersion 22
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
 
-        defaultConfig {
-            applicationId "com.example.abren"
-            minSdkVersion 16
-            // targetSdkVersion 29
-            versionCode 1
-            versionName "1.0"
-
-            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            }
-        }
+    }
 
 // To inline the bytecode built with JVM target 1.8 into
 // bytecode that is being built with JVM target 1.6. (e.g. navArgs)
 
 
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding true
     }
 
-    dependencies {
+}
 
-        implementation fileTree(dir: 'libs', include: ['*.jar'])
+allprojects {
+    repositories {
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
+        }
+    }
+}
 
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-        implementation 'androidx.appcompat:appcompat:1.3.1'
-        implementation 'androidx.core:core-ktx:1.6.0'
-        implementation 'com.google.android.material:material:1.4.0'
-        implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-        implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-        implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-        implementation 'com.google.android.gms:play-services-maps:17.0.1'
-        testImplementation 'junit:junit:4.12'
-        androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-        androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-        implementation('androidx.fragment:fragment-ktx:1.3.6')
-        implementation platform('com.google.firebase:firebase-bom:28.2.1')
-        implementation 'com.google.firebase:firebase-analytics-ktx'
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
         // Import the BoM for the Firebase platform
-        implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation platform('com.google.firebase:firebase-bom:28.2.1')
 
         // Declare the dependency for the Firebase Authentication library
         // When using the BoM, you don't specify versions in Firebase library dependencies
-        implementation 'com.google.firebase:firebase-auth-ktx'
-//        implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
-
-//        implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:8.0.0') {
-//            exclude group: 'group_name', module: 'module_name'
-//        }
-        implementation 'com.google.android.material:material:1.0.0'
-
-
-    }
+    // Mapbox Dependencies
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-core:5.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.5.0'
+}

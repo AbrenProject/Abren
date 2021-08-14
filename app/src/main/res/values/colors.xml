@@ -3,9 +3,20 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
     <color name="orange">#E54833</color>
     <color name="orangeDark">#8F3C31</color>
     <color name="dark">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#808080</color>
+
+
+    <color name="mapboxWhite">#FFFFFF</color>
+    <color name="mapboxBlue">#4264FB</color>
+    <color name="mapboxGrayLight">#C6D2E1</color>
+
+    <color name="mapboxPink">#EE4E8B</color>
+    <color name="mapboxYellow">#D9D838</color>
+    <color name="mapboxRed">#B43B71</color>
+
 </resources>
