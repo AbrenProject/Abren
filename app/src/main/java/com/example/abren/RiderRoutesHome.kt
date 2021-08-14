@@ -2,8 +2,6 @@ package com.example.abren
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,8 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.abren.databinding.ActivityRiderRoutesHomeBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -48,7 +44,7 @@ class RiderRoutesHome : AppCompatActivity() {
         //  after navcontroller
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_nearbyDrivers, R.id.nav_profile
             ), drawerLayout
         )
         //added

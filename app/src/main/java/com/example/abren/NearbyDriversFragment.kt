@@ -1,4 +1,4 @@
-package com.example.abren.ui.gallery
+package com.example.abren
 
 import android.Manifest
 import android.app.Activity
@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.example.abren.R
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
