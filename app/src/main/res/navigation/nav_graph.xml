@@ -87,8 +87,8 @@
         android:name="com.example.abren.PhoneNumberFragment"
         tools:layout="@layout/phone_number">
         <action
-            android:id="@+id/action_PhoneNumberFragment_to_mobile_navigation"
-            app:destination="@id/mobile_navigation" />
+            android:id="@+id/action_PhoneNumberFragment_to_riderRoutesHome"
+            app:destination="@id/riderRoutesHome" />
     </fragment>
 
     <fragment
@@ -104,7 +104,11 @@
             app:destination="@id/authFragment" />
     </fragment>
 
-    <include app:graph="@navigation/mobile_navigation" />
+    <activity
+        android:id="@+id/riderRoutesHome"
+        android:name="com.example.abren.RiderRoutesHome"
+        android:label="app_bar_rider_routes_home"
+        tools:layout="@layout/app_bar_rider_routes_home" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/HomeFragment"-->

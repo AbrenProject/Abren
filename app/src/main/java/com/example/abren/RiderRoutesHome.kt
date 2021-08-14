@@ -28,8 +28,8 @@ class RiderRoutesHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //added
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.findNavController()
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        navController = navHostFragment.findNavController()
 
         binding = ActivityRiderRoutesHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
