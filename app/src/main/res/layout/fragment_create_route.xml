@@ -7,6 +7,7 @@
     tools:context=".CreateRouteFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_route_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,50 +28,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976" />
 
-        <EditText
-            android:id="@+id/waypoint_text1"
-            style="@style/App_EditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Add a Waypoint"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_text" />
-
-        <EditText
-            android:id="@+id/destination_text"
-            style="@style/App_EditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Enter Destination"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/waypoint_text1" />
-
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/add_button"
             android:layout_width="0dp"
             android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_add_24"
-            app:layout_constraintBottom_toTopOf="@+id/destination_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_text" />
+            app:layout_constraintStart_toEndOf="@+id/waypoint_text1"
+            app:layout_constraintTop_toBottomOf="@+id/destination_text" />
 
         <AutoCompleteTextView
             android:id="@+id/start_text"
@@ -82,7 +52,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:completionHint="Enter Starting Location"
             android:hint="Enter Starting Location"
             android:shadowColor="#CCCCCC"
             android:shadowDx="100"
@@ -95,11 +64,38 @@
             android:id="@+id/selected_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="144dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/waypoint_text1" />
+
+        <AutoCompleteTextView
+            android:id="@+id/waypoint_text1"
+            style="@style/App_EditText"
+            android:layout_width="334dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="Enter Waypoint"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/destination_text" />
+
+        <AutoCompleteTextView
+            android:id="@+id/destination_text"
+            style="@style/App_EditText"
+            android:layout_width="392dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="Enter Destination Location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

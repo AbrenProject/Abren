@@ -17,7 +17,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
         locationListLiveData = MutableLiveData()
     }
 
-    fun fetchAllLocations(){
-        locationListLiveData = locationRepository?.fetchAllLocations()
+    fun fetchAllLocations(query: String){
+        locationListLiveData = locationRepository?.fetchAllLocations(query)
     }
 }

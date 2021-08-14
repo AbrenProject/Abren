@@ -6,12 +6,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASEURL = "https://jsonplaceholder.typicode.com/"
+const val BASEURL = "https://nominatim.openstreetmap.org/"
 class APIClient {
     companion object{
         private var retrofit: Retrofit?=null
         fun getApiClient(): Retrofit {
             val gson = GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setLenient()
                 .create()
             val okHttpClient = OkHttpClient.Builder()

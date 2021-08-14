@@ -17,10 +17,10 @@ class LocationRepository {
         locationsService = APIClient.getApiClient().create(LocationsService::class.java)
     }
 
-    fun fetchAllLocations(): LiveData<List<Location>> {
+    fun fetchAllLocations(query: String): LiveData<List<Location>> {
         val data = MutableLiveData<List<Location>>()
 
-        locationsService?.fetchAllLocations()?.enqueue(object : Callback<List<Location>> {
+        locationsService?.fetchAllLocations(query)?.enqueue(object : Callback<List<Location>> {
 
             override fun onFailure(call: Call<List<Location>>, t: Throwable) {
                 data.value = ArrayList()

@@ -5,32 +5,33 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.LayoutRes
-import com.example.abren.models.PostModel
+import com.example.abren.models.Location
 
 
-class LocationSuggestionAdapter(context: Context, @LayoutRes private val layoutResource: Int) : ArrayAdapter<PostModel>(context, layoutResource),  Filterable {
-    private var data: MutableList<PostModel> = ArrayList()
+class LocationSuggestionAdapter(context: Context, @LayoutRes private val layoutResource: Int) : ArrayAdapter<Location>(context, layoutResource),  Filterable {
+    private var data: MutableList<Location> = ArrayList()
 
-    fun setData(list: List<PostModel>?) {
+    fun setData(list: List<Location>?) {
         data.clear()
         data.addAll(list!!)
+        notifyDataSetChanged()
     }
 
     override fun getCount(): Int {
         return data.size
     }
 
-    override fun getItem(position: Int): PostModel {
+    override fun getItem(position: Int): Location {
         return data[position]
     }
 
-    fun getObject(position: Int): PostModel {
+    fun getObject(position: Int): Location {
         return data[position]
     }
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults? {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filterResults = FilterResults()
                 if (constraint != null) {
                     filterResults.values = data
