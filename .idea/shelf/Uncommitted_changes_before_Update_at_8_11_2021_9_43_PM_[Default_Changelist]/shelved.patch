@@ -1,0 +1,239 @@
+Index: app/src/main/res/layout/profile_page.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".UserProfile\">\r\n\r\n\r\n<RelativeLayout\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"150dp\"\r\n    android:background=\"@color/orange\"\r\n    android:padding=\"20dp\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/profile_image\"\r\n        android:layout_width=\"74dp\"\r\n        android:layout_height=\"89dp\"\r\n        android:layout_centerVertical=\"true\"\r\n        android:src=\"@drawable/profile\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/fullname_field\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_centerVertical=\"true\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:layout_toRightOf=\"@+id/profile_image\"\r\n        android:includeFontPadding=\"false\"\r\n        android:text=\"Amen Sime\"\r\n        android:textStyle=\"bold\"\r\n        android:textColor=\"#000\"\r\n        android:textSize=\"20sp\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/username_field\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_below=\"@id/fullname_field\"\r\n        android:layout_marginLeft=\"10dp\"\r\n        android:layout_toRightOf=\"@+id/profile_image\"\r\n        android:includeFontPadding=\"false\"\r\n        android:text=\"amen_sime\"\r\n        android:textSize=\"14sp\" />\r\n</RelativeLayout>\r\n\r\n<LinearLayout\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_marginTop=\"-50dp\"\r\n    android:layout_width=\"match_parent\"\r\n    android:padding=\"20dp\">\r\n\r\n    <com.google.android.material.card.MaterialCardView\r\n        android:layout_height=\"100dp\"\r\n        android:layout_margin=\"10dp\"\r\n        android:layout_weight=\"1\"\r\n        android:layout_width=\"0dp\"\r\n        android:background=\"#fad6a5\"\r\n        android:elevation=\"10dp\">\r\n\r\n        <RelativeLayout\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_width=\"match_parent\"\r\n            android:padding=\"5dp\">\r\n\r\n            <ImageView\r\n                android:layout_centerHorizontal=\"true\"\r\n                android:layout_height=\"30dp\"\r\n                android:layout_width=\"30dp\"\r\n                />\r\n\r\n            <TextView\r\n                android:id=\"@+id/payment_label\"\r\n                android:includeFontPadding=\"false\"\r\n                android:layout_centerInParent=\"true\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:text=\"500\"\r\n                android:textStyle=\"bold\"\r\n                android:textSize=\"20sp\" />\r\n\r\n            <TextView\r\n                android:id=\"@+id/payment_desc\"\r\n                android:includeFontPadding=\"false\"\r\n                android:layout_below=\"@id/payment_label\"\r\n                android:layout_centerHorizontal=\"true\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:textStyle=\"bold\"\r\n                android:text=\"Miles\"\r\n                android:textSize=\"20sp\" />\r\n\r\n        </RelativeLayout>\r\n\r\n    </com.google.android.material.card.MaterialCardView>\r\n\r\n</LinearLayout>\r\n\r\n\r\n<TextView\r\n    android:id=\"@+id/textView2\"\r\n    style=\"@style/App_TextView.Title\"\r\n    android:layout_width=\"wrap_content\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:text=\"@string/personal_information\" />\r\n\r\n<LinearLayout\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_width=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:padding=\"10dp\">\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:hint=\"Full Name\"\r\n        android:id=\"@+id/full_name_profile\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_width=\"match_parent\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n\r\n            android:drawablePadding=\"10dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_width=\"match_parent\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:hint=\"Phone Number\"\r\n        android:id=\"@+id/phone_number\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_width=\"match_parent\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n\r\n            android:drawablePadding=\"10dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_width=\"match_parent\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <com.google.android.material.textfield.TextInputLayout\r\n        android:hint=\"Emergency Number\"\r\n        android:id=\"@+id/emergency_phone_number\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_width=\"match_parent\">\r\n\r\n        <com.google.android.material.textfield.TextInputEditText\r\n\r\n            android:drawablePadding=\"10dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_width=\"match_parent\" />\r\n\r\n    </com.google.android.material.textfield.TextInputLayout>\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginBottom=\"0dp\"\r\n        style=\"@style/App_TextView.Title\"\r\n        android:text=\"@string/preferences\" />\r\n\r\n\r\n</LinearLayout>\r\n\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        app:cardCornerRadius=\"@dimen/app_margin\"\r\n        app:cardUseCompatPadding=\"true\">\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            android:paddingLeft=\"@dimen/app_padding\"\r\n            android:paddingStart=\"@dimen/app_padding\"\r\n            android:paddingEnd=\"@dimen/app_padding\">\r\n\r\n            <CheckBox\r\n                android:id=\"@+id/ege_group_checkBox1\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:padding=\"@dimen/app_padding\"\r\n                android:text=\"@string/age_group1\" />\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:paddingStart=\"@dimen/app_padding\"\r\n                android:paddingLeft=\"@dimen/app_padding\"\r\n                android:paddingEnd=\"@dimen/app_padding\"\r\n                android:orientation=\"horizontal\">\r\n\r\n                <Switch\r\n                    android:id=\"@+id/switch_female\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:padding=\"0dp\"\r\n                    android:layout_marginRight=\"@dimen/app_padding\"\r\n                    android:layout_marginEnd=\"@dimen/app_padding\"\r\n                    android:switchPadding=\"@dimen/app_padding\"\r\n                    android:checked=\"true\"\r\n                    style=\"@style/App_TextView\"\r\n                    android:text=\"@string/female\" />\r\n\r\n                <Switch\r\n                    android:id=\"@+id/switch_male\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:switchPadding=\"@dimen/app_padding\"\r\n                    android:padding=\"0dp\"\r\n                    style=\"@style/App_TextView\"\r\n                    android:text=\"@string/male\" />\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n\r\n<LinearLayout\r\n    android:layout_height=\"wrap_content\"\r\n    android:layout_width=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:padding=\"10dp\">\r\n    <TextView\r\n        android:id=\"@+id/textView3\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        style=\"@style/App_TextView.Title\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:text=\"@string/rating\" />\r\n    <RatingBar\r\n        android:id=\"@+id/ratingBar2\"\r\n        android:layout_width=\"250dp\"\r\n        android:layout_height=\"wrap_content\" />\r\n\r\n\r\n</LinearLayout>\r\n\r\n</LinearLayout>\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/profile_page.xml	(revision de11a51396f1ec053f5d14f8b8de5bc91265ce77)
++++ app/src/main/res/layout/profile_page.xml	(date 1628706979580)
+@@ -5,7 +5,10 @@
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     xmlns:tools="http://schemas.android.com/tools"
++<<<<<<< HEAD
+     xmlns:app="http://schemas.android.com/apk/res-auto"
++=======
++>>>>>>> 970b2efba36e023d271669c47364f88183396acc
+     android:orientation="vertical"
+     tools:context=".UserProfile">
+ 
+@@ -16,12 +19,21 @@
+     android:background="@color/orange"
+     android:padding="20dp">
+ 
++<<<<<<< HEAD
+     <ImageView
+         android:id="@+id/profile_image"
+         android:layout_width="74dp"
+         android:layout_height="89dp"
+         android:layout_centerVertical="true"
+         android:src="@drawable/profile" />
++=======
++<ImageView
++    android:id="@+id/profile_image"
++    android:layout_width="100dp"
++    android:layout_height="100dp"
++    android:layout_centerVertical="true"
++    android:src="@drawable/profile_image" />
++>>>>>>> 970b2efba36e023d271669c47364f88183396acc
+ 
+     <TextView
+         android:id="@+id/fullname_field"
+@@ -48,6 +60,7 @@
+         android:textSize="14sp" />
+ </RelativeLayout>
+ 
++<<<<<<< HEAD
+ <LinearLayout
+     android:layout_height="wrap_content"
+     android:layout_marginTop="-50dp"
+@@ -242,5 +255,139 @@
+ 
+ </LinearLayout>
+ 
++=======
++    <LinearLayout
++        android:layout_height="wrap_content"
++        android:layout_marginTop="-50dp"
++        android:layout_width="match_parent"
++        android:padding="20dp">
++
++        <com.google.android.material.card.MaterialCardView
++            android:layout_height="100dp"
++            android:layout_margin="10dp"
++            android:layout_weight="1"
++            android:layout_width="0dp"
++            android:cardBackgroundColor="#fece2f"
++            android:cardElevation="10dp">
++
++            <RelativeLayout
++                android:layout_height="match_parent"
++                android:layout_width="match_parent"
++                android:padding="5dp">
++
++                <ImageView
++                    android:layout_centerHorizontal="true"
++                    android:layout_height="30dp"
++                    android:layout_width="30dp"
++                    android:src="@drawable/payment_icon" />
++
++                <TextView
++                    android:id="@+id/payment_label"
++                    android:includeFontPadding="false"
++                    android:layout_centerInParent="true"
++                    android:layout_height="wrap_content"
++                    android:layout_width="wrap_content"
++                    android:text="500"
++                    android:textStyle="bold"
++                    android:textSize="20sp" />
++
++                <TextView
++                    android:id="@+id/payment_desc"
++                    android:includeFontPadding="false"
++                    android:layout_below="@id/payment_label"
++                    android:layout_centerHorizontal="true"
++                    android:layout_height="wrap_content"
++                    android:layout_width="wrap_content"
++                    android:textStyle="bold"
++                    android:text="Miles"
++                    android:textSize="20sp" />
++
++            </RelativeLayout>
++
++        </com.google.android.material.card.MaterialCardView>
++
++    </LinearLayout>
++
++
++    <TextView
++        android:id="@+id/textView2"
++        style="@style/App_TextView.Title"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="@string/personal_information" />
++
++    <LinearLayout
++        android:layout_height="wrap_content"
++        android:layout_width="match_parent"
++        android:orientation="vertical"
++        android:padding="10dp">
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:hint="Full Name"
++            android:id="@+id/full_name_profile"
++            android:layout_height="wrap_content"
++            android:layout_width="match_parent">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:drawableLeft="@drawable/username_small_icon"
++                android:drawablePadding="10dp"
++                android:layout_height="wrap_content"
++                android:layout_width="match_parent" />
++
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:hint="Phone Number"
++            android:id="@+id/phone_number"
++            android:layout_height="wrap_content"
++            android:layout_width="match_parent">
++
++            <com.google.android.material.textfield.TextInputEditText
++
++                android:drawablePadding="10dp"
++                android:layout_height="wrap_content"
++                android:layout_width="match_parent" />
++
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:hint="Emergency Number"
++            android:id="@+id/emergency_phone_number"
++            android:layout_height="wrap_content"
++            android:layout_width="match_parent">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:drawableLeft="@drawable/username_small_icon"
++                android:drawablePadding="10dp"
++                android:layout_height="wrap_content"
++                android:layout_width="match_parent" />
++
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <TextView
++            android:id="@+id/textView3"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            style="@style/App_TextView.Title"
++            android:layout_marginTop="10dp"
++            android:text="@string/rating" />
++
++    </LinearLayout>
++
++        <LinearLayout
++            android:layout_height="wrap_content"
++            android:layout_width="match_parent"
++            android:orientation="vertical"
++            android:padding="10dp">
++
++            <RatingBar
++                android:id="@+id/ratingBar2"
++                android:layout_width="250dp"
++                android:layout_height="wrap_content" />
++
++
++        </LinearLayout>
++
++>>>>>>> 970b2efba36e023d271669c47364f88183396acc
+ </LinearLayout>
+ 
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\n\r\nbuildscript {\r\n    ext.kotlin_version = '1.3.61'\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n        \r\n    }\r\n    dependencies {\r\n        classpath 'com.android.tools.build:gradle:4.1.0'\r\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version\"\r\n        classpath 'com.google.gms:google-services:4.3.8'\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n        \r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision de11a51396f1ec053f5d14f8b8de5bc91265ce77)
++++ build.gradle	(date 1628706979454)
+@@ -8,7 +8,7 @@
+         
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:4.1.0'
++        classpath 'com.android.tools.build:gradle:4.2.2'
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+         classpath 'com.google.gms:google-services:4.3.8'
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">Abren</string>\r\n    <string name=\"action_settings\">Settings</string>\r\n    <!-- Strings used for fragments for navigation -->\r\n    <string name=\"first_fragment_label\">First Fragment</string>\r\n    <string name=\"second_fragment_label\">Second Fragment</string>\r\n    <string name=\"next\">Next</string>\r\n    <string name=\"previous\">Previous</string>\r\n\r\n    <string name=\"hello_first_fragment\">Hello first fragment</string>\r\n    <string name=\"hello_second_fragment\">Hello second fragment. Arg: %1$s</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n\r\n\r\n    <!-- auth_fragment -->\r\n    <string name=\"abren\">Abren</string>\r\n    <string name=\"send_authorization_code\">Send Authorization Code</string>\r\n    <string name=\"new_to_abren\">New to Abren?</string>\r\n    <string name=\"Register\">Register</string>\r\n\r\n    <!-- Strings for register_fragment (role selection)-->\r\n    <string name=\"register_to\">Register to:</string>\r\n    <string name=\"give_rides\">Give Ride</string>\r\n    <string name=\"or\">or</string>\r\n    <string name=\"receive_rides\">Receive Ride</string>\r\n    <string name=\"reg_info\">If you own a vehicle, register to \\'Give Rides\\'\r\n        to both give and receive rides.</string>\r\n    <string name=\"info_icon\">Info icon</string>\r\n\r\n    <!-- phone_no_fragment-->\r\n    <string name=\"enter_otp\">Enter OTP</string>\r\n    <string name=\"submit_button\">Submit</string>\r\n    <string name=\"try_again\">Please try again if you havent received sms notification</string>\r\n\r\n    <!-- Strings for register_form1_fragment-->\r\n    <string name=\"profile_picture\">Profile Picture</string>\r\n    <string name=\"personal_information\">Personal Information</string>\r\n    <string name=\"eth_country_code\">+251</string>\r\n    <string name=\"phone_number\">Phone Number</string>\r\n    <string name=\"Select_kebele_id_image\">Select Image of Kebele Id</string>\r\n    <string name=\"Select_kebele_id_back_image\">Select Back Image of Kebele Id</string>\r\n    <string name=\"no_image_selected\">No Image Selected</string>\r\n    <string name=\"Emergency_info_text_view\">Emergency Contact Information</string>\r\n    <string name=\"back\">Back</string>\r\n    <string name=\"Continue\">Continue</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n\r\n    <!-- Strings for register_form2_fragment-->\r\n    <string name=\"vehicle_info\">Vehicle Information</string>\r\n    <string name=\"select_image_driver_license\">Select Image of Drivers License</string>\r\n    <string name=\"select_vehicle_ownership\">Select Image of Vehicle Ownership Document</string>\r\n    <string name=\"select_vehicle_insurance_doc\">Select Image of Vehicle Insurance Document</string>\r\n    <string name=\"licence_plate_number\">License Plate Number</string>\r\n    <string name=\"vehicle_year\">Vehicle Year</string>\r\n    <string name=\"vehicle_make\">Vehicle Make</string>\r\n    <string name=\"vehicle_model\">Vehicle Model</string>\r\n    <string name=\"select_vehicle_image\">Select Image of Vehicle</string>\r\n\r\n\r\n    <!-- Strings for preferences_form_fragment-->\r\n    <string name=\"preferences\">Preferences</string>\r\n    <string name=\"Select_types_of_people\">Select the types of people you want to give rides to</string>\r\n    <string name=\"age_group1\">Age Group\\n18 – 25</string>\r\n    <string name=\"age_group2\">Age Group\\n25 – 40</string>\r\n    <string name=\"age_group3\">Age Group\\n40 – 50</string>\r\n    <string name=\"age_group4\">Age Group\\n> 60</string>\r\n    <string name=\"female\">Female</string>\r\n    <string name=\"male\">Male</string>\r\n    <string name=\"finish\">finish</string>\r\n    <string name=\"change_preference_anytime\">You can change your preference at anytime</string>\r\n\r\n\r\n<string name = \"rating\">Rating</string>\r\n</resources>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision de11a51396f1ec053f5d14f8b8de5bc91265ce77)
++++ app/src/main/res/values/strings.xml	(date 1628707203005)
+@@ -71,5 +71,5 @@
+     <string name="change_preference_anytime">You can change your preference at anytime</string>
+ 
+ 
+-<string name = "rating">Rating</string>
++
+ </resources>
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Wed Jul 07 13:42:08 EAT 2021\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-6.5-bin.zip\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- gradle/wrapper/gradle-wrapper.properties	(revision de11a51396f1ec053f5d14f8b8de5bc91265ce77)
++++ gradle/wrapper/gradle-wrapper.properties	(date 1628706979485)
+@@ -3,4 +3,4 @@
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-6.7.1-bin.zip

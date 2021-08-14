@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+// apply plugin: 'kotlin-parcelize'
 
 
 apply plugin: 'com.android.application'
@@ -14,9 +15,9 @@ android {
     buildToolsVersion "30.0.2"
    // aaptOptions.cruncherEnabled = false
     //aaptOptions.useNewCruncher = false
-//    buildFeatures {
-//        viewBinding = true
-//    }
+  buildFeatures {
+       viewBinding = true
+    }
 
 
         defaultConfig {
@@ -25,6 +26,7 @@ android {
             // targetSdkVersion 29
             versionCode 1
             versionName "1.0"
+            multiDexEnabled true
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
@@ -83,5 +85,5 @@ android {
 //        }
         implementation 'com.google.android.material:material:1.0.0'
 
-
+        implementation 'com.android.support:multidex:1.0.3'
     }
