@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.abren.R
 import com.example.abren.databinding.FragmentSlideshowBinding
 
-class SlideshowFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
     private lateinit var slideshowViewModel: SlideshowViewModel
     private var _binding: FragmentSlideshowBinding? = null
