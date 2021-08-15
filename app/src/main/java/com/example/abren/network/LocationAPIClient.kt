@@ -6,8 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val BASEURL = "https://nominatim.openstreetmap.org/"
-class APIClient {
+class LocationAPIClient {
     companion object{
         private var retrofit: Retrofit?=null
         fun getApiClient(): Retrofit {
@@ -21,7 +20,7 @@ class APIClient {
                 .build()
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                    .baseUrl(BASEURL)
+                    .baseUrl("https://nominatim.openstreetmap.org/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()

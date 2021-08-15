@@ -16,11 +16,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.contentValuesOf
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.abren.models.User
+import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +34,8 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class RegisterForm1Fragment : Fragment() {
+
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,12 +47,23 @@ class RegisterForm1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val phoneNumber = view.findViewById<EditText>(R.id.phone_number)
+        val emergencyPhoneNumber = view.findViewById<EditText>(R.id.emergency_phone_number)
+
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
         view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
-            findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
+            viewModel.setPhoneNumber(phoneNumber.text.toString())
+            viewModel.setEmergencyPhoneNumber(emergencyPhoneNumber.text.toString())
+            viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
+                if(user.role == "DRIVER"){
+                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
+                }else{
+                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+                }
+            })
         }
 
         view.findViewById<ImageView>(R.id.profile_pic).setOnClickListener{

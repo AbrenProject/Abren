@@ -43,9 +43,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CreateRouteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private val TRIGGER_AUTO_COMPLETE = 100
     private val AUTO_COMPLETE_DELAY: Long = 300
@@ -61,10 +58,6 @@ class CreateRouteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
 
         startLocationSuggestionAdapter = LocationSuggestionAdapter(
             this.requireContext(),

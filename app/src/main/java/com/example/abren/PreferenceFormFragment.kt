@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.abren.viewmodel.UserViewModel
 
 
 private const val ARG_PARAM1 = "param1"
@@ -16,6 +19,8 @@ private const val ARG_PARAM2 = "param2"
 class PreferenceFormFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
+    private val viewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,13 @@ class PreferenceFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.finish_button).setOnClickListener{
-            findNavController().navigate(R.id.action_PreferenceFragment_to_authFragment)
+            viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
+                if(user.role == "DRIVER"){
+                    findNavController().navigate(R.id.action_PreferenceFragment_to_driverHomeFragment)
+                }else{
+                    findNavController().navigate(R.id.action_PreferenceFragment_to_riderRoutesHome)
+                }
+            })
         }
     }
 

@@ -4,17 +4,17 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Location
-import com.example.abren.network.APIClient
-import com.example.abren.network.LocationsService
+import com.example.abren.network.LocationAPIClient
+import com.example.abren.network.LocationService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class LocationRepository {
-    private var locationsService: LocationsService?=null
+    private var locationsService: LocationService?=null
 
     init {
-        locationsService = APIClient.getApiClient().create(LocationsService::class.java)
+        locationsService = LocationAPIClient.getApiClient().create(LocationService::class.java)
     }
 
     fun fetchAllLocations(query: String): LiveData<List<Location>> {
