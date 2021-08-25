@@ -75,4 +75,8 @@
 
     <string name="rating"> Rating </string>
 
+    <!--Strings to Request List-->
+
+<string name = "accept">Accept </string>
+
 </resources>
