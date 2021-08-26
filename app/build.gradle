@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.android.support:multidex:1.0.3'
+   
 
         // Declare the dependency for the Firebase Authentication library
         // When using the BoM, you don't specify versions in Firebase library dependencies
