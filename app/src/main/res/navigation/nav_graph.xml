@@ -30,7 +30,11 @@
 <!--            app:destination="@id/FirstFragment" />-->
 <!--    </fragment>-->
 
-
+<!--    <activity-->
+<!--        android:id="@+id/phoneNumberActivity"-->
+<!--        android:name="com.example.abren.PhoneNumber"-->
+<!--        android:label="activity_phone_number"-->
+<!--        tools:layout="@layout/activity_phone_number" />-->
 
     <fragment
         android:id="@+id/authFragment"
@@ -38,7 +42,10 @@
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_authFragment_to_PhoneNumberFragment"
-            app:destination="@id/PhoneNumberFragment" />
+            app:destination="@id/PhoneNumberFragment"
+            />
+<!--           -->
+
         <action
             android:id="@+id/action_authFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
@@ -88,7 +95,7 @@
     <fragment
         android:id="@+id/PhoneNumberFragment"
         android:name="com.example.abren.PhoneNumberFragment"
-        tools:layout="@layout/phone_number">
+        tools:layout="@layout/otp">
         <action
             android:id="@+id/action_PhoneNumberFragment_to_riderRoutesHome"
             app:destination="@id/riderRoutesHome" />
@@ -105,9 +112,9 @@
         <action
             android:id="@+id/action_PreferenceFragment_to_RegisterForm2Fragment"
             app:destination="@id/RegisterForm2Fragment" />
-        <action
-            android:id="@+id/action_PreferenceFragment_to_authFragment"
-            app:destination="@id/authFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_PreferenceFragment_to_authFragment"-->
+<!--            app:destination="@id/authFragment" />-->
         <action
             android:id="@+id/action_PreferenceFragment_to_driverHomeFragment"
             app:destination="@id/driverHomeFragment" />

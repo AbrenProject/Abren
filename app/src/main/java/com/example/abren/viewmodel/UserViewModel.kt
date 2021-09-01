@@ -25,5 +25,6 @@ class UserViewModel : ViewModel() {
         mutableSelectedItem.value?.vehicleInformation?.year = year
     }
 
+
     //TODO: Implement remaining setters
 }
