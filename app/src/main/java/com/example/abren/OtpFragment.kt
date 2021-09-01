@@ -1,5 +1,7 @@
 package com.example.abren
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,15 +60,15 @@ class OtpFragment : Fragment() {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        val homeFragment=HomeFragment()
-                        val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
-                        //data being send to SecondFragment
-                        transaction.add(R.id.nav_host_fragment, homeFragment);
-                        transaction.commit();
-                        Toast.makeText(context?.applicationContext, "Successful", Toast.LENGTH_LONG).show()
+//                        val homeFragment=HomeFragment()
+//                        val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
+//                        //data being send to SecondFragment
+//                        transaction.add(R.id.nav_host_fragment, homeFragment);
+//                        transaction.commit();
+//                        Toast.makeText(context?.applicationContext, "Successful", Toast.LENGTH_LONG).show()
 
-//                        startActivity(Intent(applicationContext, home::class.java))
-//                        activity?.finish()
+                        val riderRoutesHome = Intent(activity, RiderRoutesHome::class.java)
+                        startActivity(riderRoutesHome)
 // ...
                     } else {
 // Sign in failed, display a message and update the UI
