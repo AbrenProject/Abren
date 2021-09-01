@@ -1,10 +1,13 @@
 package com.example.abren.models
 
 import java.time.LocalDateTime
+import com.squareup.moshi.Json
 
 data class User(
     var _id: String? = null,
+    @Json(name="name")
     var name: Name? = null,
+    @Json(name = "phoneNumber")
     var phoneNumber: String? = null,
     var gender: String? = null,
     var ageGroup: String? = null,
@@ -24,3 +27,9 @@ data class User(
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null
 )
+
+//profilePicture
+//idCardPicture
+//idCardBackPicture
+//data class UserResponse(@Json(name = "results") val result: List<User> ,
+// @Json(name = "token") val token:token)
