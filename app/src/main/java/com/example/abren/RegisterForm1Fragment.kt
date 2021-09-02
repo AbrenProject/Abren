@@ -1,37 +1,32 @@
 package com.example.abren
 
+import android.R.attr
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.app.ActivityCompat
-import androidx.core.content.contentValuesOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.abren.models.User
 import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
+import okhttp3.RequestBody
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+private const val MY_PERMISSIONS_REQUEST = 100
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST = 1
 
 class RegisterForm1Fragment : Fragment() {
 
@@ -47,8 +42,40 @@ class RegisterForm1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // The request code used in ActivityCompat.requestPermissions()
+// and returned in the Activity's onRequestPermissionsResult()
+        // The request code used in ActivityCompat.requestPermissions()
+// and returned in the Activity's onRequestPermissionsResult()
+        val PERMISSION_ALL = 1
+        val PERMISSIONS = arrayOf(
+            android.Manifest.permission.READ_CONTACTS,
+            android.Manifest.permission.WRITE_CONTACTS,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_SMS,
+            android.Manifest.permission.CAMERA
+        )
+
+        if (!hasPermissions(this, *PERMISSIONS)) {
+            ActivityCompat.requestPermissions(context as Activity, PERMISSIONS, PERMISSION_ALL)
+        }
+
+//        if(context?.let
+//                ContextCompat.checkSelfPermission(
+//                    it,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(
+//                        context as Activity,
+//                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE },
+//                        MY_PERMISSIONS_REQUEST);
+//
+//                }
+
         val phoneNumber = view.findViewById<EditText>(R.id.phone_number)
         val emergencyPhoneNumber = view.findViewById<EditText>(R.id.emergency_phone_number)
+        val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
+        val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
+        val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
 
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
@@ -66,8 +93,12 @@ class RegisterForm1Fragment : Fragment() {
             })
         }
 
-        view.findViewById<ImageView>(R.id.profile_pic).setOnClickListener{
-            selectImage()
+        view.findViewById<ImageView>(R.id.profile_pic_imageView).setOnClickListener{
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST)
+
         }
         view.findViewById<TextView>(R.id.kebele_id_textView).setOnClickListener{
             selectImage()
@@ -78,8 +109,11 @@ class RegisterForm1Fragment : Fragment() {
 
     }
 
-    fun selectImage(){
+    fun hasPermissions(context: RegisterForm1Fragment, vararg permissions: String): Boolean = permissions.all {
+        getContext()?.let { it1 -> ActivityCompat.checkSelfPermission(it1, it) } == PackageManager.PERMISSION_GRANTED
+    }
 
+    fun selectImage(){
         val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Choose your profile picture")
@@ -98,36 +132,106 @@ class RegisterForm1Fragment : Fragment() {
             }
         }
         builder.show()
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != Activity.RESULT_CANCELED) {
-            when (requestCode) {
-                0 -> if (resultCode == Activity.RESULT_OK && data != null) {
-                    val selectedImage = data.extras!!["data"] as Bitmap?
-                    profile_pic.setImageBitmap(selectedImage)
-                }
-//                1 -> if (resultCode == Activity.RESULT_OK && data != null) {
-//                    val selectedImage: Uri? = data.data
-//                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-//                    if (selectedImage != null) {
-//                        val cursor: Cursor = getContentResolver().query(
-//                            selectedImage,
-//                            filePathColumn, null, null, null
-//                        )
-//                        if (cursor != null) {
-//                            cursor.moveToFirst()
-//                            val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-//                            val picturePath: String = cursor.getString(columnIndex)
-//                            profile_pic.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-//                            cursor.close()
-//                        }
-//                    }
-//                }
-            }
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            val uri: Uri = data.data!!
+            //uploadFile(uri)
+
+            profile_pic_imageView.setImageURI(uri)
+           // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
+
         }
     }
+
+    fun getPath(uri: Uri?): String? {
+        // just some safety built in
+        if (uri == null) {
+            // TODO perform some logging or show user feedback
+            return null
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        val projection = arrayOf<String>(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = context?.contentResolver?.query(uri,projection,null,null,null)
+        if (cursor != null) {
+            val column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            val moveToFirst = cursor.moveToFirst()
+            val path = cursor.getString(column_index)
+            cursor.close()
+            return path
+        }
+        // this is our fallback here
+        return uri.path
+    }
+
+
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+             MY_PERMISSIONS_REQUEST ->
+                if(grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                        // permission is granted.  do file related tasks here
+                    Log.d("RegisterForm1TAG", "User Granted image permission.")
+                }
+                else{
+                    Log.d("RegisterForm1TAG", "User Denied image permission.")
+                }
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+
+
+
+//    private fun uploadFile(fileUri: Uri) {
+//        // create upload service client
+//        val service: FileUploadService =
+//            ServiceGenerator.createService(FileUploadService::class.java)
+//
+//        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+//        // use the FileUtils to get the actual file by uri
+//        val file: File = FileUtils.getFile(RegisterForm1Fragment(), fileUri)
+//
+//        // create RequestBody instance from file
+//        val requestFile: Request = create(
+//            MediaType.parse(getContentResolver().getType(fileUri)),
+//            file
+//        )
+//
+//        // MultipartBody.Part is used to send also the actual file name
+//        val body: Part = createFormData.createFormData("picture", file.getName(), requestFile)
+//
+//        // add another part within the multipart request
+//        val descriptionString = "hello, this is description speaking"
+//        val description = RequestBody.create(
+//            MultipartBody.FORM, descriptionString
+//        )
+//
+//        // finally, execute the request
+//        val call: Call<ResponseBody> = service.upload(description, body)
+//        call.enqueue(object : Callback<ResponseBody?>() {
+//            fun onResponse(
+//                call: Call<ResponseBody?>?,
+//                response: Response<ResponseBody?>?
+//            ) {
+//                Log.v("Upload", "success")
+//            }
+//
+//            fun onFailure(call: Call<ResponseBody?>?, t: Throwable) {
+//                t.message?.let { Log.e("Upload error:", it) }
+//            }
+//        })
+//    }
 
 
 }

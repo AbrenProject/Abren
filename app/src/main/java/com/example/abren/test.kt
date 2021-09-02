@@ -1,41 +1,30 @@
 package com.example.abren
 
-import android.app.Activity.RESULT_CANCELED
-import android.app.Activity.RESULT_OK
-import android.content.Intent
+import android.content.Context
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 
-
-class test {
-//    protected fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (resultCode != RESULT_CANCELED) {
-//            when (requestCode) {
-//                0 -> if (resultCode == RESULT_OK && data != null) {
-//                    val selectedImage = data.extras!!["data"] as Bitmap?
-//                    imageView.setImageBitmap(selectedImage)
-//                }
-//                1 -> if (resultCode == RESULT_OK && data != null) {
-//                    val selectedImage: Uri? = data.data
-//                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-//                    if (selectedImage != null) {
-//                        val cursor: Cursor = getContentResolver().query(
-//                            selectedImage,
-//                            filePathColumn, null, null, null
-//                        )
-//                        if (cursor != null) {
-//                            cursor.moveToFirst()
-//                            val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-//                            val picturePath: String = cursor.getString(columnIndex)
-//                            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-//                            cursor.close()
-//                        }
-//                    }
-//                }
-//            }
+internal class test {
+//    fun getPath(uri: Uri?): String? {
+//        // just some safety built in
+//        if (uri == null) {
+//            // TODO perform some logging or show user feedback
+//            return null
 //        }
+//        // try to retrieve the image from the media store first
+//        // this will only work for images selected from gallery
+//        val projection = arrayOf<String>(MediaStore.Images.Media.DATA)
+//        val cursor: Cursor? = context.contentResolver?.query(uri,projection,null,null,null)
+//        if (cursor != null) {
+//            val column_index = cursor
+//                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+//            cursor.moveToFirst()
+//            val path = cursor.getString(column_index)
+//            cursor.close()
+//            return path
+//        }
+//        // this is our fallback here
+//        return uri.path
 //    }
 }
