@@ -22,18 +22,18 @@ interface UserApiService {
 
     @Multipart
     @POST("upload")
-    fun upload(
+    fun uploadImage(
         @Part("description") description: RequestBody?,
         @Part file: Part?
     ): Call<ResponseBody?>?
 
 
-    @Headers("Content-Type:multipart/form-data")
-    @Multipart
-    @POST("/api/auth/signup")
-    fun addUser(
-        @Part("file\"; filename=\"pp.png\" ") file: RequestBody?,
-        @Part("FirstName") fname: RequestBody?,
-        @Part("Id") id: RequestBody?
-    ): Call<User?>?
+//    @Headers("Content-Type:multipart/form-data")
+//    @Multipart
+//    @POST("/api/auth/signup")
+//    fun addUser(
+//        @Part("file\"; filename=\"pp.png\" ") file: RequestBody?,
+//        @Part("FirstName") fname: RequestBody?,
+//        @Part("Id") id: RequestBody?
+//    ): Call<User?>?
 }

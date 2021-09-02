@@ -9,6 +9,7 @@ import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.FileUtils
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,9 +21,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.abren.network.UserAPIClient
+import com.example.abren.network.UserApiService
 import com.example.abren.viewmodel.UserViewModel
+import com.mapbox.android.core.FileUtils.getFile
+import com.mapbox.mapboxsdk.utils.ThreadUtils.init
 import kotlinx.android.synthetic.main.fragment_register_form1.*
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Multipart
+import retrofit2.http.Part
+import java.io.File
 
 
 private const val MY_PERMISSIONS_REQUEST = 100
@@ -42,10 +53,9 @@ class RegisterForm1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // The request code used in ActivityCompat.requestPermissions()
-// and returned in the Activity's onRequestPermissionsResult()
-        // The request code used in ActivityCompat.requestPermissions()
-// and returned in the Activity's onRequestPermissionsResult()
+
+//        makeApiCall
+
         val PERMISSION_ALL = 1
         val PERMISSIONS = arrayOf(
             android.Manifest.permission.READ_CONTACTS,
@@ -193,8 +203,20 @@ class RegisterForm1Fragment : Fragment() {
 
 
 
-//    private fun uploadFile(fileUri: Uri) {
-//        // create upload service client
+    private fun uploadFile(fileUri: Uri) {
+        // create upload service client
+
+//        RequestBody description = RequestBody.create(MultipartBody.FORM,name.getText())
+
+//        val originalFile : File = FileUtils.getFiles(this,fileUri)
+//
+//        val filePart:RequestBody = RequestBody.create(
+//            context?.contentResolver?.getType(fileUri)?.let { it.toMediaTypeOrNull() }
+//                    originalFile
+//        )
+//        MultipartBody.Part file = MultipartBody.part.createfromData("photo",originalFile.getName(),filePart)
+//
+        // here
 //        val service: FileUploadService =
 //            ServiceGenerator.createService(FileUploadService::class.java)
 //
@@ -216,8 +238,8 @@ class RegisterForm1Fragment : Fragment() {
 //        val description = RequestBody.create(
 //            MultipartBody.FORM, descriptionString
 //        )
-//
-//        // finally, execute the request
+
+        // finally, execute the request
 //        val call: Call<ResponseBody> = service.upload(description, body)
 //        call.enqueue(object : Callback<ResponseBody?>() {
 //            fun onResponse(
@@ -231,7 +253,7 @@ class RegisterForm1Fragment : Fragment() {
 //                t.message?.let { Log.e("Upload error:", it) }
 //            }
 //        })
-//    }
+    }
 
 
 }
