@@ -1,15 +1,12 @@
 package com.example.abren
 
-import android.R.attr
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.FileUtils
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,19 +18,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.abren.network.UserAPIClient
-import com.example.abren.network.UserApiService
 import com.example.abren.viewmodel.UserViewModel
-import com.mapbox.android.core.FileUtils.getFile
-import com.mapbox.mapboxsdk.utils.ThreadUtils.init
 import kotlinx.android.synthetic.main.fragment_register_form1.*
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.Multipart
-import retrofit2.http.Part
-import java.io.File
 
 
 private const val MY_PERMISSIONS_REQUEST = 100
@@ -53,7 +43,6 @@ class RegisterForm1Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
 //        makeApiCall
 
         val PERMISSION_ALL = 1
@@ -64,28 +53,16 @@ class RegisterForm1Fragment : Fragment() {
             android.Manifest.permission.READ_SMS,
             android.Manifest.permission.CAMERA
         )
-
         if (!hasPermissions(this, *PERMISSIONS)) {
             ActivityCompat.requestPermissions(context as Activity, PERMISSIONS, PERMISSION_ALL)
         }
-
-//        if(context?.let
-//                ContextCompat.checkSelfPermission(
-//                    it,
-//                    Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(
-//                        context as Activity,
-//                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE },
-//                        MY_PERMISSIONS_REQUEST);
-//
-//                }
 
         val phoneNumber = view.findViewById<EditText>(R.id.phone_number)
         val emergencyPhoneNumber = view.findViewById<EditText>(R.id.emergency_phone_number)
         val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
         val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
+        val password = viewModel.getPasssword()
 
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
@@ -98,7 +75,11 @@ class RegisterForm1Fragment : Fragment() {
                 if(user.role == "DRIVER"){
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
                 }else{
+                    viewModel.registerUser()!!.observe(viewLifecycleOwner , Observer { responseBody ->
+                        Log.v("ON registerForm1Fragmenttt",responseBody.string())
+                    })
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+
                 }
             })
         }
@@ -151,6 +132,7 @@ class RegisterForm1Fragment : Fragment() {
             //uploadFile(uri)
 
             profile_pic_imageView.setImageURI(uri)
+
            // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
 
         }
@@ -206,7 +188,7 @@ class RegisterForm1Fragment : Fragment() {
     private fun uploadFile(fileUri: Uri) {
         // create upload service client
 
-//        RequestBody description = RequestBody.create(MultipartBody.FORM,name.getText())
+//        var requestPhoneNumber: MultipartBody.Builder = MultipartBody.Builder().setType(MultipartBody.FORM,phone_number.getText())
 
 //        val originalFile : File = FileUtils.getFiles(this,fileUri)
 //
@@ -254,6 +236,13 @@ class RegisterForm1Fragment : Fragment() {
 //            }
 //        })
     }
+
+//    fun requestForImage(){
+//        val requestPhoneNumber:RequestBody = RequestBody.create(
+//            "multipart/form-data".toMediaTypeOrNull(),
+//            phone_number
+//        )
+//    }
 
 
 }

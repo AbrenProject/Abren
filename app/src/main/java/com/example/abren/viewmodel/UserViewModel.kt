@@ -1,18 +1,27 @@
 package com.example.abren.viewmodel
 
-import android.graphics.Picture
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.abren.models.User
 import com.example.abren.repository.UserRepository
+import okhttp3.ResponseBody
+import retrofit2.Response
+import java.lang.IllegalArgumentException
 
-class UserViewModel : ViewModel() {
+class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private var userRepository: UserRepository?=null
     private val mutableSelectedItem = MutableLiveData<User>()
     val selectedUser: LiveData<User> get() = mutableSelectedItem
+
+    //
+    var servicesLiveData:MutableLiveData<ResponseBody>? = null
+//    val phoneNumber:String = savedStateHandle["phoneNumber"]?:
+//    throw IllegalArgumentException("missing phone no")
+
 
     fun selectUser(user: User) {
         mutableSelectedItem.value = user
@@ -42,9 +51,14 @@ class UserViewModel : ViewModel() {
         mutableSelectedItem.value?.profilePictureUrl = profilePicture
     }
 
-    fun registerUser(){
+    fun getPasssword():String{
+        return UserRepository.getPasssword()
+    }
+
+    fun registerUser():LiveData<ResponseBody>? {
         Log.i("RETROFIT:IN USER VIEWMODEL" , "in user viewmodel")
-        mutableSelectedItem.value
+        servicesLiveData = UserRepository.getServicesApiCall()
+        return servicesLiveData
     }
 
 

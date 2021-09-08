@@ -27,7 +27,7 @@ class UserAPIClient {
                 .build()
             if(retrofit == null){
                 retrofit = Retrofit.Builder()
-                    .baseUrl("https://abren-project.herokuapp.com/")
+                    .baseUrl("https://abren-project.herokuapp.com/api/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
@@ -35,5 +35,7 @@ class UserAPIClient {
             return retrofit!!
         }
     }
+
+
 
 }
