@@ -27,7 +27,6 @@ import java.time.Year
 class RegisterForm2Fragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
-
     private lateinit var vehicleYearAdapter: VehicleInformationAdapter
     private lateinit var vehicleMakeAdapter: VehicleInformationAdapter
     private lateinit var vehicleModelAdapter: VehicleInformationAdapter

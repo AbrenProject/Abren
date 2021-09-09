@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.abren.models.User
 
 class UserViewModel : ViewModel() {
+
     private val mutableSelectedItem = MutableLiveData<User>()
     val selectedUser: LiveData<User> get() = mutableSelectedItem
 
@@ -25,5 +26,15 @@ class UserViewModel : ViewModel() {
         mutableSelectedItem.value?.vehicleInformation?.year = year
     }
 
+    fun setRating(ratings: MutableList<Int>){
+        mutableSelectedItem.value?.rating = ratings
+    }
+//
+//    fun makeApiCalls(){
+//        viewModelScope.launch(Dispatchers.IO ){
+//            val userProfileClient = UserProfileClient.getApiClient().create(UserProfileService::class.java)
+//            val response = userProfileClient.getDataFromApi()
+//        }
+//    }
     //TODO: Implement remaining setters
 }
