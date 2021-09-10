@@ -24,6 +24,7 @@ import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 
@@ -38,7 +39,6 @@ class RegisterForm1Fragment : Fragment() {
     private var profileMultipartImage:MultipartBody.Part? = null
     private var idCardMultipartImage:MultipartBody.Part? = null
     private var idCardBackMultipartImage:MultipartBody.Part? = null
-    private var RESULT_FILE_PATH = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,13 +67,12 @@ class RegisterForm1Fragment : Fragment() {
         val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
         val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
-        val password = viewModel.setPasssword()
 
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
-        Log.v("kebele Id  MultiPart From Outer............",idCardMultipartImage.toString())
+        Log.v("Id Card MultiPart From Outer............",idCardMultipartImage.toString())
 
         view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
             viewModel.setPhoneNumber(phoneNumber.text.toString())
@@ -83,11 +82,18 @@ class RegisterForm1Fragment : Fragment() {
                 if(user.role == "DRIVER"){
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
                 }else{
-//                    viewModel.registerUser()!!.observe(viewLifecycleOwner , Observer { responseBody ->
-//                        Log.v("ON registerForm1Fragmenttt",responseBody.string())
-//                    })
+                    Log.d("idCardMultiPart Image...",idCardBackMultipartImage.toString())
+                    Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
+                    viewModel.registerUser(profileMultipartImage!!,
+                        idCardMultipartImage!!,
+                        idCardBackMultipartImage!!,
+                        user.phoneNumber!!,
+                        user.emergencyPhoneNumber!!,
+                        user.role!!,
+                        user.password)
+
                     Log.d("Check",user!!.toString())
-//                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+//                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
                 }
             })
         }
@@ -168,7 +174,7 @@ class RegisterForm1Fragment : Fragment() {
 
     private fun createRequestBody(file: File): RequestBody {
         val MEDIA_TYPE_IMAGE: MediaType = "image/*".toMediaTypeOrNull()!!
-        return RequestBody.create(MEDIA_TYPE_IMAGE, file)
+        return file.asRequestBody(MEDIA_TYPE_IMAGE)
     }
 
     private fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
@@ -235,65 +241,5 @@ class RegisterForm1Fragment : Fragment() {
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
-
-    private fun uploadFile(fileUri: Uri) {
-        // create upload service client
-
-//        var requestPhoneNumber: MultipartBody.Builder = MultipartBody.Builder().setType(MultipartBody.FORM,phone_number.getText())
-
-//        val originalFile : File = FileUtils.getFiles(this,fileUri)
-//
-//        val filePart:RequestBody = RequestBody.create(
-//            context?.contentResolver?.getType(fileUri)?.let { it.toMediaTypeOrNull() }
-//                    originalFile
-//        )
-//        MultipartBody.Part file = MultipartBody.part.createfromData("photo",originalFile.getName(),filePart)
-//
-        // here
-//        val service: FileUploadService =
-//            ServiceGenerator.createService(FileUploadService::class.java)
-//
-//        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-//        // use the FileUtils to get the actual file by uri
-//        val file: File = FileUtils.getFile(RegisterForm1Fragment(), fileUri)
-//
-//        // create RequestBody instance from file
-//        val requestFile: Request = create(
-//            MediaType.parse(getContentResolver().getType(fileUri)),
-//            file
-//        )
-//
-//        // MultipartBody.Part is used to send also the actual file name
-//        val body: Part = createFormData.createFormData("picture", file.getName(), requestFile)
-//
-//        // add another part within the multipart request
-//        val descriptionString = "hello, this is description speaking"
-//        val description = RequestBody.create(
-//            MultipartBody.FORM, descriptionString
-//        )
-
-        // finally, execute the request
-//        val call: Call<ResponseBody> = service.upload(description, body)
-//        call.enqueue(object : Callback<ResponseBody?>() {
-//            fun onResponse(
-//                call: Call<ResponseBody?>?,
-//                response: Response<ResponseBody?>?
-//            ) {
-//                Log.v("Upload", "success")
-//            }
-//
-//            fun onFailure(call: Call<ResponseBody?>?, t: Throwable) {
-//                t.message?.let { Log.e("Upload error:", it) }
-//            }
-//        })
-    }
-
-//    fun requestForImage(){
-//        val requestPhoneNumber:RequestBody = RequestBody.create(
-//            "multipart/form-data".toMediaTypeOrNull(),
-//            phone_number
-//        )
-//    }
-
 
 }

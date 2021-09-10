@@ -1,5 +1,6 @@
 package com.example.abren.network
 
+import com.example.abren.models.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -10,22 +11,25 @@ import retrofit2.http.*
 interface ApiInterfaceService {
 
     @POST("auth/signup")
+    @Headers("Content-Type:multipart/form-data")
     @FormUrlEncoded
-    @Multipart
     fun registerUser(
         @Field("profilePicture") profileImage: MultipartBody.Part,
         @Field("idCardPicture") idCardImage: MultipartBody.Part,
         @Field("idCardBackPicture") idCardBackImage: MultipartBody.Part,
-        @Field("phoneNumber") phoneNumber:RequestBody,
-        @Field("emergencyPhoneNumber") emergencyPhoneNumber: RequestBody,
-        @Field("role") role:RequestBody,
+        @Field("phoneNumber") phoneNumber:String,
+        @Field("emergencyPhoneNumber") emergencyPhoneNumber: String,
+        @Field("role") role:String,
         @Field("password") password:String
-
     ): Call<ResponseBody>
 
     @POST("auth/signup")
+    @Headers("Content-Type:multipart/form-data")
     @FormUrlEncoded
-    fun sendUser(@FieldMap params:Map<String,String>):Call<ResponseBody>
+    fun sendUser(@Field("user") user:User):Call<ResponseBody>
+
+    @GET("auth/signup")
+    fun response(@Path("user") user:User):Call<ResponseBody>
 
 
 

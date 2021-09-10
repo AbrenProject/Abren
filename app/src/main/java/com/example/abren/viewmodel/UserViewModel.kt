@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.abren.models.User
 import com.example.abren.repository.UserRepository
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 
 class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
@@ -54,12 +55,23 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         mutableSelectedItem.value?.password = UserRepository.getPasssword()
     }
 
-    fun registerUser():LiveData<ResponseBody>? {
-        Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER FUNCtion" , "in user viewmodel")
-        servicesLiveData = UserRepository.getServicesApiCall()
+    fun registerUser(profileImage:MultipartBody.Part,
+                     idCardImage:MultipartBody.Part,
+                     idCardBackImage:MultipartBody.Part,
+                     phoneNumber: String,
+                     emergencyPhoneNumber: String,
+                     role: String,
+                     password:String):LiveData<ResponseBody>? {
+        Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER FUNCtion" , selectedUser.value.toString())
+        servicesLiveData = UserRepository.getServicesApiCall(profileImage,
+            idCardImage,
+            idCardBackImage,
+            phoneNumber,
+            emergencyPhoneNumber,
+            role,
+            password)
         return servicesLiveData
     }
-
 
 
 }
