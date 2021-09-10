@@ -17,6 +17,7 @@ object UserRepository {
 
     val mutableSelectedUser = MutableLiveData<User>()
     val selectedUser:LiveData<User> get() = mutableSelectedUser
+    val responseBody = MutableLiveData<ResponseBody>()
 
 
     lateinit var profileImage: MultipartBody.Part
@@ -27,7 +28,7 @@ object UserRepository {
     lateinit var role:RequestBody
     lateinit var password:String
 
-    fun getServicesApiCall(): MutableLiveData<ResponseBody> {
+    fun getServicesApiCall(): MutableLiveData<User> {
 
         val call = RetrofitClient.apiInterface.registerUser(
            profileImage, idCardImage, idCardBackImage, phoneNumber,
@@ -44,7 +45,7 @@ object UserRepository {
 
             }
         } )
-        return responseBody
+        return mutableSelectedUser
     }
 
     fun getPasssword():String{
