@@ -1,6 +1,7 @@
 package com.example.abren.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.User
 import com.example.abren.network.RetrofitClient
@@ -10,11 +11,14 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import
 
 object UserRepository {
 
-    var user = MutableLiveData<User>()
-    var responseBody = MutableLiveData<ResponseBody>()  //TODO Remove
+    val mutableSelectedUser = MutableLiveData<User>()
+    val selectedUser:LiveData<User> get() = mutableSelectedUser
+
+
     lateinit var profileImage: MultipartBody.Part
     lateinit var idCardImage: MultipartBody.Part
     lateinit var idCardBackImage: MultipartBody.Part
@@ -45,7 +49,7 @@ object UserRepository {
 
     fun getPasssword():String{
         val pass = User().password
-        return pass.toString()
+        return pass
     }
 
 

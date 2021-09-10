@@ -1,18 +1,20 @@
 package com.example.abren
 
 import android.app.Activity
-import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,18 +22,23 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.http.Multipart
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import java.io.File
 
 
 private const val MY_PERMISSIONS_REQUEST = 100
-private const val PICK_IMAGE_FROM_GALLERY_REQUEST = 1
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST2 = 2
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST3 = 3
 
 class RegisterForm1Fragment : Fragment() {
 
     private val viewModel: UserViewModel by activityViewModels()
+    private var profileMultipartImage:MultipartBody.Part? = null
+    private var idCardMultipartImage:MultipartBody.Part? = null
+    private var idCardBackMultipartImage:MultipartBody.Part? = null
+    private var RESULT_FILE_PATH = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +49,7 @@ class RegisterForm1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 //        makeApiCall
-
         val PERMISSION_ALL = 1
         val PERMISSIONS = arrayOf(
             android.Manifest.permission.READ_CONTACTS,
@@ -62,104 +67,153 @@ class RegisterForm1Fragment : Fragment() {
         val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
         val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
-        val password = viewModel.getPasssword()
+        val password = viewModel.setPasssword()
 
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
+        Log.v("kebele Id  MultiPart From Outer............",idCardMultipartImage.toString())
+
         view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
             viewModel.setPhoneNumber(phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber(emergencyPhoneNumber.text.toString())
+
             viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
                 if(user.role == "DRIVER"){
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
                 }else{
-                    viewModel.registerUser()!!.observe(viewLifecycleOwner , Observer { responseBody ->
-                        Log.v("ON registerForm1Fragmenttt",responseBody.string())
-                    })
-                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
-
+//                    viewModel.registerUser()!!.observe(viewLifecycleOwner , Observer { responseBody ->
+//                        Log.v("ON registerForm1Fragmenttt",responseBody.string())
+//                    })
+                    Log.d("Check",user!!.toString())
+//                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
                 }
             })
         }
 
-        view.findViewById<ImageView>(R.id.profile_pic_imageView).setOnClickListener{
+        profilePicture.setOnClickListener{
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST)
+//            intent.putExtra("path_name",RESULT_FILE_PATH)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST1)
 
         }
-        view.findViewById<TextView>(R.id.kebele_id_textView).setOnClickListener{
-            selectImage()
+        idCardPicture.setOnClickListener{
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST2)
         }
-        view.findViewById<TextView>(R.id.kebele_id_back_textView).setOnClickListener{
-            selectImage()
+        idCardBackPicture.setOnClickListener{
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST3)
         }
 
     }
 
-    fun hasPermissions(context: RegisterForm1Fragment, vararg permissions: String): Boolean = permissions.all {
+    private fun hasPermissions(context: RegisterForm1Fragment, vararg permissions: String): Boolean = permissions.all {
         getContext()?.let { it1 -> ActivityCompat.checkSelfPermission(it1, it) } == PackageManager.PERMISSION_GRANTED
     }
 
-    fun selectImage(){
-        val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Choose your profile picture")
-        builder.setItems(options) { dialog, item ->
-            if (options[item] == "Take Photo") {
-                val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(takePicture,0)
-                //ActivityCompat.startActivityForResult(takePicture, 0)
-            } else if (options[item] == "Choose from Gallery") {
-                val pickPhoto =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(pickPhoto,1)
-//                ActivityCompat.startActivityForResult(pickPhoto, 1)
-            } else if (options[item] == "Cancel") {
-                dialog.dismiss()
-            }
-        }
-        builder.show()
-    }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
-            val uri: Uri = data.data!!
-            //uploadFile(uri)
+        if (resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST1){
+                val uri: Uri = data.data!!
+                profile_pic_imageView.setImageURI(uri)
+                val filePath = getPathFromURI(requireContext(),uri)
+                val chosenFile = createFile(filePath!!)
+                val profileRequestBody = createRequestBody(chosenFile)
+                profileMultipartImage = createPart(chosenFile,profileRequestBody)
+                viewModel.setProfilePicture(profileMultipartImage)
+                Log.d("pathhhhh",profileMultipartImage.toString())
+                // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
+            }
+            if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST2){
+                val uri:Uri = data.data!!
+                val filePath = getPathFromURI(requireContext(),uri)
+                val chosenFile1 = File(filePath!!)
+                val idCardRequestBody = createRequestBody(chosenFile1)
+                idCardMultipartImage = createPart(chosenFile1,idCardRequestBody)
+                viewModel.setIdCardPicture(idCardMultipartImage)
+                view?.findViewById<TextView>(R.id.kebele_id_textView)?.text = chosenFile1.nameWithoutExtension
+                Log.d("id card Multipart image",idCardMultipartImage.toString())
+            }
+            if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST3){
+                val uri:Uri = data.data!!
+                val filePath = getPathFromURI(requireContext(),uri)
+                val chosenFile2 = File(filePath!!)
+                val idCardbackRequestBody = createRequestBody(chosenFile2)
+                idCardBackMultipartImage = createPart(chosenFile2,idCardbackRequestBody)
+                viewModel.setIdCardBackPicture(idCardBackMultipartImage)
+                view?.findViewById<TextView>(R.id.kebele_id_back_textView)?.text = chosenFile2.nameWithoutExtension
+                Log.d("id card back Multipart image",idCardBackMultipartImage.toString())
 
-            profile_pic_imageView.setImageURI(uri)
-
-           // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
-
+            }
         }
+        Log.v("kebele Id  MultiPart after ............",idCardMultipartImage.toString())
+
+
     }
 
-    fun getPath(uri: Uri?): String? {
-        // just some safety built in
-        if (uri == null) {
-            // TODO perform some logging or show user feedback
-            return null
+    private fun createFile(realPath: String): File {
+        return File(realPath)
+    }
+
+    private fun createRequestBody(file: File): RequestBody {
+        val MEDIA_TYPE_IMAGE: MediaType = "image/*".toMediaTypeOrNull()!!
+        return RequestBody.create(MEDIA_TYPE_IMAGE, file)
+    }
+
+    private fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
+        return MultipartBody.Part.createFormData("image", file.name, requestBody)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun getPathFromURI(context: Context, uri: Uri): String? {
+        val path: String = uri.path!!
+        var realPath: String? = null
+
+        val databaseUri: Uri
+        val selection: String?
+        val selectionArgs: Array<String>?
+        if (path.contains("/document/image:")) { // files selected from "Documents"
+            databaseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            selection = "_id=?"
+            selectionArgs = arrayOf(DocumentsContract.getDocumentId(uri).split(":")[1])
+        } else { // files selected from all other sources, especially on Samsung devices
+            databaseUri = uri
+            selection = null
+            selectionArgs = null
         }
-        // try to retrieve the image from the media store first
-        // this will only work for images selected from gallery
-        val projection = arrayOf<String>(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = context?.contentResolver?.query(uri,projection,null,null,null)
-        if (cursor != null) {
-            val column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            val moveToFirst = cursor.moveToFirst()
-            val path = cursor.getString(column_index)
+        try {
+            val projection = arrayOf(
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.ORIENTATION,
+                MediaStore.Images.Media.DATE_TAKEN
+            ) // some example data you can query
+            val cursor = context.contentResolver.query(
+                databaseUri,
+                projection, selection, selectionArgs, null
+            )
+            if (cursor!!.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndex(projection[0])
+                realPath = cursor.getString(columnIndex)
+            }
             cursor.close()
-            return path
+        } catch (e: Exception) {
+            Log.d("zeze get path error " , e.message!!)
         }
-        // this is our fallback here
-        return uri.path
+        return realPath
     }
-
 
 
 
@@ -181,9 +235,6 @@ class RegisterForm1Fragment : Fragment() {
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
-
-
-
 
     private fun uploadFile(fileUri: Uri) {
         // create upload service client
