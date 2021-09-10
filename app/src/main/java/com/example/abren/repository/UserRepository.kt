@@ -11,7 +11,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import
 
 object UserRepository {
 
@@ -28,7 +27,7 @@ object UserRepository {
     lateinit var role:RequestBody
     lateinit var password:String
 
-    fun getServicesApiCall(): MutableLiveData<User> {
+    fun getServicesApiCall(): MutableLiveData<ResponseBody> {
 
         val call = RetrofitClient.apiInterface.registerUser(
            profileImage, idCardImage, idCardBackImage, phoneNumber,
@@ -45,7 +44,7 @@ object UserRepository {
 
             }
         } )
-        return mutableSelectedUser
+        return responseBody
     }
 
     fun getPasssword():String{

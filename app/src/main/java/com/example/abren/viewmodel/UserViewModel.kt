@@ -13,8 +13,8 @@ import okhttp3.ResponseBody
 class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private var userRepository: UserRepository?=null
-    private val mutableSelectedItem = userRepository?.mutableSelectedUser
-    val selectedUser: LiveData<User> get() = userRepository!!.selectedUser
+    private val mutableSelectedItem = MutableLiveData<User>()
+    val selectedUser: LiveData<User> get() = mutableSelectedItem
 
     //
     var servicesLiveData:MutableLiveData<ResponseBody>? = null
