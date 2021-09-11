@@ -1,10 +1,10 @@
 package com.example.abren
 
 import android.app.Activity
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -51,7 +51,6 @@ class RegisterForm1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        makeApiCall
         val PERMISSION_ALL = 1
         val PERMISSIONS = arrayOf(
             android.Manifest.permission.READ_CONTACTS,
@@ -71,6 +70,7 @@ class RegisterForm1Fragment : Fragment() {
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
         val pass = viewModel.setPasssword()
 
+        //convert to requestBody
         val requestPhoneNumber:RequestBody = phoneNumber.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val requestemergPhoneno:RequestBody = emergencyPhoneNumber.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val requestPass:RequestBody = pass.toString().toRequestBody("text/plain".toMediaTypeOrNull())
@@ -80,8 +80,7 @@ class RegisterForm1Fragment : Fragment() {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
-        Log.v("Id Card MultiPart From Outer............",idCardMultipartImage.toString())
-
+        // call registerUser network call when continue button clicked for rider
         view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
             viewModel.setPhoneNumber(phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber(emergencyPhoneNumber.text.toString())
@@ -93,7 +92,7 @@ class RegisterForm1Fragment : Fragment() {
                     Log.d("idCardMultiPart Image...",idCardBackMultipartImage.toString())
                     Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
                     val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    viewModel.registerUser(profileMultipartImage!!,
+                    val x = viewModel.registerUser(profileMultipartImage!!,
                         idCardMultipartImage!!,
                         idCardBackMultipartImage!!,
                         requestPhoneNumber,
@@ -101,17 +100,17 @@ class RegisterForm1Fragment : Fragment() {
                         requestRole,
                         requestPass)
 
-                    Log.d("Check",user!!.toString())
+                    Log.d("Check user ",user!!.toString())
 //                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
                 }
             })
         }
 
+        //intent to select image from gallery
         profilePicture.setOnClickListener{
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-//            intent.putExtra("path_name",RESULT_FILE_PATH)
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST1)
 
         }
@@ -134,7 +133,7 @@ class RegisterForm1Fragment : Fragment() {
         getContext()?.let { it1 -> ActivityCompat.checkSelfPermission(it1, it) } == PackageManager.PERMISSION_GRANTED
     }
 
-
+    //get path from uri and file then convert it to multiPart and set the multipart image to viewModel
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -150,7 +149,7 @@ class RegisterForm1Fragment : Fragment() {
 //                profileMultipartImage = createPart(chosenFile,profileRequestBody)
                 viewModel.setProfilePicture(profileMultipartImage)
                 Log.d("pathhhhh",profileMultipartImage.toString())
-                // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
+//                 profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPathFromURI(requireContext(),uri)))
             }
             if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST2){
                 val uri:Uri = data.data!!
@@ -158,7 +157,6 @@ class RegisterForm1Fragment : Fragment() {
                 val chosenFile1 = File(filePath!!)
                 val requestProfilePic:RequestBody = chosenFile1.toString().toRequestBody("image/jpg".toMediaTypeOrNull())
                 idCardMultipartImage = MultipartBody.Part.createFormData("idCardPicture",chosenFile1.name, requestProfilePic)
-//
 //                idCardMultipartImage = MultipartBody.Part.createFormData("file",chosenFile1.name,chosenFile1.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
 //                val idCardRequestBody = createRequestBody(chosenFile1)
 //                idCardMultipartImage = createPart(chosenFile1,idCardRequestBody)
@@ -179,28 +177,18 @@ class RegisterForm1Fragment : Fragment() {
                 viewModel.setIdCardBackPicture(idCardBackMultipartImage)
                 view?.findViewById<TextView>(R.id.kebele_id_back_textView)?.text = chosenFile2.nameWithoutExtension
                 Log.d("id card back Multipart image",idCardBackMultipartImage.toString())
-
             }
         }
-        Log.v("Id Card MultiPart after ............",idCardMultipartImage.toString())
     }
 
-//    private fun toRequestBody(){
-//        val requestBody:RequestBody = RequestBody.create()
-//    }
+
     private fun createFile(realPath: String): File {
         return File(realPath)
-    }
-
-    private fun createRequestBody(file: File): RequestBody {
-        val MEDIA_TYPE_IMAGE: MediaType = "image/*".toMediaTypeOrNull()!!
-        return file.asRequestBody(MEDIA_TYPE_IMAGE)
     }
 
     private fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
         return MultipartBody.Part.createFormData("image", file.name, requestBody)
     }
-
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun getPathFromURI(context: Context, uri: Uri): String? {
@@ -240,8 +228,6 @@ class RegisterForm1Fragment : Fragment() {
         }
         return realPath
     }
-
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

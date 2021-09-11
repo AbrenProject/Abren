@@ -10,6 +10,7 @@ import retrofit2.http.*
 
 interface ApiInterfaceService {
 
+//    @Headers("Content-Type: multipart/form-data")
     @POST("auth/signup")
     @Multipart
     fun registerUser(
@@ -22,14 +23,14 @@ interface ApiInterfaceService {
         @Part("password") password:RequestBody
     ): Call<ResponseBody>
 
-    @POST("auth/signup")
-    @Headers("Content-Type:multipart/form-data")
-    @FormUrlEncoded
-    fun sendUser(@Field("user") user:User):Call<ResponseBody>
-
-    @GET("auth/signup")
-    fun response(@Path("user") user:User):Call<ResponseBody>
-
+//    @POST("auth/signup")
+//    @Headers("Content-Type:multipart/form-data")
+//    @FormUrlEncoded
+//    fun sendUser(@Field("user") user:User):Call<ResponseBody>
+//
+//    @GET("auth/signup")
+//    fun response(@Path("user") user:User):Call<ResponseBody>
+//
 
 
 //    @Headers("Content-Type:multipart/form-data")

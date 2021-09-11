@@ -1,5 +1,6 @@
 package com.example.abren.network
 
+import android.util.Log
 import com.example.abren.BuildConfig
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -7,6 +8,7 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import java.util.logging.Level
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Headers
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
@@ -24,16 +26,18 @@ object RetrofitClient {
             .connectTimeout(100, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val request: Request =
-                    chain.request().newBuilder().addHeader("Accept", "multipart/form-data").build()
+//                    chain.request().newBuilder().addHeader("Accept", "application/json").build()
+                    chain.request().newBuilder().addHeader("Content-Type", "multipart/form-data").build()
+                Log.d("request header", request.toString())
                 chain.proceed(request)
             }
             .build()
+
 
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-
     }
 
         val apiInterface: ApiInterfaceService by lazy {

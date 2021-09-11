@@ -1,26 +1,23 @@
 package com.example.abren.repository
 
-import android.telephony.emergency.EmergencyNumber
 import android.util.Log
-import android.widget.ImageView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.User
 import com.example.abren.network.RetrofitClient
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Multipart
+import retrofit2.converter.gson.GsonConverterFactory
 
 object UserRepository {
 
-    val mutableSelectedUser = MutableLiveData<User>()
-    val selectedUser:LiveData<User> get() = mutableSelectedUser
-    val responseBody = MutableLiveData<ResponseBody>()
-
+    private val responseBody = MutableLiveData<ResponseBody>()
 
     fun getServicesApiCall(profileImage:MultipartBody.Part,
                            idCardImage:MultipartBody.Part,
@@ -40,21 +37,22 @@ object UserRepository {
                 Log.d("UserRepo--- ONFailure", t.message.toString())
             }
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                Log.d("UserRepo--- On success",response.body().toString())
-                Log.d("UserRepo--- On success",response.code().toString())
-                Log.d("UserRepo--- On success",response.toString())
-                val data = response.body()
-
+                Log.i("RETROFIT", response.toString())
+                    if (response.code() == 200 && response.body()!=null){
+                        responseBody.value = response.body()
+                        Log.d("responsebody check on success",responseBody.value.toString())
+                    }
+                    Log.d("UserRepo--- response header = ", response.headers().toString())
+                response.body()?.let { Log.d("UserRepo---- body", it.string()) }
+                    Log.d("UserRepo--- Response ",response.toString())
             }
         } )
         return responseBody
     }
 
-    fun getPasssword():String{
-        val pass = User().password
-        return pass
+    fun getPasssword(): String {
+        return User().password
     }
-
 
 }
 

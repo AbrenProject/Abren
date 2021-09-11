@@ -62,7 +62,7 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                      emergencyPhoneNumber: RequestBody,
                      role: RequestBody,
                      password:RequestBody):LiveData<ResponseBody>? {
-        Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER FUNCtion" , selectedUser.value.toString())
+        Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER" , selectedUser.value.toString())
         servicesLiveData = UserRepository.getServicesApiCall(profileImage,
             idCardImage,
             idCardBackImage,
