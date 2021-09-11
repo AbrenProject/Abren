@@ -25,10 +25,10 @@ object UserRepository {
     fun getServicesApiCall(profileImage:MultipartBody.Part,
                            idCardImage:MultipartBody.Part,
                            idCardBackImage:MultipartBody.Part,
-                           phoneNumber:String,
-                           emergencyPhoneNumber:String,
-                           role:String,
-                           password:String): MutableLiveData<ResponseBody> {
+                           phoneNumber:RequestBody,
+                           emergencyPhoneNumber:RequestBody,
+                           role:RequestBody,
+                           password:RequestBody): MutableLiveData<ResponseBody> {
 
         val call = RetrofitClient.apiInterface.registerUser(
            profileImage, idCardImage, idCardBackImage, phoneNumber,

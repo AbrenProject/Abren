@@ -1,6 +1,7 @@
 package com.example.abren
 
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_register_form1.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 
@@ -67,6 +69,12 @@ class RegisterForm1Fragment : Fragment() {
         val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
         val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
+        val pass = viewModel.setPasssword()
+
+        val requestPhoneNumber:RequestBody = phoneNumber.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestemergPhoneno:RequestBody = emergencyPhoneNumber.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestPass:RequestBody = pass.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
 
         view.findViewById<Button>(R.id.back_button1).setOnClickListener{
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
@@ -84,13 +92,14 @@ class RegisterForm1Fragment : Fragment() {
                 }else{
                     Log.d("idCardMultiPart Image...",idCardBackMultipartImage.toString())
                     Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
+                    val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
                     viewModel.registerUser(profileMultipartImage!!,
                         idCardMultipartImage!!,
                         idCardBackMultipartImage!!,
-                        user.phoneNumber!!,
-                        user.emergencyPhoneNumber!!,
-                        user.role!!,
-                        user.password)
+                        requestPhoneNumber,
+                        requestemergPhoneno,
+                        requestRole,
+                        requestPass)
 
                     Log.d("Check",user!!.toString())
 //                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
@@ -135,8 +144,10 @@ class RegisterForm1Fragment : Fragment() {
                 profile_pic_imageView.setImageURI(uri)
                 val filePath = getPathFromURI(requireContext(),uri)
                 val chosenFile = createFile(filePath!!)
-                val profileRequestBody = createRequestBody(chosenFile)
-                profileMultipartImage = createPart(chosenFile,profileRequestBody)
+                val requestProfilePic:RequestBody = chosenFile.toString().toRequestBody("image/jpg".toMediaTypeOrNull())
+                profileMultipartImage = MultipartBody.Part.createFormData("profilePicture",chosenFile.name, requestProfilePic)
+//                val profileRequestBody = createRequestBody(chosenFile)
+//                profileMultipartImage = createPart(chosenFile,profileRequestBody)
                 viewModel.setProfilePicture(profileMultipartImage)
                 Log.d("pathhhhh",profileMultipartImage.toString())
                 // profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPath(uri)))
@@ -145,8 +156,12 @@ class RegisterForm1Fragment : Fragment() {
                 val uri:Uri = data.data!!
                 val filePath = getPathFromURI(requireContext(),uri)
                 val chosenFile1 = File(filePath!!)
-                val idCardRequestBody = createRequestBody(chosenFile1)
-                idCardMultipartImage = createPart(chosenFile1,idCardRequestBody)
+                val requestProfilePic:RequestBody = chosenFile1.toString().toRequestBody("image/jpg".toMediaTypeOrNull())
+                idCardMultipartImage = MultipartBody.Part.createFormData("idCardPicture",chosenFile1.name, requestProfilePic)
+//
+//                idCardMultipartImage = MultipartBody.Part.createFormData("file",chosenFile1.name,chosenFile1.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
+//                val idCardRequestBody = createRequestBody(chosenFile1)
+//                idCardMultipartImage = createPart(chosenFile1,idCardRequestBody)
                 viewModel.setIdCardPicture(idCardMultipartImage)
                 view?.findViewById<TextView>(R.id.kebele_id_textView)?.text = chosenFile1.nameWithoutExtension
                 Log.d("id card Multipart image",idCardMultipartImage.toString())
@@ -155,19 +170,24 @@ class RegisterForm1Fragment : Fragment() {
                 val uri:Uri = data.data!!
                 val filePath = getPathFromURI(requireContext(),uri)
                 val chosenFile2 = File(filePath!!)
-                val idCardbackRequestBody = createRequestBody(chosenFile2)
-                idCardBackMultipartImage = createPart(chosenFile2,idCardbackRequestBody)
+                val requestProfilePic:RequestBody = chosenFile2.toString().toRequestBody("image/jpg".toMediaTypeOrNull())
+                idCardBackMultipartImage = MultipartBody.Part.createFormData("idCardBackPicture",chosenFile2.name, requestProfilePic)
+//
+//                idCardBackMultipartImage = MultipartBody.Part.createFormData("file",chosenFile2.name, chosenFile2.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
+//                val idCardbackRequestBody = createRequestBody(chosenFile2)
+//                idCardBackMultipartImage = createPart(chosenFile2,idCardbackRequestBody)
                 viewModel.setIdCardBackPicture(idCardBackMultipartImage)
                 view?.findViewById<TextView>(R.id.kebele_id_back_textView)?.text = chosenFile2.nameWithoutExtension
                 Log.d("id card back Multipart image",idCardBackMultipartImage.toString())
 
             }
         }
-        Log.v("kebele Id  MultiPart after ............",idCardMultipartImage.toString())
-
-
+        Log.v("Id Card MultiPart after ............",idCardMultipartImage.toString())
     }
 
+//    private fun toRequestBody(){
+//        val requestBody:RequestBody = RequestBody.create()
+//    }
     private fun createFile(realPath: String): File {
         return File(realPath)
     }

@@ -32,11 +32,11 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     }
 
     fun setPhoneNumber(phoneNumber: String) {
-        mutableSelectedItem.value?.phoneNumber = phoneNumber
+        mutableSelectedItem.value?.phoneNumber = phoneNumber.toString()
     }
 
     fun setEmergencyPhoneNumber(emergencyPhoneNumber: String) {
-        mutableSelectedItem.value?.emergencyPhoneNumber = emergencyPhoneNumber
+        mutableSelectedItem.value?.emergencyPhoneNumber = emergencyPhoneNumber.toString()
     }
 
     fun setIdCardPicture(idCardPicture: MultipartBody.Part?){
@@ -58,10 +58,10 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     fun registerUser(profileImage:MultipartBody.Part,
                      idCardImage:MultipartBody.Part,
                      idCardBackImage:MultipartBody.Part,
-                     phoneNumber: String,
-                     emergencyPhoneNumber: String,
-                     role: String,
-                     password:String):LiveData<ResponseBody>? {
+                     phoneNumber: RequestBody,
+                     emergencyPhoneNumber: RequestBody,
+                     role: RequestBody,
+                     password:RequestBody):LiveData<ResponseBody>? {
         Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER FUNCtion" , selectedUser.value.toString())
         servicesLiveData = UserRepository.getServicesApiCall(profileImage,
             idCardImage,

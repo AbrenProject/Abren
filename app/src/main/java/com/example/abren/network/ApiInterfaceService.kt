@@ -11,16 +11,15 @@ import retrofit2.http.*
 interface ApiInterfaceService {
 
     @POST("auth/signup")
-    @Headers("Content-Type:multipart/form-data")
-    @FormUrlEncoded
+    @Multipart
     fun registerUser(
-        @Field("profilePicture") profileImage: MultipartBody.Part,
-        @Field("idCardPicture") idCardImage: MultipartBody.Part,
-        @Field("idCardBackPicture") idCardBackImage: MultipartBody.Part,
-        @Field("phoneNumber") phoneNumber:String,
-        @Field("emergencyPhoneNumber") emergencyPhoneNumber: String,
-        @Field("role") role:String,
-        @Field("password") password:String
+        @Part profilePicture: MultipartBody.Part,
+        @Part idCardPicture: MultipartBody.Part,
+        @Part idCardBackPicture: MultipartBody.Part,
+        @Part("phoneNumber") phoneNumber:RequestBody,
+        @Part("emergencyPhoneNumber") emergencyPhoneNumber: RequestBody,
+        @Part("role") role:RequestBody,
+        @Part("password") password:RequestBody
     ): Call<ResponseBody>
 
     @POST("auth/signup")
