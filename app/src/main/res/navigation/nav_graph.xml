@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/cloudinaryUpload2Activity">
 
 
 <!--    <fragment-->
@@ -134,7 +134,13 @@
         android:id="@+id/riderRoutesHome"
         android:name="com.example.abren.RiderRoutesHome"
         android:label="app_bar_rider_routes_home"
+
         tools:layout="@layout/app_bar_rider_routes_home" />
+    <activity
+        android:id="@+id/cloudinaryUpload2Activity"
+        android:name="com.example.abren.CloudinaryUpload2Activity"
+        android:label="activity_cloudinary_upload2"
+        tools:layout="@layout/activity_cloudinary_upload2" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/HomeFragment"-->

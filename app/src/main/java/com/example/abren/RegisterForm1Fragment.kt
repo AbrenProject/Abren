@@ -30,8 +30,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 
-private const val MY_PERMISSIONS_REQUEST = 100
-private const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
+const val MY_PERMISSIONS_REQUEST = 100
+const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
 private const val PICK_IMAGE_FROM_GALLERY_REQUEST2 = 2
 private const val PICK_IMAGE_FROM_GALLERY_REQUEST3 = 3
 
@@ -89,7 +89,7 @@ class RegisterForm1Fragment : Fragment() {
                 if(user.role == "DRIVER"){
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
                 }else{
-                    Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
+                    Log.d("Multipart image from user",user.profilePictureUrl!!)
                     val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
                     val x = viewModel.registerUser(profileMultipartImage!!,
                         idCardMultipartImage!!,
