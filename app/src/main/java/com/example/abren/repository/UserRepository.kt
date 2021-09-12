@@ -1,6 +1,8 @@
 package com.example.abren.repository
 
+import android.text.InputFilter
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.User
 import com.example.abren.network.RetrofitClient
@@ -40,10 +42,11 @@ object UserRepository {
                 Log.i("RETROFIT", response.toString())
                     if (response.code() == 200 && response.body()!=null){
                         responseBody.value = response.body()
+//                        Toast.makeText(this,"Registration Successful",0.2).show()
                         Log.d("responsebody check on success",responseBody.value.toString())
                     }
                     Log.d("UserRepo--- response header = ", response.headers().toString())
-                response.body()?.let { Log.d("UserRepo---- body", it.string()) }
+                Log.d("UserRepo---- body", response.body().toString())
                     Log.d("UserRepo--- Response ",response.toString())
             }
         } )

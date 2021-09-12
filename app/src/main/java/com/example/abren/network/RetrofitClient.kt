@@ -26,7 +26,7 @@ object RetrofitClient {
             .connectTimeout(100, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val request: Request =
-//                    chain.request().newBuilder().addHeader("Accept", "application/json").build()
+//                    chain.request().newBuilder().addHeader("Accept", "multipart/form-data").build()
                     chain.request().newBuilder().addHeader("Content-Type", "multipart/form-data").build()
                 Log.d("request header", request.toString())
                 chain.proceed(request)
