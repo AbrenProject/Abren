@@ -1,41 +1,62 @@
 package com.example.abren
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
-import android.database.Cursor
-import android.graphics.Bitmap
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.content.contentValuesOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.abren.models.User
 import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+import com.cloudinary.android.MediaManager
+import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
+import com.example.abren.adapter.VehicleInformationAdapter
+import com.example.abren.models.VehicleInformation
+import com.example.abren.responses.AuthResponse
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
+const val MY_PERMISSIONS_REQUEST = 100
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST2 = 2
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST3 = 3
 
 class RegisterForm1Fragment : Fragment() {
 
     private val viewModel: UserViewModel by activityViewModels()
+    var cloudinaryConfig: HashMap<String, String> = HashMap()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        cloudinaryConfig["cloud_name"] = "deutptnkg"
+        cloudinaryConfig["api_key"] = "168388122659825"
+        cloudinaryConfig["api_secret"] = "71Aflu8G9ao8dp1uaqEJRwaovcM"
+//        if(MediaManager.get() == null){
+//            MediaManager.init(requireContext(), cloudinaryConfig)
+//        }   //TODO: Check if not already initiated
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,88 +67,245 @@ class RegisterForm1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val PERMISSION_ALL = 1
+        val PERMISSIONS = arrayOf(
+            android.Manifest.permission.READ_CONTACTS,
+            android.Manifest.permission.WRITE_CONTACTS,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_SMS,
+            android.Manifest.permission.CAMERA
+        )
+        if (!hasPermissions(this, *PERMISSIONS)) {
+            ActivityCompat.requestPermissions(context as Activity, PERMISSIONS, PERMISSION_ALL)
+        }
+
 
         val phoneNumber = view.findViewById<EditText>(R.id.phone_number)
         val emergencyPhoneNumber = view.findViewById<EditText>(R.id.emergency_phone_number)
+        val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
+        val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
+        val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
 
-        view.findViewById<Button>(R.id.back_button1).setOnClickListener{
+
+        view.findViewById<Button>(R.id.back_button1).setOnClickListener {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
-        view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
-            viewModel.setPhoneNumber(phoneNumber.text.toString())
-            viewModel.setEmergencyPhoneNumber(emergencyPhoneNumber.text.toString())
+        // call registerUser network call when continue button clicked for rider
+        view.findViewById<Button>(R.id.continue_button1).setOnClickListener {
+            viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
+            viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())
+            viewModel.setPassword("1234")
+
+            //TODO: Set the images urls
+
             viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
-                if(user.role == "DRIVER"){
-                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
-                }else{
-                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+                if(user.profilePictureUrl == null || user.idCardUrl == null || user.idCardBackUrl == null || user.phoneNumber == null || user.emergencyPhoneNumber == null){
+                    Toast.makeText(requireContext(), "Please fill all fields.", Toast.LENGTH_SHORT).show()
+                }else if(user.phoneNumber!!.length != 12){
+                    Toast.makeText(requireContext(), "Invalid Input for Phone Number.", Toast.LENGTH_SHORT).show()
+                }else if(user.emergencyPhoneNumber!!.length != 12){
+                    Toast.makeText(requireContext(), "Invalid Input for Emergency Phone Number.", Toast.LENGTH_SHORT).show()
+                }else {
+                    val profileUpload =  uploadToCloudinary(user.profilePictureUrl!!)
+                    val idUpload =  uploadToCloudinary(user.idCardUrl!!)
+                    val idBackUpload =  uploadToCloudinary(user.idCardBackUrl!!)
+                    profileUpload.observeForever(Observer { result ->
+                        if(result != null){
+                            Log.d("Uploading Profile Picture", result)
+                            user.profilePictureUrl = result
+
+                            idUpload.observeForever(Observer { result2 ->
+                                if(result2 != null){
+                                    Log.d("Uploading Id", result2)
+                                    user.idCardUrl = result2
+
+                                    idBackUpload.observeForever(Observer { result3 ->
+                                        if(result3 != null){
+                                            Log.d("Uploading Id Back", result3)
+                                            user.idCardBackUrl = result3
+
+                                            if (user.role == "DRIVER") {
+                                                user.vehicleInformation = VehicleInformation()
+                                                findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
+                                            } else {
+                                                findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+                                            }
+
+                                        }else {
+                                            Log.d("Uploading Profile Picture", "Problem")
+                                        }
+                                    })
+
+                                }else {
+                                    Log.d("Uploading Id", "Problem")
+                                }
+                            })
+
+                        }else {
+                            Log.d("Uploading Id Back", "Problem")
+                        }
+                    })
                 }
             })
         }
 
-        view.findViewById<ImageView>(R.id.profile_pic).setOnClickListener{
-            selectImage()
-        }
-        view.findViewById<TextView>(R.id.kebele_id_textView).setOnClickListener{
-            selectImage()
-        }
-        view.findViewById<TextView>(R.id.kebele_id_back_textView).setOnClickListener{
-            selectImage()
+        //intent to select image from gallery
+        profilePicture.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_FROM_GALLERY_REQUEST1
+            )
+
         }
 
+        idCardPicture.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST2)
+        }
+
+        idCardBackPicture.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST3)
+        }
     }
 
-    fun selectImage(){
-
-        val options = arrayOf<CharSequence>("Take Photo", "Choose from Gallery", "Cancel")
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Choose your profile picture")
-        builder.setItems(options) { dialog, item ->
-            if (options[item] == "Take Photo") {
-                val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(takePicture,0)
-                //ActivityCompat.startActivityForResult(takePicture, 0)
-            } else if (options[item] == "Choose from Gallery") {
-                val pickPhoto =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    startActivityForResult(pickPhoto,1)
-//                ActivityCompat.startActivityForResult(pickPhoto, 1)
-            } else if (options[item] == "Cancel") {
-                dialog.dismiss()
-            }
-        }
-        builder.show()
-
-    }
-
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != Activity.RESULT_CANCELED) {
-            when (requestCode) {
-                0 -> if (resultCode == Activity.RESULT_OK && data != null) {
-                    val selectedImage = data.extras!!["data"] as Bitmap?
-                    profile_pic.setImageBitmap(selectedImage)
-                }
-//                1 -> if (resultCode == Activity.RESULT_OK && data != null) {
-//                    val selectedImage: Uri? = data.data
-//                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-//                    if (selectedImage != null) {
-//                        val cursor: Cursor = getContentResolver().query(
-//                            selectedImage,
-//                            filePathColumn, null, null, null
-//                        )
-//                        if (cursor != null) {
-//                            cursor.moveToFirst()
-//                            val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-//                            val picturePath: String = cursor.getString(columnIndex)
-//                            profile_pic.setImageBitmap(BitmapFactory.decodeFile(picturePath))
-//                            cursor.close()
-//                        }
-//                    }
-//                }
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST1){
+                val uri: Uri = data.data!!
+                profile_pic_imageView.setImageURI(uri)
+                val filePath = getPathFromURI(requireContext(), uri)
+                viewModel.setProfilePictureUrl(filePath)
+            }
+
+            if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST2){
+                val uri:Uri = data.data!!
+                val filePath = getPathFromURI(requireContext(),uri)
+                val chosenFile1 = File(filePath)
+                viewModel.setIdCardUrl(filePath)
+                view?.findViewById<TextView>(R.id.kebele_id_textView)?.text = chosenFile1.nameWithoutExtension
+            }
+
+            if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST3){
+                val uri:Uri = data.data!!
+                val filePath = getPathFromURI(requireContext(),uri)
+                val chosenFile2 = File(filePath)
+                viewModel.setIdCardBackUrl(filePath)
+                view?.findViewById<TextView>(R.id.kebele_id_back_textView)?.text = chosenFile2.nameWithoutExtension
             }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun getPathFromURI(context: Context, uri: Uri): String {
+        val path: String = uri.path!!
+        var realPath = ""
+
+        val databaseUri: Uri
+        val selection: String?
+        val selectionArgs: Array<String>?
+        if (path.contains("/document/image:")) { // files selected from "Documents"
+            databaseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            selection = "_id=?"
+            selectionArgs = arrayOf(DocumentsContract.getDocumentId(uri).split(":")[1])
+        } else { // files selected from all other sources, especially on Samsung devices
+            databaseUri = uri
+            selection = null
+            selectionArgs = null
+        }
+        try {
+            val projection = arrayOf(
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.ORIENTATION,
+                MediaStore.Images.Media.DATE_TAKEN
+            ) // some example data you can query
+            val cursor = context.contentResolver.query(
+                databaseUri,
+                projection, selection, selectionArgs, null
+            )
+            if (cursor!!.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndex(projection[0])
+                realPath = cursor.getString(columnIndex)
+            }
+            cursor.close()
+        } catch (e: Exception) {
+            Log.d("zeze get path error ", e.message!!)
+        }
+        return realPath
+    }
+
+    private fun hasPermissions(
+        context: RegisterForm1Fragment,
+        vararg permissions: String
+    ): Boolean = permissions.all {
+        getContext()?.let { it1 ->
+            ActivityCompat.checkSelfPermission(
+                it1,
+                it
+            )
+        } == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST ->
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    // permission is granted.  do file related tasks here
+                    Log.d("RegisterForm1TAG", "User Granted image permission.")
+                } else {
+                    Log.d("RegisterForm1TAG", "User Denied image permission.")
+                }
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun uploadToCloudinary(filepath: String): MutableLiveData<String> {
+        val result = MutableLiveData<String>()
+        MediaManager.get().upload(filepath).callback(object : UploadCallback {
+
+            override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
+                Toast.makeText(requireContext(), resultData["secure_url"] as String, Toast.LENGTH_LONG).show()
+                result.value = resultData["secure_url"] as String
+            }
+
+            override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
+
+            }
+
+            override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+
+            }
+
+            override fun onError(requestId: String?, error: ErrorInfo?) {
+                Toast.makeText(requireContext(),
+                    "Task Not successful$error",
+                    Toast.LENGTH_LONG).show()
+            }
+
+            override fun onStart(requestId: String?) {
+
+            }
+
+        }).dispatch()
+
+        return result
+    }
 
 }

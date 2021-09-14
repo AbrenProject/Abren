@@ -1,12 +1,14 @@
 package com.example.abren.network
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class LocationAPIClient {
+class RetrofitClient {
     companion object{
         private var retrofit: Retrofit?=null
         fun getApiClient(): Retrofit {
@@ -19,7 +21,7 @@ class LocationAPIClient {
                 .build()
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                    .baseUrl("https://nominatim.openstreetmap.org/")
+                    .baseUrl("https://abren-project.herokuapp.com/api/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
@@ -28,3 +30,6 @@ class LocationAPIClient {
         }
     }
 }
+
+
+

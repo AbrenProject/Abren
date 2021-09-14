@@ -1,4 +1,4 @@
 package com.example.abren
 
-class UserProfile {
+class UserProfile{
 }
