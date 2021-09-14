@@ -10,7 +10,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.abren.viewmodel.UserViewModel
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -19,8 +21,8 @@ import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
 class AuthFragment : Fragment() {
+    private val userViewModel: UserViewModel by activityViewModels()
     lateinit var auth: FirebaseAuth
-    lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
@@ -37,13 +39,10 @@ class AuthFragment : Fragment() {
             findNavController().navigate(R.id.action_authFragment_to_RegisterFragment)
         }
         auth = FirebaseAuth.getInstance()
-//        auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         val loginButton = view.findViewById<Button>(R.id.send_authorization_code_button)
         val currentUser = auth.currentUser
         if (currentUser != null) {
             Toast.makeText(requireContext(), "signed in", Toast.LENGTH_SHORT).show()
-//            startActivity(Intent(applicationContext, home::class.java))
-            activity?.finish()
         }
 
         loginButton.setOnClickListener {
@@ -51,7 +50,6 @@ class AuthFragment : Fragment() {
         }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-//                startActivity(Intent(applicationContext, home::class.java))
                 Toast.makeText(context?.applicationContext, "Verification Successful", Toast.LENGTH_LONG).show()
                 activity?.finish()
             }
@@ -67,20 +65,12 @@ class AuthFragment : Fragment() {
             ) {
 
                 Log.d("FIREBASE", "onCodeSent:$verificationId")
-                storedVerificationId = verificationId
+                userViewModel.loginPhoneNumber = view.findViewById<EditText>(R.id.phone_number_auth).text.toString().trim()
+                userViewModel.storedVerificationId = verificationId
                 resendToken = token
-                val otpFragment = OtpFragment()
-                val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-                val bundle = Bundle()
-                bundle.putString("storedVerificationId", storedVerificationId)
-                otpFragment.arguments = bundle; //data being send to SecondFragment
-                transaction.add(R.id.nav_host_fragment, otpFragment);
-                transaction.commit();
-//                view.findViewById<Button>(R.id.send_authorization_code_button).setOnClickListener {
-//                    findNavController().navigate(R.id.action_authFragment_to_PhoneNumberFragment)
-//                }
 
-                Toast.makeText(context?.applicationContext, "Code Send Successful", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Code Send Successful", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_authFragment_to_otpFragment)
             }
         }
     }
@@ -107,9 +97,4 @@ class AuthFragment : Fragment() {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
-//        view.findViewById<Button>(R.id.send_authorization_code_button).setOnClickListener{
-//            findNavController().navigate(R.id.action_authFragment_to_PhoneNumberFragment)
-//        }
-//
-
 }

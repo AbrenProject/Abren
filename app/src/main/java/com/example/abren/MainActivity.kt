@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         cloudinaryConfig["cloud_name"] = "deutptnkg"
         cloudinaryConfig["api_key"] = "168388122659825"
         cloudinaryConfig["api_secret"] = "71Aflu8G9ao8dp1uaqEJRwaovcM"
-        MediaManager.init(this, cloudinaryConfig)
+        MediaManager.init(this, cloudinaryConfig) //TODO: Fix already initialized error
 
 //        fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

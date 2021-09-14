@@ -15,12 +15,21 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private var userRepository: UserRepository? = null
     private val mutableSelectedItem = MutableLiveData<User>()
     val selectedUser: LiveData<User> get() = mutableSelectedItem
-
     var registeredUserLiveData : MutableLiveData<AuthResponse>? = null
+    var storedVerificationId: String? = null
+    var loginPhoneNumber: String? = null
 
     init {
         userRepository = UserRepository()
         registeredUserLiveData = MutableLiveData()
+    }
+
+    fun registerUser(user: User) {
+        registeredUserLiveData = userRepository?.registerUser(user)
+    }
+
+    fun login(user: User) {
+        registeredUserLiveData = userRepository?.login(user)
     }
 
 
@@ -50,11 +59,6 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     fun setPassword(password: String){
         mutableSelectedItem.value?.password = password
-    }
-
-    fun registerUser(user: User) {
-//        Log.i("User View Model: Register User" , user.toString())
-        registeredUserLiveData = userRepository?.registerUser(user)
     }
 
     fun setVehicleYear(year: String) {

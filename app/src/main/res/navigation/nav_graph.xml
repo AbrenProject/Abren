@@ -40,15 +40,14 @@
         android:id="@+id/authFragment"
         android:name="com.example.abren.AuthFragment"
         tools:layout="@layout/fragment_auth">
-        <action
-            android:id="@+id/action_authFragment_to_PhoneNumberFragment"
-            app:destination="@id/PhoneNumberFragment"
-            />
-<!--           -->
+        <!--           -->
 
         <action
             android:id="@+id/action_authFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
     </fragment>
 
     <fragment
@@ -93,18 +92,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/PhoneNumberFragment"
-        android:name="com.example.abren.PhoneNumberFragment"
-        tools:layout="@layout/otp">
-        <action
-            android:id="@+id/action_PhoneNumberFragment_to_riderRoutesHome"
-            app:destination="@id/riderRoutesHome" />
-        <action
-            android:id="@+id/action_PhoneNumberFragment_to_driverHomeFragment"
-            app:destination="@id/driverHomeFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/PreferenceFragment"
         android:name="com.example.abren.PreferenceFormFragment"
         tools:layout="@layout/fragment_preference_form">
@@ -121,6 +108,9 @@
         <action
             android:id="@+id/action_PreferenceFragment_to_riderRoutesHome"
             app:destination="@id/riderRoutesHome" />
+        <action
+            android:id="@+id/action_PreferenceFragment_to_authFragment"
+            app:destination="@id/authFragment" />
     </fragment>
     <fragment
         android:id="@+id/driverHomeFragment"
@@ -148,6 +138,18 @@
         android:name="com.example.abren.CloudinaryUpload2Activity"
         android:label="activity_cloudinary_upload2"
         tools:layout="@layout/activity_cloudinary_upload2" />
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.example.abren.OtpFragment"
+        android:label="otp"
+        tools:layout="@layout/otp" >
+        <action
+            android:id="@+id/action_otpFragment_to_riderRoutesHome"
+            app:destination="@id/riderRoutesHome" />
+        <action
+            android:id="@+id/action_otpFragment_to_driverHomeFragment"
+            app:destination="@id/driverHomeFragment" />
+    </fragment>
 
     <!--    <fragment-->
 <!--        android:id="@+id/HomeFragment"-->

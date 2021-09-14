@@ -45,17 +45,9 @@ private const val PICK_IMAGE_FROM_GALLERY_REQUEST3 = 3
 class RegisterForm1Fragment : Fragment() {
 
     private val viewModel: UserViewModel by activityViewModels()
-    var cloudinaryConfig: HashMap<String, String> = HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        cloudinaryConfig["cloud_name"] = "deutptnkg"
-        cloudinaryConfig["api_key"] = "168388122659825"
-        cloudinaryConfig["api_secret"] = "71Aflu8G9ao8dp1uaqEJRwaovcM"
-//        if(MediaManager.get() == null){
-//            MediaManager.init(requireContext(), cloudinaryConfig)
-//        }   //TODO: Check if not already initiated
     }
 
     override fun onCreateView(
@@ -93,6 +85,7 @@ class RegisterForm1Fragment : Fragment() {
 
         // call registerUser network call when continue button clicked for rider
         view.findViewById<Button>(R.id.continue_button1).setOnClickListener {
+            Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())
             viewModel.setPassword("1234")

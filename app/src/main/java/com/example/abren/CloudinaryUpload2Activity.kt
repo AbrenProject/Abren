@@ -25,18 +25,12 @@ const val PICK_IMAGE_FROM_GALLERY_REQUEST = 6
 
 class CloudinaryUpload2Activity : AppCompatActivity() {
 
-    var config: HashMap<String, String> = HashMap()
     var filePath:String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cloudinary_upload2)
         process()
-
-        config["cloud_name"] = "dwuzjlzpz"
-        config["api_key"] = "536247193955636"
-        config["api_secret"] = "4xZu-9hIQPvnj9pusqfK1UBVGd8"
-        MediaManager.init(this, config)
     }
 
     private fun process() {

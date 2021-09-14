@@ -23,10 +23,37 @@ class UserRepository {
 
     fun registerUser(user: User): MutableLiveData<AuthResponse> {
         Log.i("User Repo: Register User" , user.toString())
-        val gson = Gson()
-        Log.d("User Json", gson.toJson(user))
 
         userService?.registerUser(user)?.enqueue(object : Callback<AuthResponse> {
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                Log.d("User Repo: ONFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                val gson = Gson()
+                Log.i("User Repo: ", response.toString())
+                Log.i("User Repo - Request: ", gson.toJson(call.request().body))
+                if (response.code() == 200) {
+                    data.value = response.body()
+                    Log.d("User Repo: On 200:", response.body().toString())
+                }else {
+                    Log.d("User Repo: Header = ", response.headers().toString())
+                    Log.d("User Repo: Body", response.errorBody().toString())
+
+
+                    val errorResponse = gson.fromJson(response.errorBody()?.string(), BadRequestResponse::class.java)
+                    Log.d("User Repo: Error Body", errorResponse.message)
+                }
+            }
+        })
+
+        return data
+    }
+
+    fun login(user: User): MutableLiveData<AuthResponse> {
+        Log.i("User Repo: Register User" , user.toString())
+
+        userService?.login(user)?.enqueue(object : Callback<AuthResponse> {
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                 Log.d("User Repo: ONFailure: ", t.message.toString())
             }

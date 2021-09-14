@@ -1,8 +1,10 @@
 package com.example.abren
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +13,24 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.abren.models.User
+import com.example.abren.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.cloudinary.AccessControlRule.token
+
+import android.content.SharedPreferences
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 class OtpFragment : Fragment() {
+    private val userViewModel: UserViewModel by activityViewModels()
     lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +44,10 @@ class OtpFragment : Fragment() {
 
 
         auth = FirebaseAuth.getInstance()
-//            auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         val verify = view.findViewById<Button>(R.id.submit_button)
         val otpGiven = view.findViewById<EditText>(R.id.otp_val)
-        val bundle = arguments
-        val storedVerificationId = bundle!!.getString("storedVerificationId")
-        Toast.makeText(requireContext(), "I on view created", Toast.LENGTH_SHORT).show()
+        val storedVerificationId = userViewModel.storedVerificationId
+        val phoneNumber = userViewModel.loginPhoneNumber
 
 
         verify.setOnClickListener {
@@ -50,41 +56,54 @@ class OtpFragment : Fragment() {
                 val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                     storedVerificationId.toString(), otp
                 )
-                signInWithPhoneAuthCredential(credential)
+                signInWithPhoneAuthCredential(credential, phoneNumber!!)
+                Log.d("PhoneNumber: ", phoneNumber)
+
             } else {
-                Toast.makeText(requireContext(), "Enter OTP", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Enter OTP", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+    private fun signInWithPhoneAuthCredential(
+        credential: PhoneAuthCredential,
+        phoneNumber: String
+    ) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-//                        val homeFragment=HomeFragment()
-//                        val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
-//                        //data being send to SecondFragment
-//                        transaction.add(R.id.nav_host_fragment, homeFragment);
-//                        transaction.commit();
-//                        Toast.makeText(context?.applicationContext, "Successful", Toast.LENGTH_LONG).show()
+                    val user = User(phoneNumber = "251$phoneNumber")
+                    userViewModel.login(user)
+                    userViewModel.registeredUserLiveData?.observe(
+                        viewLifecycleOwner,
+                        Observer { authResponse ->
+                            if (authResponse != null) {
+                                val preferences = requireActivity().getSharedPreferences("ABREN", Context.MODE_PRIVATE)
+                                preferences.edit().putString("TOKEN", authResponse.token).apply()
+                                if (authResponse.user.role == "DRIVER") {
+                                    findNavController().navigate(R.id.action_otpFragment_to_driverHomeFragment)
+                                } else {
+                                    findNavController().navigate(R.id.action_otpFragment_to_riderRoutesHome)
+                                }
+                            } else {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Something Went Wrong",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
 
-                    val riderRoutesHome = Intent(activity, RiderRoutesHome::class.java)
-                    startActivity(riderRoutesHome)
-// ...
                 } else {
-// Sign in failed, display a message and update the UI
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
-// The verification code entered was invalid
                         Toast.makeText(
                             context?.applicationContext,
                             "Invalid OTP",
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 }
             }
     }
-//
-//
 }
 

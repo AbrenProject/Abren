@@ -207,6 +207,7 @@ class RegisterForm2Fragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.continue_button2).setOnClickListener {
+            Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             userViewModel.setVehicleLicensePlateNumber(licensePlateNumber.text.toString())
 
             userViewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
