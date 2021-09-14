@@ -27,9 +27,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.abren.models.Location
 import com.example.abren.viewmodel.LocationViewModel
 import androidx.constraintlayout.widget.ConstraintSet
-
-
-
+import androidx.fragment.app.activityViewModels
+import com.example.abren.viewmodel.RouteViewModel
+import com.example.abren.viewmodel.UserViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,6 +55,10 @@ class CreateRouteFragment : Fragment() {
     private lateinit var startHandler: Handler
     private lateinit var destinationHandler: Handler
     private lateinit var waypointHandler: Handler
+
+
+    private lateinit var routeViewModel: RouteViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -245,5 +249,8 @@ class CreateRouteFragment : Fragment() {
                 Toast.makeText(this.requireContext(),"Something Went Wrong", Toast.LENGTH_SHORT).show()
             }
         })
+
+
     }
+
 }

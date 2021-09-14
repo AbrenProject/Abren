@@ -89,11 +89,14 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.android.support:multidex:1.0.3'
+    //noinspection GradleCompatible,GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0'
    
 
         // Declare the dependency for the Firebase Authentication library
-        // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-auth-ktx'
+        // When using the BoM, you don't specify versions in Firebase library dependenciesimplementation 'com.google.firebase:firebase-auth-ktx'
 
     // Mapbox Dependencies
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'

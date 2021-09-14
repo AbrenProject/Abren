@@ -23,7 +23,7 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.fragment_accepted.*
 
-class NearbyDriversFragment : Fragment() , OnMapReadyCallback, PermissionsListener {
+class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListener {
 
     private var mapView: MapView? = null
     private var mapboxMap: MapboxMap? = null
@@ -44,7 +44,7 @@ class NearbyDriversFragment : Fragment() , OnMapReadyCallback, PermissionsListen
                 getString(R.string.mapbox_access_token)
             )
         }
-        return inflater.inflate(R.layout.fragment_nearby_drivers, container, false)
+        return inflater.inflate(R.layout.fragment_nearby_riders, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

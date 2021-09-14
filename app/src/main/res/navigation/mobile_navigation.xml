@@ -27,4 +27,15 @@
         android:name="com.example.abren.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <item
+        android:id="@+id/navigation_call"
+        android:icon="@android:drawable/ic_menu_call"
+        android:title="Call" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search" />
+
 </navigation>

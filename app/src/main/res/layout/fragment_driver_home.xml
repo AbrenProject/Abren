@@ -9,7 +9,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_margin="10dp"
+    android:textSize="25dp"
+    android:text="Select one of your saved route to start giving a ride"
+    android:textStyle="bold"/>
         <Button
             android:id="@+id/create_route_button"
             android:layout_width="0dp"
