@@ -1,5 +1,6 @@
 package com.example.abren
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -53,7 +54,9 @@ class AuthFragment : Fragment() {
         val login=view.findViewById<Button>(R.id.send_authorization_code_button)
         var currentUser = auth.currentUser
         if(currentUser != null) {
-            Toast.makeText(context?.applicationContext, "signed in", Toast.LENGTH_SHORT).show()
+            val riderRoutesHome = Intent(activity, RiderRoutesHome::class.java)
+            startActivity(riderRoutesHome)
+//            Toast.makeText(context?.applicationContext, "signed in", Toast.LENGTH_SHORT).show()
 //            startActivity(Intent(applicationContext, home::class.java))
             activity?.finish()
         }
@@ -107,6 +110,7 @@ class AuthFragment : Fragment() {
         }else{
             Toast.makeText(activity,"Enter mobile number", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun sendVerificationcode(number: String) {

@@ -25,6 +25,11 @@ class UserViewModel : ViewModel() {
         mutableSelectedItem.value?.vehicleInformation?.year = year
     }
 
+    fun setPassword(password: String) {
+        mutableSelectedItem.value?.password = password
+    }
+
+
 
     //TODO: Implement remaining setters
 }

@@ -28,7 +28,7 @@ class OtpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Toast.makeText(context?.applicationContext,"I am here", Toast.LENGTH_SHORT).show()
+
         return inflater.inflate(R.layout.otp, container, false)
     }
 

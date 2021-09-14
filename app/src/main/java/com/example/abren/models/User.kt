@@ -1,6 +1,8 @@
 package com.example.abren.models
 
+import android.util.Patterns
 import java.time.LocalDateTime
+
 
 data class User(
     var _id: String? = null,
@@ -24,3 +26,5 @@ data class User(
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null
 )
+
+
