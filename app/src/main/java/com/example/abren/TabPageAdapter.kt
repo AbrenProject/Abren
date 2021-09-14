@@ -11,12 +11,11 @@ class TabPageAdapter (activity:FragmentActivity, private val tabCount: Int): Fra
     override fun getItemCount(): Int =tabCount
 
     override fun createFragment(position: Int): Fragment {
-        TODO("Not yet implemented")
 
         return when(position){
             0 -> NearbyRidersFragment()
-            1 -> AcceptedFragment()
-            2 -> RequestedFragment()
+            1 -> RequestedFragment()
+            2 -> AcceptedFragment()
             else -> NearbyRidersFragment()
         }
     }

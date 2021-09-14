@@ -16,13 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity2"
-            android:label="@string/title_activity_main2" >
-        </activity>
-        <activity
-            android:name=".RiderRequests"
+            android:name=".RiderRequestsActivity"
             android:label="@string/title_activity_rider_requests" >
         </activity>
+        <activity
+            android:name=".Requests"
+            android:label="@string/title_activity_requests"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RiderRequests"
+            android:label="@string/title_activity_rider_requests" />
+        <activity
+            android:name=".MainActivity2"
+            android:label="@string/title_activity_main2" />
         <activity
             android:name=".RiderRequestsFrgament"
             android:label="@string/title_activity_rider_requests" />
