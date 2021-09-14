@@ -3,8 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_register_form1.xml" value="0.19927536231884058" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_register_form2.xml" value="0.19927536231884058" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_register_form2.xml" value="0.22" />
       </map>
     </option>
   </component>
@@ -13,21 +12,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

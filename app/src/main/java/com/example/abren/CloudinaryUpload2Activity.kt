@@ -33,21 +33,19 @@ class CloudinaryUpload2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_cloudinary_upload2)
         process()
 
-        config.put("cloud_name", "dwuzjlzpz")
-        config.put("api_key", "536247193955636")
-        config.put("api_secret", "4xZu-9hIQPvnj9pusqfK1UBVGd8")
+        config["cloud_name"] = "dwuzjlzpz"
+        config["api_key"] = "536247193955636"
+        config["api_secret"] = "4xZu-9hIQPvnj9pusqfK1UBVGd8"
         MediaManager.init(this, config)
     }
 
     private fun process() {
         val PERMISSION_ALL = 1
-        val PERMISSIONS = arrayOf(
-            android.Manifest.permission.READ_CONTACTS,
+        val PERMISSIONS = arrayOf(android.Manifest.permission.READ_CONTACTS,
             android.Manifest.permission.WRITE_CONTACTS,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_SMS,
-            android.Manifest.permission.CAMERA
-        )
+            android.Manifest.permission.CAMERA)
 
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL)
 
@@ -57,13 +55,13 @@ class CloudinaryUpload2Activity : AppCompatActivity() {
             uploadToCloudinary(filePath!!)
         }
 
-            image1_imageView.setOnClickListener{
-                val intent = Intent()
-                intent.type = "image/*"
-                intent.action = Intent.ACTION_GET_CONTENT
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST)
-            }
+        image1_imageView.setOnClickListener{
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST)
         }
+    }
 
 //        private fun hasPermissions(context: CloudinaryUpload2Activity, vararg permissions: String): Boolean = permissions.all {
 //            getContext()?.let { it1 -> ActivityCompat.checkSelfPermission(it1, it) } == PackageManager.PERMISSION_GRANTED

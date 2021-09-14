@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.UserViewModel
@@ -28,19 +29,34 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import com.cloudinary.android.MediaManager
+import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
+import com.example.abren.adapter.VehicleInformationAdapter
+import com.example.abren.models.VehicleInformation
+import com.example.abren.responses.AuthResponse
 
 
 const val MY_PERMISSIONS_REQUEST = 100
-const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
+private const val PICK_IMAGE_FROM_GALLERY_REQUEST1 = 1
 private const val PICK_IMAGE_FROM_GALLERY_REQUEST2 = 2
 private const val PICK_IMAGE_FROM_GALLERY_REQUEST3 = 3
 
 class RegisterForm1Fragment : Fragment() {
 
     private val viewModel: UserViewModel by activityViewModels()
-    private var profileMultipartImage:MultipartBody.Part? = null
-    private var idCardMultipartImage:MultipartBody.Part? = null
-    private var idCardBackMultipartImage:MultipartBody.Part? = null
+    var cloudinaryConfig: HashMap<String, String> = HashMap()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        cloudinaryConfig["cloud_name"] = "deutptnkg"
+        cloudinaryConfig["api_key"] = "168388122659825"
+        cloudinaryConfig["api_secret"] = "71Aflu8G9ao8dp1uaqEJRwaovcM"
+//        if(MediaManager.get() == null){
+//            MediaManager.init(requireContext(), cloudinaryConfig)
+//        }   //TODO: Check if not already initiated
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,76 +79,104 @@ class RegisterForm1Fragment : Fragment() {
             ActivityCompat.requestPermissions(context as Activity, PERMISSIONS, PERMISSION_ALL)
         }
 
+
         val phoneNumber = view.findViewById<EditText>(R.id.phone_number)
         val emergencyPhoneNumber = view.findViewById<EditText>(R.id.emergency_phone_number)
         val profilePicture = view.findViewById<ImageView>(R.id.profile_pic_imageView)
         val idCardPicture = view.findViewById<TextView>(R.id.kebele_id_textView)
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
-        val pass = viewModel.setPasssword()
-
-        //convert to requestBody
-        val requestPhoneNumber:RequestBody = phoneNumber.text.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestemergPhoneno:RequestBody = emergencyPhoneNumber.text.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestPass:RequestBody = pass.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
-        view.findViewById<Button>(R.id.back_button1).setOnClickListener{
+        view.findViewById<Button>(R.id.back_button1).setOnClickListener {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
         // call registerUser network call when continue button clicked for rider
-        view.findViewById<Button>(R.id.continue_button1).setOnClickListener{
-            viewModel.setPhoneNumber(phoneNumber.text.toString())
-            viewModel.setEmergencyPhoneNumber(emergencyPhoneNumber.text.toString())
+        view.findViewById<Button>(R.id.continue_button1).setOnClickListener {
+            viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
+            viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())
+            viewModel.setPassword("1234")
+
+            //TODO: Set the images urls
 
             viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
-                if(user.role == "DRIVER"){
-                    findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
-                }else{
-                    Log.d("Multipart image from user",user.profilePictureUrl!!)
-                    val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val x = viewModel.registerUser(profileMultipartImage!!,
-                        idCardMultipartImage!!,
-                        idCardBackMultipartImage!!,
-                        requestPhoneNumber,
-                        requestemergPhoneno,
-                        requestRole,
-                        requestPass)
+                if(user.profilePictureUrl == null || user.idCardUrl == null || user.idCardBackUrl == null || user.phoneNumber == null || user.emergencyPhoneNumber == null){
+                    Toast.makeText(requireContext(), "Please fill all fields.", Toast.LENGTH_SHORT).show()
+                }else if(user.phoneNumber!!.length != 12){
+                    Toast.makeText(requireContext(), "Invalid Input for Phone Number.", Toast.LENGTH_SHORT).show()
+                }else if(user.emergencyPhoneNumber!!.length != 12){
+                    Toast.makeText(requireContext(), "Invalid Input for Emergency Phone Number.", Toast.LENGTH_SHORT).show()
+                }else {
+                    val profileUpload =  uploadToCloudinary(user.profilePictureUrl!!)
+                    val idUpload =  uploadToCloudinary(user.idCardUrl!!)
+                    val idBackUpload =  uploadToCloudinary(user.idCardBackUrl!!)
+                    profileUpload.observeForever(Observer { result ->
+                        if(result != null){
+                            Log.d("Uploading Profile Picture", result)
+                            user.profilePictureUrl = result
 
-                    Log.d("Check user ",user!!.toString())
-//                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+                            idUpload.observeForever(Observer { result2 ->
+                                if(result2 != null){
+                                    Log.d("Uploading Id", result2)
+                                    user.idCardUrl = result2
+
+                                    idBackUpload.observeForever(Observer { result3 ->
+                                        if(result3 != null){
+                                            Log.d("Uploading Id Back", result3)
+                                            user.idCardBackUrl = result3
+
+                                            if (user.role == "DRIVER") {
+                                                user.vehicleInformation = VehicleInformation()
+                                                findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
+                                            } else {
+                                                findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+                                            }
+
+                                        }else {
+                                            Log.d("Uploading Profile Picture", "Problem")
+                                        }
+                                    })
+
+                                }else {
+                                    Log.d("Uploading Id", "Problem")
+                                }
+                            })
+
+                        }else {
+                            Log.d("Uploading Id Back", "Problem")
+                        }
+                    })
                 }
             })
         }
 
         //intent to select image from gallery
-        profilePicture.setOnClickListener{
+        profilePicture.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_FROM_GALLERY_REQUEST1)
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Picture"),
+                PICK_IMAGE_FROM_GALLERY_REQUEST1
+            )
 
         }
-        idCardPicture.setOnClickListener{
+
+        idCardPicture.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST2)
         }
-        idCardBackPicture.setOnClickListener{
+
+        idCardBackPicture.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, PICK_IMAGE_FROM_GALLERY_REQUEST3)
         }
-
     }
 
-    private fun hasPermissions(context: RegisterForm1Fragment, vararg permissions: String): Boolean = permissions.all {
-        getContext()?.let { it1 -> ActivityCompat.checkSelfPermission(it1, it) } == PackageManager.PERMISSION_GRANTED
-    }
-
-    //get path from uri and file then convert it to multiPart and set the multipart image to viewModel
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -140,59 +184,32 @@ class RegisterForm1Fragment : Fragment() {
             if (requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST1){
                 val uri: Uri = data.data!!
                 profile_pic_imageView.setImageURI(uri)
-                val filePath = getPathFromURI(requireContext(),uri)
-                val chosenFile = File(filePath!!)
-                val requestProfilePic:RequestBody = chosenFile.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                profileMultipartImage = MultipartBody.Part.createFormData("profilePicture",chosenFile.name, requestProfilePic)
-//                val profileRequestBody = createRequestBody(chosenFile)
-//                profileMultipartImage = createPart(chosenFile,profileRequestBody)
-                viewModel.setProfilePicture(profileMultipartImage)
-                Log.d("pathhhhh",profileMultipartImage.toString())
-//                 profile_pic_imageView.setImageBitmap(BitmapFactory.decodeFile(getPathFromURI(requireContext(),uri)))
+                val filePath = getPathFromURI(requireContext(), uri)
+                viewModel.setProfilePictureUrl(filePath)
             }
+
             if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST2){
                 val uri:Uri = data.data!!
                 val filePath = getPathFromURI(requireContext(),uri)
-                val chosenFile1 = File(filePath!!)
-                val requstIdcard:RequestBody = chosenFile1.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                idCardMultipartImage = MultipartBody.Part.createFormData("idCardPicture",chosenFile1.name ,requstIdcard)
-//                idCardMultipartImage = MultipartBody.Part.createFormData("file",chosenFile1.name,chosenFile1.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
-//                val idCardRequestBody = createRequestBody(chosenFile1)
-//                idCardMultipartImage = createPart(chosenFile1,idCardRequestBody)
-                viewModel.setIdCardPicture(idCardMultipartImage)
+                val chosenFile1 = File(filePath)
+                viewModel.setIdCardUrl(filePath)
                 view?.findViewById<TextView>(R.id.kebele_id_textView)?.text = chosenFile1.nameWithoutExtension
-                Log.d("id card Multipart image",idCardMultipartImage.toString())
             }
+
             if(requestCode == PICK_IMAGE_FROM_GALLERY_REQUEST3){
                 val uri:Uri = data.data!!
                 val filePath = getPathFromURI(requireContext(),uri)
-                val chosenFile2 = File(filePath!!)
-                val requestIdCardBack:RequestBody = chosenFile2.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                idCardBackMultipartImage = MultipartBody.Part.createFormData("idCardBackPicture",chosenFile2.name, requestIdCardBack)
-//
-//                idCardBackMultipartImage = MultipartBody.Part.createFormData("file",chosenFile2.name, chosenFile2.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
-//                val idCardbackRequestBody = createRequestBody(chosenFile2)
-//                idCardBackMultipartImage = createPart(chosenFile2,idCardbackRequestBody)
-                viewModel.setIdCardBackPicture(idCardBackMultipartImage)
+                val chosenFile2 = File(filePath)
+                viewModel.setIdCardBackUrl(filePath)
                 view?.findViewById<TextView>(R.id.kebele_id_back_textView)?.text = chosenFile2.nameWithoutExtension
-                Log.d("id card back Multipart image",idCardBackMultipartImage.toString())
             }
         }
     }
 
-
-    private fun createFile(realPath: String): File {
-        return File(realPath)
-    }
-
-    private fun createPart(file: File, requestBody: RequestBody): MultipartBody.Part {
-        return MultipartBody.Part.createFormData("image", file.name, requestBody)
-    }
-
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun getPathFromURI(context: Context, uri: Uri): String? {
+    fun getPathFromURI(context: Context, uri: Uri): String {
         val path: String = uri.path!!
-        var realPath: String? = null
+        var realPath = ""
 
         val databaseUri: Uri
         val selection: String?
@@ -223,9 +240,21 @@ class RegisterForm1Fragment : Fragment() {
             }
             cursor.close()
         } catch (e: Exception) {
-            Log.d("zeze get path error " , e.message!!)
+            Log.d("zeze get path error ", e.message!!)
         }
         return realPath
+    }
+
+    private fun hasPermissions(
+        context: RegisterForm1Fragment,
+        vararg permissions: String
+    ): Boolean = permissions.all {
+        getContext()?.let { it1 ->
+            ActivityCompat.checkSelfPermission(
+                it1,
+                it
+            )
+        } == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(
@@ -233,18 +262,50 @@ class RegisterForm1Fragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when(requestCode){
-             MY_PERMISSIONS_REQUEST ->
-                if(grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                        // permission is granted.  do file related tasks here
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST ->
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    // permission is granted.  do file related tasks here
                     Log.d("RegisterForm1TAG", "User Granted image permission.")
-                }
-                else{
+                } else {
                     Log.d("RegisterForm1TAG", "User Denied image permission.")
                 }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+    }
+
+    private fun uploadToCloudinary(filepath: String): MutableLiveData<String> {
+        val result = MutableLiveData<String>()
+        MediaManager.get().upload(filepath).callback(object : UploadCallback {
+
+            override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
+                Toast.makeText(requireContext(), resultData["secure_url"] as String, Toast.LENGTH_LONG).show()
+                result.value = resultData["secure_url"] as String
+            }
+
+            override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
+
+            }
+
+            override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+
+            }
+
+            override fun onError(requestId: String?, error: ErrorInfo?) {
+                Toast.makeText(requireContext(),
+                    "Task Not successful$error",
+                    Toast.LENGTH_LONG).show()
+            }
+
+            override fun onStart(requestId: String?) {
+
+            }
+
+        }).dispatch()
+
+        return result
     }
 
 }

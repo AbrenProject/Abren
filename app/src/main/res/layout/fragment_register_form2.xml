@@ -19,7 +19,7 @@
                 android:text="@string/vehicle_info" />
 
             <TextView
-                android:id="@+id/driver_licence_image_textview"
+                android:id="@+id/driving_license_image_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_camera"

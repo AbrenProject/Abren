@@ -1,15 +1,18 @@
 package com.example.abren
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.UserViewModel
+import com.google.gson.Gson
 
 
 private const val ARG_PARAM1 = "param1"
@@ -42,11 +45,21 @@ class PreferenceFormFragment : Fragment() {
 
         view.findViewById<Button>(R.id.finish_button).setOnClickListener{
             viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
-                if(user.role == "DRIVER"){
-                    findNavController().navigate(R.id.action_PreferenceFragment_to_driverHomeFragment)
-                }else{
-                    findNavController().navigate(R.id.action_PreferenceFragment_to_riderRoutesHome)
-                }
+                val gson = Gson()
+                Log.d("In preference", gson.toJson(user))
+                viewModel.registerUser(user)
+
+                viewModel.registeredUserLiveData?.observe(viewLifecycleOwner, Observer {
+                    if (it!=null){
+                        if(user.role == "DRIVER"){
+                            findNavController().navigate(R.id.action_PreferenceFragment_to_driverHomeFragment)
+                        }else{
+                            findNavController().navigate(R.id.action_PreferenceFragment_to_riderRoutesHome)
+                        }
+                    }else{
+                        Toast.makeText(this.requireContext(),"Something Went Wrong", Toast.LENGTH_SHORT).show()
+                    }
+                })
             })
         }
     }
