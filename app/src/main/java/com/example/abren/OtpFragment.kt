@@ -28,7 +28,6 @@ class OtpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Toast.makeText(context?.applicationContext,"I am here", Toast.LENGTH_SHORT).show()
         return inflater.inflate(R.layout.otp, container, false)
     }
 
@@ -36,30 +35,32 @@ class OtpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-            auth= FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 //            auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
-            val verify=view.findViewById<Button>(R.id.submit_button)
-            val otpGiven=view.findViewById<EditText>(R.id.otp_val)
-            val bundle = arguments
-            val storedVerificationId = bundle!!.getString("storedVerificationId")
+        val verify = view.findViewById<Button>(R.id.submit_button)
+        val otpGiven = view.findViewById<EditText>(R.id.otp_val)
+        val bundle = arguments
+        val storedVerificationId = bundle!!.getString("storedVerificationId")
+        Toast.makeText(requireContext(), "I on view created", Toast.LENGTH_SHORT).show()
 
 
-            verify.setOnClickListener{
-                var otp=otpGiven.text.toString().trim()
-                if(!otp.isEmpty()){
-                    val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                        storedVerificationId.toString(), otp)
-                    signInWithPhoneAuthCredential(credential)
-                }else{
-                    Toast.makeText(context?.applicationContext,"Enter OTP", Toast.LENGTH_SHORT).show()
-                }
+        verify.setOnClickListener {
+            val otp = otpGiven.text.toString().trim()
+            if (otp.isNotEmpty()) {
+                val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
+                    storedVerificationId.toString(), otp
+                )
+                signInWithPhoneAuthCredential(credential)
+            } else {
+                Toast.makeText(requireContext(), "Enter OTP", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
-        private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
 //                        val homeFragment=HomeFragment()
 //                        val transaction: FragmentTransaction = getParentFragmentManager().beginTransaction()
 //                        //data being send to SecondFragment
@@ -67,19 +68,23 @@ class OtpFragment : Fragment() {
 //                        transaction.commit();
 //                        Toast.makeText(context?.applicationContext, "Successful", Toast.LENGTH_LONG).show()
 
-                        val riderRoutesHome = Intent(activity, RiderRoutesHome::class.java)
-                        startActivity(riderRoutesHome)
+                    val riderRoutesHome = Intent(activity, RiderRoutesHome::class.java)
+                    startActivity(riderRoutesHome)
 // ...
-                    } else {
+                } else {
 // Sign in failed, display a message and update the UI
-                        if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
 // The verification code entered was invalid
-                            Toast.makeText(context?.applicationContext,"Invalid OTP", Toast.LENGTH_SHORT).show()
-                        }
+                        Toast.makeText(
+                            context?.applicationContext,
+                            "Invalid OTP",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-        }
+            }
+    }
 //
 //
-        }
+}
 
