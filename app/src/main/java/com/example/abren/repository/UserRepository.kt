@@ -46,7 +46,7 @@ object UserRepository {
                         Log.d("responsebody check on success",responseBody.value.toString())
                     }
                     Log.d("UserRepo--- response header = ", response.headers().toString())
-                Log.d("UserRepo---- body", response.body().toString())
+                response.errorBody()?.string()?.let { Log.d("UserRepo---- body", it) }
                     Log.d("UserRepo--- Response ",response.toString())
             }
         } )

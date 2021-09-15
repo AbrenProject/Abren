@@ -89,18 +89,18 @@ class RegisterForm1Fragment : Fragment() {
                 if(user.role == "DRIVER"){
                     findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterForm2Fragment)
                 }else{
-                    Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
-                    val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-                    val x = viewModel.registerUser(profileMultipartImage!!,
-                        idCardMultipartImage!!,
-                        idCardBackMultipartImage!!,
-                        requestPhoneNumber,
-                        requestemergPhoneno,
-                        requestRole,
-                        requestPass)
-
-                    Log.d("Check user ",user!!.toString())
-//                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
+//                    Log.d("idCardMultiPart Image from user...",user.profilePictureUrl!!)
+//                    val requestRole:RequestBody = user.role.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+//                    val x = viewModel.registerUser(profileMultipartImage!!,
+//                        idCardMultipartImage!!,
+//                        idCardBackMultipartImage!!,
+//                        requestPhoneNumber,
+//                        requestemergPhoneno,
+//                        requestRole,
+//                        requestPass)
+//
+//                    Log.d("Check user ",user!!.toString())
+                   findNavController().navigate(R.id.action_RegisterForm1Fragment_to_PreferenceFragment)
                 }
             })
         }
