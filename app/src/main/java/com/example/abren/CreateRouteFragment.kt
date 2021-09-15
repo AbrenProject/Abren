@@ -1,5 +1,7 @@
 package com.example.abren
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +22,7 @@ import android.text.TextUtils
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,9 +31,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.abren.models.Location
 import com.example.abren.viewmodel.LocationViewModel
 import androidx.constraintlayout.widget.ConstraintSet
-
-
-
+import androidx.core.view.marginLeft
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -191,19 +192,21 @@ class CreateRouteFragment : Fragment() {
 
         fun createEditTextView() {
             val params:RelativeLayout.LayoutParams  = RelativeLayout.LayoutParams (
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT)
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            params.setMargins(0,10,0,10)
+            params.setMargins(20,10,10,20)
             val edittTxt:EditText  = EditText(requireContext())
             var maxLength = 5
             hint++;
-            edittTxt.setHint("editText"+hint);
+            edittTxt.setHint("Enter Waypoint"+hint);
             edittTxt.setLayoutParams(params);
-            // edtTxt.setBackgroundColor(Color.WHITE);
-            edittTxt.setInputType(InputType.TYPE_CLASS_TEXT);
-            edittTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F);
-            edittTxt.setId(hint);
+             edittTxt.setBackgroundResource(R.drawable.rounded_edittext)
+            edittTxt.setInputType(InputType.TYPE_CLASS_TEXT)
+            edittTxt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
+            edittTxt.setPadding(25,20,20,20)
+            edittTxt.setId(hint)
             val fArray = arrayOfNulls<InputFilter>(1)
             fArray[0] = InputFilter.LengthFilter(maxLength)
             edittTxt.filters = fArray
