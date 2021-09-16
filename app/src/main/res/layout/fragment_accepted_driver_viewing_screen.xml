@@ -25,7 +25,7 @@
             android:background="#FDFDFB"
             android:elevation="20dp">
 
-<
+
             <TextView
                 android:id="@+id/otpField"
                 android:layout_width="wrap_content"
