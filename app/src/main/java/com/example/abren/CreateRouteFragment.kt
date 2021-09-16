@@ -28,26 +28,11 @@ import com.example.abren.models.Location
 import com.example.abren.viewmodel.LocationViewModel
 import androidx.constraintlayout.widget.ConstraintSet
 
+private val TRIGGER_AUTO_COMPLETE = 100
+private val AUTO_COMPLETE_DELAY: Long = 300
 
-
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CreateRouteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CreateRouteFragment : Fragment() {
 
-    private val TRIGGER_AUTO_COMPLETE = 100
-    private val AUTO_COMPLETE_DELAY: Long = 300
-
-    private lateinit var locationViewModel: LocationViewModel
     private lateinit var startLocationSuggestionAdapter: LocationSuggestionAdapter
     private lateinit var destinationLocationSuggestionAdapter: LocationSuggestionAdapter
     private lateinit var waypointLocationSuggestionAdapter: LocationSuggestionAdapter
@@ -170,7 +155,7 @@ class CreateRouteFragment : Fragment() {
 
         destinationHandler = Handler { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!TextUtils.isEmpty(startText.text)) {
+                if (!TextUtils.isEmpty(destinationText.text)) {
                     makeApiCall(destinationText.text.toString(), destinationLocationSuggestionAdapter)
                 }
             }
@@ -179,7 +164,7 @@ class CreateRouteFragment : Fragment() {
 
         waypointHandler = Handler { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!TextUtils.isEmpty(startText.text)) {
+                if (!TextUtils.isEmpty(waypointText1.text)) {
                     makeApiCall(waypointText1.text.toString(), waypointLocationSuggestionAdapter)
                 }
             }
@@ -211,26 +196,6 @@ class CreateRouteFragment : Fragment() {
             Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
 
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateRouteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreateRouteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
     private fun makeApiCall(text: String, adapter: LocationSuggestionAdapter) {

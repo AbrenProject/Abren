@@ -13,21 +13,39 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+
+        <TextView
+            style="@style/App_TextView.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/App_TextView.Title"
-            android:textSize="40sp"
-            android:text="@string/wheretogo" />
+            android:paddingVertical="100dp"
+            android:text="@string/wheretogo"
+            android:textSize="40sp" />
 
-        <EditText
-            android:id="@+id/select_destination_textView"
+        <AutoCompleteTextView
+            android:id="@+id/select_destination_text"
+            style="@style/App_EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_location"
-            android:drawableStart="@drawable/ic_location"
-            android:hint="@string/select_destination"
-            android:background="@drawable/rounded_edittext"
-            style="@style/App_TextView"/>
+            android:hint="Destination"
+            android:shadowColor="#CCCCCC"
+            android:shadowDx="100"
+            android:shadowDy="100" />
+
+        <Button
+            android:id="@+id/go_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="29dp" />
 
         <TextView
             android:id="@+id/textView2"
