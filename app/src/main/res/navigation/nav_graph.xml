@@ -103,12 +103,6 @@
 <!--            android:id="@+id/action_PreferenceFragment_to_authFragment"-->
 <!--            app:destination="@id/authFragment" />-->
         <action
-            android:id="@+id/action_PreferenceFragment_to_driverHomeFragment"
-            app:destination="@id/driverHomeFragment" />
-        <action
-            android:id="@+id/action_PreferenceFragment_to_riderRoutesHome"
-            app:destination="@id/riderRoutesHome" />
-        <action
             android:id="@+id/action_PreferenceFragment_to_authFragment"
             app:destination="@id/authFragment" />
     </fragment>
@@ -125,7 +119,11 @@
         android:id="@+id/createRouteFragment"
         android:name="com.example.abren.CreateRouteFragment"
         android:label="fragment_create_route"
-        tools:layout="@layout/fragment_create_route" />
+        tools:layout="@layout/fragment_create_route" >
+        <action
+            android:id="@+id/action_createRouteFragment_to_driverHomeFragment"
+            app:destination="@id/driverHomeFragment" />
+    </fragment>
 
     <activity
         android:id="@+id/riderRoutesHome"
