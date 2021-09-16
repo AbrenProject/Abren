@@ -98,5 +98,7 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-core:5.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-//    implementation ''
+
+    //for timeline view
+    implementation 'com.anton46:stepsview:0.0.2'
 }
