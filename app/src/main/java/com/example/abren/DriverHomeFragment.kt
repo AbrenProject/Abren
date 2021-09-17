@@ -1,69 +1,87 @@
 package com.example.abren
 
 import android.os.Bundle
+import android.content.Context
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
+import com.anton46.stepsview.StepsView
 import androidx.navigation.fragment.findNavController
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DriverHomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class DriverHomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private val views = arrayOf("View 1")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_driver_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.create_route_button).setOnClickListener{
-            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
-        }
+        val mListView = view.findViewById<View>(R.id.list_listView) as ListView
+        val adapter = MyAdapter(requireContext(),0)
+        adapter.addAll(*views)
+        mListView.adapter = adapter
+
+//        view.findViewById<Button>(R.id.create_route_button).setOnClickListener{
+//            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
+//        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DriverHomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DriverHomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    class MyAdapter(context: Context?, resource: Int) :
+        ArrayAdapter<String?>(context!!, resource) {
+        private val labels = arrayOf("5kilo", "Stadium", "Dembel", "WeloSefer", "Bole")
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var convertView = convertView
+            val holder: MyAdapter.ViewHolder
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.row, null)
+                holder = MyAdapter.ViewHolder(convertView)
+                convertView!!.tag = holder
+            } else {
+                holder = convertView.tag as MyAdapter.ViewHolder
             }
+//            holder.mLabel.text = getItem(position)
+            holder.mStepsView.setCompletedPosition(position % labels.size)
+                .setLabels(labels)
+                .setBarColorIndicator(
+                    context.resources.getColor(android.R.color.darker_gray))
+                .setProgressColorIndicator(context.resources.getColor(R.color.orange))
+                .setLabelColorIndicator(context.resources.getColor(R.color.orange))
+                .drawView()
+            return convertView
+        }
+
+        internal class ViewHolder(view: View?) {
+//            var mLabel: TextView
+            var mStepsView: StepsView
+
+            init {
+//                mLabel = view!!.findViewById<View>(R.id.label) as TextView
+                mStepsView = view?.findViewById<View>(R.id.stepsView) as StepsView
+//                mLabel.rotation = (-45).toFloat()
+            }
+        }
+
     }
 }

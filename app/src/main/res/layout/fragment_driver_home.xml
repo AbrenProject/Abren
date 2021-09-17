@@ -1,36 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/app_margin"
+    android:orientation="vertical"
     tools:context=".DriverHomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/text_size"
+        android:text="Select One of your saved routes to start giving a ride" />
+
+    <ListView
+        android:id="@+id/list_listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/text_size"
+        android:text="Not taking the above routes?" />
+    <Button
+        android:id="@+id/create_route_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:layout_margin="10dp"
-    android:textSize="25dp"
-    android:text="Select one of your saved route to start giving a ride"
-    android:textStyle="bold"/>
-        <Button
-            android:id="@+id/create_route_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Create New Route"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        style="@style/App_Button"
+        android:text="Create New Route" />
+
+</LinearLayout>
+

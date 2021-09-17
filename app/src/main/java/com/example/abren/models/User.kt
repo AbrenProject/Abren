@@ -24,3 +24,9 @@ data class User(
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null
 )
+
+//profilePicture
+//idCardPicture
+//idCardBackPicture
+//data class UserResponse(@Json(name = "results") val result: List<User> ,
+// @Json(name = "token") val token:token)
