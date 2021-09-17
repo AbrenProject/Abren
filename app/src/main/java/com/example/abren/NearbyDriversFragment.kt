@@ -21,7 +21,7 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import kotlinx.android.synthetic.main.fragment_accepted.*
+
 
 class NearbyDriversFragment : Fragment() , OnMapReadyCallback, PermissionsListener {
 

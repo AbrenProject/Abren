@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.abren.R
 
-class RequestedFragment:Fragment(R.layout.fragment_requested) {
+class AcceptedRidersFragment:Fragment(R.layout.fragment_accepted) {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_requested, container, false)
+        return inflater.inflate(R.layout.fragment_accepted, container, false)
     }
 }

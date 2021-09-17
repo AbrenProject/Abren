@@ -1,25 +1,24 @@
 package com.example.abren
 
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_nearby_drivers.*
+import kotlinx.android.synthetic.main.fragment_nearby_riders.*
 
 
-class RiderRequestsTabActivity : AppCompatActivity()
+class DriverScreenTabActivity : AppCompatActivity()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_nearby_drivers)
+        setContentView(R.layout.fragment_nearby_riders)
         setUpTabBar()
     }
 
     private fun setUpTabBar()
     {
-        val adapter = RiderTabPageAdapter(this, tabLayout.tabCount)
+        val adapter = DriverTabPageAdapter(this, tabLayout.tabCount)
         viewPager.adapter = adapter
 
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback()
