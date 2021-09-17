@@ -12,10 +12,10 @@
     <RelativeLayout
         android:id="@+id/OTPcard"
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:layout_marginTop="270dp"
         android:orientation="horizontal"
-        android:padding="10dp">
+        >
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="170dp"
@@ -58,12 +58,14 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_margin="10dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="#FDFDFB"
             android:elevation="20dp">
@@ -71,14 +73,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background=" #fed8b1"
-                android:padding="10dp">
+                android:layout_height="50dp"
+                android:background=" #fed8b1">
 
                 <ImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/profile_image" />
 
@@ -95,6 +96,24 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/Driverrating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:includeFontPadding="false"
+                    android:paddingTop="5dp"
+                    android:text="Rating"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:layout_marginLeft="200dp"
+                     />
+
 
             </RelativeLayout>
 
@@ -107,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="50dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Gender:"
@@ -127,34 +146,95 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/rating"
+                    android:id="@+id/carColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/genderType"
                     android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
+                    android:layout_below="@+id/carColorLabel"
                     android:paddingBottom="5dp"
-                    android:text="Rating"
+                    android:text="Silver"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+
+                <TextView
+                    android:id="@+id/carColorLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@+id/genderType"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="Car Color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <RatingBar
-                    android:id="@+id/ratingBar3"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/rating" />
+                <TextView
+                    android:id="@+id/carTypeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@id/carColor"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="Car Type"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/carType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:includeFontPadding="false"
+                    android:layout_below="@+id/carTypeLabel"
+                    android:paddingBottom="5dp"
+                    android:text="Vitz"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/carLiscenceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:layout_below="@id/destinationAnswer"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="Liscence Plate"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/carLiscence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="175dp"
+                    android:includeFontPadding="false"
+                    android:layout_below="@id/carLiscenceLabel"
+                    android:paddingBottom="5dp"
+                    android:text="XXXXXXXXXXXXXX"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/ageGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="175dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="50dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Age Group:"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+
+
 
                 <TextView
                     android:id="@+id/ageGroupType"
@@ -191,6 +271,7 @@
                     android:text="Roba Bakery"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+
 
             </RelativeLayout>
 
