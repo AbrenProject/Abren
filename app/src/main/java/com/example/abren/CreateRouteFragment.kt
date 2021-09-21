@@ -95,12 +95,12 @@ class CreateRouteFragment : Fragment() {
         val destinationText: AppCompatAutoCompleteTextView = view.findViewById(R.id.destination_text)
         val waypointText1: AppCompatAutoCompleteTextView = view.findViewById(R.id.waypoint_text1)
 
-        val selectedText: TextView = view.findViewById(R.id.selected_text)
+//        val selectedText: TextView = view.findViewById(R.id.selected_text)
 
         startText.threshold = 2;
         startText.setAdapter(startLocationSuggestionAdapter);
         startText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-            selectedText.text = startLocationSuggestionAdapter.getObject(position).name
+//            selectedText.text = startLocationSuggestionAdapter.getObject(position).name
         })
         startText.addTextChangedListener(object : TextWatcher {
 
@@ -122,7 +122,7 @@ class CreateRouteFragment : Fragment() {
         destinationText.threshold = 2;
         destinationText.setAdapter(destinationLocationSuggestionAdapter);
         destinationText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name
+//            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name
         })
         destinationText.addTextChangedListener(object : TextWatcher {
 
@@ -144,7 +144,7 @@ class CreateRouteFragment : Fragment() {
         waypointText1.threshold = 2;
         waypointText1.setAdapter(waypointLocationSuggestionAdapter);
         waypointText1.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name
+//            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name
         })
         waypointText1.addTextChangedListener(object : TextWatcher {
 
@@ -190,31 +190,31 @@ class CreateRouteFragment : Fragment() {
             false
         }
 
-        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)
-        view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener{
-            val waypointText2 = AppCompatAutoCompleteTextView(ContextThemeWrapper(this.requireContext(), R.style.App_EditText), null, 0)
-
-            val set = ConstraintSet()
-
-            waypointText2.id = View.generateViewId()
-
-            val waypointText2Params = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
-            waypointText2.layoutParams = waypointText2Params
-
-            layout.addView(waypointText2, 0)
-
-            set.clone(layout)
-            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)
-            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)
-            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)
-            set.applyTo(layout)
-
-            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
-
-        }
+//        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)
+//        view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener{
+//            val waypointText2 = AppCompatAutoCompleteTextView(ContextThemeWrapper(this.requireContext(), R.style.App_EditText), null, 0)
+//
+//            val set = ConstraintSet()
+//
+//            waypointText2.id = View.generateViewId()
+//
+//            val waypointText2Params = ConstraintLayout.LayoutParams(
+//                ConstraintLayout.LayoutParams.MATCH_PARENT,
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT
+//            )
+//            waypointText2.layoutParams = waypointText2Params
+//
+//            layout.addView(waypointText2, 0)
+//
+//            set.clone(layout)
+//            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)
+//            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)
+//            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)
+//            set.applyTo(layout)
+//
+//            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
+//
+//        }
     }
 
     companion object {
