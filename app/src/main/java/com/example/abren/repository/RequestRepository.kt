@@ -5,37 +5,35 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Request
-import com.example.abren.models.Route
 import com.example.abren.network.RequestService
 import com.example.abren.network.RetrofitClient
-import com.example.abren.network.RouteService
 import com.example.abren.responses.BadRequestResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.google.gson.Gson
 
-class RouteRepository {
-    private var routeService: RouteService?=null
+class RequestRepository {
+    private var requestService: RequestService?=null
     private lateinit var prefs: SharedPreferences
 
     init {
-        routeService = RetrofitClient.getApiClient().create(RouteService::class.java)
+        requestService = RetrofitClient.getApiClient().create(RequestService::class.java)
     }
 
-    private val data = MutableLiveData<Route>()
+    private val data = MutableLiveData<Request>()
 
-    fun createRoute(route: Route, context: Context): MutableLiveData<Route> {
-        Log.i("Route Repo: Create Request", route.toString())
+    fun createRequest(request: Request, context: Context): MutableLiveData<Request> {
+        Log.i("Route Repo: Create Request" , request.toString())
 
         prefs = context.getSharedPreferences("ABREN", Context.MODE_PRIVATE)
 
-        routeService?.createRoute(route, "Bearer ${prefs.getString("TOKEN", null)}")?.enqueue(object : Callback<Route> {
-            override fun onFailure(call: Call<Route>, t: Throwable) {
-                Log.d("Route Repo: ONFailure: ", t.message.toString())
+        requestService?.createRequest(request, "Bearer ${prefs.getString("TOKEN", null)}")?.enqueue(object : Callback<Request> {
+            override fun onFailure(call: Call<Request>, t: Throwable) {
+                Log.d("Request Repo: ONFailure: ", t.message.toString())
             }
 
-            override fun onResponse(call: Call<Route>, response: Response<Route>) {
+            override fun onResponse(call: Call<Request>, response: Response<Request>) {
                 val gson = Gson()
                 if (response.code() == 200) {
                     data.value = response.body()

@@ -12,7 +12,6 @@ class LocationAPIClient {
         fun getApiClient(): Retrofit {
             val gson = GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .setLenient()
                 .create()
             val okHttpClient = OkHttpClient.Builder()
                 .readTimeout(100, TimeUnit.SECONDS)

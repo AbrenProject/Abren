@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:layout_margin="15dp"
-    tools:context=".PhoneNumberFragment">
+    tools:context=".OtpFragment">
 
     <TextView
         android:id="@+id/enter_otp"
@@ -20,6 +20,7 @@
 
 
     <EditText
+        android:id="@+id/otp_val"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/App_EditText"

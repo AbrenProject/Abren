@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -41,12 +42,17 @@ class PreferenceFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.finish_button).setOnClickListener{
+            Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             viewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
-                if(user.role == "DRIVER"){
-                    findNavController().navigate(R.id.action_PreferenceFragment_to_driverHomeFragment)
-                }else{
-                    findNavController().navigate(R.id.action_PreferenceFragment_to_riderRoutesHome)
-                }
+                viewModel.registerUser(user)
+
+                viewModel.registeredUserLiveData?.observe(viewLifecycleOwner, Observer {
+                    if (it!=null){
+                        findNavController().navigate(R.id.action_PreferenceFragment_to_authFragment)
+                    }else{
+                        Toast.makeText(this.requireContext(),"Something Went Wrong", Toast.LENGTH_SHORT).show()
+                    }
+                })
             })
         }
     }

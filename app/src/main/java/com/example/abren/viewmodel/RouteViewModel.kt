@@ -1,68 +1,43 @@
 package com.example.abren.viewmodel
 
-import android.util.Log
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.abren.models.Location
-import com.example.abren.models.MenuItem
 import com.example.abren.models.Route
 import com.example.abren.repository.RouteRepository
-import com.example.abren.repository.VehicleInformationRepository
 
-class RouteViewModel : ViewModel(){
-
+class RouteViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     private var routeRepository: RouteRepository? = null
-    var routeListLiveData : LiveData<List<Route>>?=null
-    var routeIdListLiveData: LiveData<Route>? = null
-    var routeStartingLocationLiveData: LiveData<Route>? = null
+    private val mutableSelectedRoute = MutableLiveData<Route>()
+    val selectedRoute: LiveData<Route> get() = mutableSelectedRoute
+
+    var createdRouteLiveData: MutableLiveData<Route>? = null
 
     init {
         routeRepository = RouteRepository()
-        routeListLiveData = MutableLiveData()
+        createdRouteLiveData = MutableLiveData()
     }
 
-    fun fetchAllRoutes(){
-        Log.i("RETROFIT", "Calling in View Model")
-        routeListLiveData = routeRepository?.fetchAllRoutes()
+    fun createRoute(route: Route, context: Context) {
+        createdRouteLiveData = routeRepository?.createRoute(route, context)
     }
 
-    fun fetchRoute(_id: String){
-        Log.i("RETROFIT", "Calling in View Model")
-        routeIdListLiveData = routeRepository?.fetchRoute(_id)
+    fun setRoute(route: Route) {
+        mutableSelectedRoute.value = route
     }
 
-//    fun addRoute(_id: String,startingLocation: Location,waypointLocations: ArrayList<Location>,
-//                 destinationLocation: Location){
-//        Log.i("RETROFIT", "Calling in View Model")
-//        routeIdListLiveData = routeRepository?.addRoute(_id)
-//        routeStartingLocationLiveData = routeRepository?.addRoute(startingLocation)
-//    }
-
-    fun addRoute(_id: String,startingLocation: Location,waypointLocations: ArrayList<Location>,
-                 destinationLocation: Location){
-        Log.i("RETROFIT", "Calling in View Model")
-        routeIdListLiveData = routeRepository?.addRoute(_id,startingLocation,waypointLocations,
-            destinationLocation)
-
+    fun setStartLocation(location: Location) {
+        mutableSelectedRoute.value?.startingLocation = location
     }
 
-
-    fun deleteRoute(_id: String){
-        Log.i("RETROFIT", "Calling in View Model")
-        routeIdListLiveData = routeRepository?.deleteRoute(_id)
+    fun setDestinationLocation(location: Location) {
+        mutableSelectedRoute.value?.destinationLocation = location
     }
 
-    fun updateRoute(_id: String,startingLocation: Location,waypointLocations: ArrayList<Location>,
-                    destinationLocation: Location){
-        Log.i("RETROFIT", "Calling in View Model")
-        routeIdListLiveData = routeRepository?.updateRoute(_id,startingLocation,waypointLocations,
-            destinationLocation)
+    fun addWaypointLocation(location: Location) {
+        mutableSelectedRoute.value?.waypointLocations?.add(location)
     }
-
-
-
-
-
-
 }

@@ -5,73 +5,95 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.abren.responses.BadRequestResponse
 import com.example.abren.models.User
 import com.example.abren.repository.UserRepository
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
+import com.example.abren.responses.AuthResponse
 
 class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private var userRepository: UserRepository?=null
+    private var userRepository: UserRepository? = null
     private val mutableSelectedItem = MutableLiveData<User>()
     val selectedUser: LiveData<User> get() = mutableSelectedItem
+    var registeredUserLiveData : MutableLiveData<AuthResponse>? = null
+    var storedVerificationId: String? = null
+    var loginPhoneNumber: String? = null
 
-    //
-    var servicesLiveData:MutableLiveData<ResponseBody>? = null
-//    val phoneNumber:String = savedStateHandle["phoneNumber"]?:
-//    throw IllegalArgumentException("missing phone no")
+    init {
+        userRepository = UserRepository()
+        registeredUserLiveData = MutableLiveData()
+    }
+
+    fun registerUser(user: User) {
+        registeredUserLiveData = userRepository?.registerUser(user)
+    }
+
+    fun login(user: User) {
+        registeredUserLiveData = userRepository?.login(user)
+    }
 
 
     fun selectUser(user: User) {
         mutableSelectedItem.value = user
     }
 
+    fun setPhoneNumber(phoneNumber: String) {
+        mutableSelectedItem.value?.phoneNumber = phoneNumber
+    }
+
+    fun setEmergencyPhoneNumber(emergencyPhoneNumber: String) {
+        mutableSelectedItem.value?.emergencyPhoneNumber = emergencyPhoneNumber
+    }
+
+    fun setIdCardUrl(idCardUrl: String){
+        mutableSelectedItem.value?.idCardUrl = idCardUrl
+    }
+
+    fun setIdCardBackUrl(idCardBackUrl: String){
+        mutableSelectedItem.value?.idCardBackUrl = idCardBackUrl
+    }
+
+    fun setProfilePictureUrl(profilePictureUrl: String){
+        mutableSelectedItem.value?.profilePictureUrl = profilePictureUrl
+    }
+
+    fun setPassword(password: String){
+        mutableSelectedItem.value?.password = password
+    }
+
     fun setVehicleYear(year: String) {
         mutableSelectedItem.value?.vehicleInformation?.year = year
     }
 
-    fun setPhoneNumber(phoneNumber: String) {
-        mutableSelectedItem.value?.phoneNumber = phoneNumber.toString()
+    fun setVehicleMake(make: String) {
+        mutableSelectedItem.value?.vehicleInformation?.make = make
     }
 
-    fun setEmergencyPhoneNumber(emergencyPhoneNumber: String) {
-        mutableSelectedItem.value?.emergencyPhoneNumber = emergencyPhoneNumber.toString()
+    fun setVehicleModel(model: String) {
+        mutableSelectedItem.value?.vehicleInformation?.model = model
     }
 
-    fun setIdCardPicture(idCardPicture: MultipartBody.Part?){
-        mutableSelectedItem.value?.idCardUrl = idCardPicture.toString()
+    fun setKml(kml: Double) {
+        mutableSelectedItem.value?.vehicleInformation?.kml = kml
     }
 
-    fun setIdCardBackPicture(idCardBackPicture: MultipartBody.Part?){
-        mutableSelectedItem.value?.idCardBackUrl = idCardBackPicture.toString()
+    fun setVehicleLicensePlateNumber(licensePlateNumber: String) {
+        mutableSelectedItem.value?.vehicleInformation?.licensePlateNumber = licensePlateNumber
     }
 
-    fun setProfilePicture(profilePicture: MultipartBody.Part?){
-        mutableSelectedItem.value?.profilePictureUrl = profilePicture.toString()
+    fun setLicenseUrl(licenseUrl: String) {
+        mutableSelectedItem.value?.vehicleInformation?.licenseUrl = licenseUrl
     }
 
-    fun setPasssword(){
-        mutableSelectedItem.value?.password = UserRepository.getPasssword()
+    fun setOwnershipDocUrl(ownershipDocUrl: String) {
+        mutableSelectedItem.value?.vehicleInformation?.ownershipDocUrl = ownershipDocUrl
     }
 
-    fun registerUser(profileImage:MultipartBody.Part,
-                     idCardImage:MultipartBody.Part,
-                     idCardBackImage:MultipartBody.Part,
-                     phoneNumber: RequestBody,
-                     emergencyPhoneNumber: RequestBody,
-                     role: RequestBody,
-                     password:RequestBody):LiveData<ResponseBody>? {
-        Log.i("RETROFIT:USER VIEWMODEL IN REGISTERUSER" , selectedUser.value.toString())
-        servicesLiveData = UserRepository.getServicesApiCall(profileImage,
-            idCardImage,
-            idCardBackImage,
-            phoneNumber,
-            emergencyPhoneNumber,
-            role,
-            password)
-        return servicesLiveData
+    fun setInsuranceDocUrl(insuranceDocUrl: String) {
+        mutableSelectedItem.value?.vehicleInformation?.insuranceDocUrl = insuranceDocUrl
     }
 
-
+    fun setVehiclePictureUrl(vehiclePictureUrl: String) {
+        mutableSelectedItem.value?.vehicleInformation?.vehiclePictureUrl = vehiclePictureUrl
+    }
 }

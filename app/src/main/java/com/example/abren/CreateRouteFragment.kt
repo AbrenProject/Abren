@@ -9,45 +9,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.abren.adapter.LocationSuggestionAdapter
 import android.text.TextUtils
-import android.view.ContextThemeWrapper
-import android.widget.Button
+import android.util.Log
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.ActivityNavigator
+import androidx.core.view.size
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abren.models.Location
+import com.example.abren.models.Route
 import com.example.abren.viewmodel.LocationViewModel
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.fragment.app.activityViewModels
 import com.example.abren.viewmodel.RouteViewModel
-import com.example.abren.viewmodel.UserViewModel
 
+private val TRIGGER_AUTO_COMPLETE = 100
+private val AUTO_COMPLETE_DELAY: Long = 300
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CreateRouteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CreateRouteFragment : Fragment() {
+    private val routeViewModel: RouteViewModel by activityViewModels()
 
-    private val TRIGGER_AUTO_COMPLETE = 100
-    private val AUTO_COMPLETE_DELAY: Long = 300
-
-    private lateinit var locationViewModel: LocationViewModel
     private lateinit var startLocationSuggestionAdapter: LocationSuggestionAdapter
     private lateinit var destinationLocationSuggestionAdapter: LocationSuggestionAdapter
     private lateinit var waypointLocationSuggestionAdapter: LocationSuggestionAdapter
@@ -56,32 +40,30 @@ class CreateRouteFragment : Fragment() {
     private lateinit var destinationHandler: Handler
     private lateinit var waypointHandler: Handler
 
-
-    private lateinit var routeViewModel: RouteViewModel
-
+    var wayPointLocationId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         startLocationSuggestionAdapter = LocationSuggestionAdapter(
-            this.requireContext(),
-            android.R.layout.simple_dropdown_item_1line
+                this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line
         )
 
         destinationLocationSuggestionAdapter = LocationSuggestionAdapter(
-            this.requireContext(),
-            android.R.layout.simple_dropdown_item_1line
+                this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line
         )
 
         waypointLocationSuggestionAdapter = LocationSuggestionAdapter(
-            this.requireContext(),
-            android.R.layout.simple_dropdown_item_1line
+                this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line
         )
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_route, container, false)
@@ -91,16 +73,30 @@ class CreateRouteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val route = Route()
+        routeViewModel.setRoute(route)
+
         val startText: AppCompatAutoCompleteTextView = view.findViewById(R.id.start_text)
-        val destinationText: AppCompatAutoCompleteTextView = view.findViewById(R.id.destination_text)
+        val destinationText: AppCompatAutoCompleteTextView =
+                view.findViewById(R.id.destination_text)
         val waypointText1: AppCompatAutoCompleteTextView = view.findViewById(R.id.waypoint_text1)
 
-//        val selectedText: TextView = view.findViewById(R.id.selected_text)
-
-        startText.threshold = 2;
-        startText.setAdapter(startLocationSuggestionAdapter);
-        startText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-//            selectedText.text = startLocationSuggestionAdapter.getObject(position).name
+        startText.threshold = 2
+        startText.setAdapter(startLocationSuggestionAdapter)
+        startText.onItemClickListener = AdapterView.OnItemClickListener(fun(
+                _: AdapterView<*>,
+                _: View,
+                position: Int,
+                _: Long
+        ) {
+            val selectedLocation = startLocationSuggestionAdapter.getObject(position)
+            routeViewModel.setStartLocation(
+                    Location(
+                            name = selectedLocation.displayName,
+                            latitude = selectedLocation.lat,
+                            longitude = selectedLocation.lon
+                    )
+            )
         })
         startText.addTextChangedListener(object : TextWatcher {
 
@@ -110,8 +106,8 @@ class CreateRouteFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 startHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
                 startHandler.sendEmptyMessageDelayed(
-                    TRIGGER_AUTO_COMPLETE,
-                    AUTO_COMPLETE_DELAY
+                        TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY
                 )
             }
 
@@ -119,10 +115,22 @@ class CreateRouteFragment : Fragment() {
             }
         })
 
-        destinationText.threshold = 2;
-        destinationText.setAdapter(destinationLocationSuggestionAdapter);
-        destinationText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-//            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name
+        destinationText.threshold = 2
+        destinationText.setAdapter(destinationLocationSuggestionAdapter)
+        destinationText.onItemClickListener = AdapterView.OnItemClickListener(fun(
+                _: AdapterView<*>,
+                _: View,
+                position: Int,
+                _: Long
+        ) {
+            val selectedLocation = destinationLocationSuggestionAdapter.getObject(position)
+            routeViewModel.setDestinationLocation(
+                    Location(
+                            name = selectedLocation.displayName,
+                            latitude = selectedLocation.lat,
+                            longitude = selectedLocation.lon
+                    )
+            )
         })
         destinationText.addTextChangedListener(object : TextWatcher {
 
@@ -132,8 +140,8 @@ class CreateRouteFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 destinationHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
                 destinationHandler.sendEmptyMessageDelayed(
-                    TRIGGER_AUTO_COMPLETE,
-                    AUTO_COMPLETE_DELAY
+                        TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY
                 )
             }
 
@@ -141,10 +149,22 @@ class CreateRouteFragment : Fragment() {
             }
         })
 
-        waypointText1.threshold = 2;
-        waypointText1.setAdapter(waypointLocationSuggestionAdapter);
-        waypointText1.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
-//            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name
+        waypointText1.threshold = 2
+        waypointText1.setAdapter(waypointLocationSuggestionAdapter)
+        waypointText1.onItemClickListener = AdapterView.OnItemClickListener(fun(
+                _: AdapterView<*>,
+                _: View,
+                position: Int,
+                _: Long
+        ) {
+            val selectedLocation = waypointLocationSuggestionAdapter.getObject(position)
+            routeViewModel.addWaypointLocation(
+                    Location(
+                            name = selectedLocation.displayName,
+                            latitude = selectedLocation.lat,
+                            longitude = selectedLocation.lon
+                    )
+            )
         })
         waypointText1.addTextChangedListener(object : TextWatcher {
 
@@ -154,8 +174,8 @@ class CreateRouteFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 waypointHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
                 waypointHandler.sendEmptyMessageDelayed(
-                    TRIGGER_AUTO_COMPLETE,
-                    AUTO_COMPLETE_DELAY
+                        TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY
                 )
             }
 
@@ -174,8 +194,11 @@ class CreateRouteFragment : Fragment() {
 
         destinationHandler = Handler { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!TextUtils.isEmpty(startText.text)) {
-                    makeApiCall(destinationText.text.toString(), destinationLocationSuggestionAdapter)
+                if (!TextUtils.isEmpty(destinationText.text)) {
+                    makeApiCall(
+                            destinationText.text.toString(),
+                            destinationLocationSuggestionAdapter
+                    )
                 }
             }
             false
@@ -183,74 +206,106 @@ class CreateRouteFragment : Fragment() {
 
         waypointHandler = Handler { msg ->
             if (msg.what == TRIGGER_AUTO_COMPLETE) {
-                if (!TextUtils.isEmpty(startText.text)) {
+                if (!TextUtils.isEmpty(waypointText1.text)) {
                     makeApiCall(waypointText1.text.toString(), waypointLocationSuggestionAdapter)
                 }
             }
             false
         }
 
-//        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)
-//        view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener{
-//            val waypointText2 = AppCompatAutoCompleteTextView(ContextThemeWrapper(this.requireContext(), R.style.App_EditText), null, 0)
-//
-//            val set = ConstraintSet()
-//
-//            waypointText2.id = View.generateViewId()
-//
-//            val waypointText2Params = ConstraintLayout.LayoutParams(
-//                ConstraintLayout.LayoutParams.MATCH_PARENT,
-//                ConstraintLayout.LayoutParams.WRAP_CONTENT
-//            )
-//            waypointText2.layoutParams = waypointText2Params
-//
-//            layout.addView(waypointText2, 0)
-//
-//            set.clone(layout)
-//            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)
-//            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)
-//            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)
-//            set.applyTo(layout)
-//
-//            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
-//
-//        }
+        view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener {
+            createEditTextView(view.findViewById(R.id.parentLayout))
+        }
+
+        view.findViewById<Button>(R.id.save_button).setOnClickListener {
+            routeViewModel.selectedRoute.observe(viewLifecycleOwner, Observer { route ->
+                routeViewModel.createRoute(route, requireContext())
+
+                routeViewModel.createdRouteLiveData?.observe(viewLifecycleOwner, Observer {
+                    Log.d("Created Request:", route.toString())
+                    findNavController().navigate(R.id.action_createRouteFragment_to_driverHomeFragment)
+                })
+            })
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateRouteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreateRouteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun createEditTextView(parentLayout: LinearLayout) {
+        val newWaypointLocationText: AutoCompleteTextView = LayoutInflater.from(requireContext()).inflate(R.layout.auto_complete_edit_text, null) as AutoCompleteTextView
+
+        val params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+        params.setMargins(20, 10, 10, 20)
+        newWaypointLocationText.layoutParams = params
+
+        newWaypointLocationText.hint = "Enter Waypoint ${++wayPointLocationId}"
+        newWaypointLocationText.id = wayPointLocationId
+
+        val newWaypointLocationSuggestionAdapter = LocationSuggestionAdapter(
+                this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line
+        )
+
+        val newWaypointHandler = Handler { msg ->
+            if (msg.what == TRIGGER_AUTO_COMPLETE) {
+                if (!TextUtils.isEmpty(newWaypointLocationText.text)) {
+                    makeApiCall(newWaypointLocationText.text.toString(), newWaypointLocationSuggestionAdapter)
                 }
             }
+            false
+        }
+
+        newWaypointLocationText.threshold = 2
+        newWaypointLocationText.setAdapter(newWaypointLocationSuggestionAdapter)
+        newWaypointLocationText.onItemClickListener = AdapterView.OnItemClickListener(fun(
+                _: AdapterView<*>,
+                _: View,
+                position: Int,
+                _: Long
+        ) {
+            val selectedLocation = newWaypointLocationSuggestionAdapter.getObject(position)
+            routeViewModel.addWaypointLocation(
+                    Location(
+                            name = selectedLocation.displayName,
+                            latitude = selectedLocation.lat,
+                            longitude = selectedLocation.lon
+                    )
+            )
+        })
+        newWaypointLocationText.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                newWaypointHandler.removeMessages(TRIGGER_AUTO_COMPLETE)
+                newWaypointHandler.sendEmptyMessageDelayed(
+                        TRIGGER_AUTO_COMPLETE,
+                        AUTO_COMPLETE_DELAY
+                )
+            }
+
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+
+        parentLayout.addView(newWaypointLocationText, parentLayout.size - 1)
     }
 
     private fun makeApiCall(text: String, adapter: LocationSuggestionAdapter) {
-        var locationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]
+        val locationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]
 
         locationViewModel.fetchAllLocations(text)
 
         locationViewModel.locationListLiveData?.observe(viewLifecycleOwner, Observer {
-            if (it!=null){
+            if (it != null) {
                 adapter.setData(it as ArrayList<Location>)
-            }else{
-                Toast.makeText(this.requireContext(),"Something Went Wrong", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
+                        .show()
             }
         })
-
-
     }
-
 }

@@ -1,32 +1,28 @@
 package com.example.abren.models
 
 import java.time.LocalDateTime
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 data class User(
-    var _id: String? = null,
-    var name: Name? = null,
-    var phoneNumber: String? = null,
-    var gender: String? = null,
-    var ageGroup: String? = null,
-    var password: String = "1234", //TODO: REMOVE
-    var role: String? = null,
-    var isVerified: Boolean = false,
-    var emergencyPhoneNumber: String? = null,
-    var profilePictureUrl: String? = null,
-    var idCardUrl: String? = null,
-    var idCardBackUrl: String? = null,
-    var vehicleInformation: VehicleInformation? = VehicleInformation(),
-    var preference: List<Preference>? = null,
-    var rating: MutableList<Int> = MutableList(5) { 0 },
-    var creditsBought: Double = 0.0,
-    var creditsEarned: Double = 0.0,
+    @Expose var _id: String? = null,
+    @Expose var name: Name? = null,
+    @Expose var phoneNumber: String? = null,
+    @Expose var gender: String? = null,
+    @Expose var ageGroup: String? = null,
+    @Expose var password: String = "1234", //TODO: REMOVE
+    @Expose var role: String? = null,
+    @Expose var isVerified: Boolean = false,
+    @Expose var emergencyPhoneNumber: String? = null,
+    @Expose var profilePictureUrl: String? = null,
+    @Expose var idCardUrl: String? = null,
+    @Expose var idCardBackUrl: String? = null,
+    @Expose var vehicleInformation: VehicleInformation? = null,
+    @Expose var preference: List<Preference>? = null,
+    @Expose var rating: MutableList<Int> = MutableList(5) { 0 },
+    @Expose var creditsBought: Double = 0.0,
+    @Expose var creditsEarned: Double = 0.0,
     var createdAt: LocalDateTime? = null,
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null
 )
-
-//profilePicture
-//idCardPicture
-//idCardBackPicture
-//data class UserResponse(@Json(name = "results") val result: List<User> ,
-// @Json(name = "token") val token:token)
