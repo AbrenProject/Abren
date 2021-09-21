@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.abren"
-        minSdkVersion 29
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -102,6 +102,9 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.2'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-core:5.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
+    //for timeline view
+    implementation 'com.anton46:stepsview:0.0.2'
 //    implementation ''
 
     //Cloudinary
