@@ -3,18 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/activity_rider_routes_home.xml" value="0.12771739130434784" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/app_bar_rider_routes_home.xml" value="0.12771739130434784" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/auto_complete_edit_text.xml" value="0.19384057971014493" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/content_main.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/content_rider_routes_home.xml" value="0.25" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_create_route.xml" value="0.22" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_first.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/nav_header_rider_routes_home.xml" value="0.19791666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/otp.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/content_rider_routes_home.xml" value="0.12771739130434784" />
       </map>
     </option>
   </component>
@@ -23,21 +12,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
