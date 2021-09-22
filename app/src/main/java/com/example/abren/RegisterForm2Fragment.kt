@@ -47,7 +47,6 @@ private const val PICK_IMAGE_FROM_GALLERY_REQUEST4 = 4
 class RegisterForm2Fragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
-
     private lateinit var vehicleYearAdapter: VehicleInformationAdapter
     private lateinit var vehicleMakeAdapter: VehicleInformationAdapter
     private lateinit var vehicleModelAdapter: VehicleInformationAdapter

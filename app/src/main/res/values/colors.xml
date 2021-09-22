@@ -19,4 +19,6 @@
     <color name="mapboxYellow">#D9D838</color>
     <color name="mapboxRed">#B43B71</color>
 
+    <color name="tabBackgroundColor">#D3D3D3</color>
+
 </resources>

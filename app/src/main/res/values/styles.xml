@@ -65,6 +65,52 @@
         <item name="android:layout_marginBottom">@dimen/app_margin</item>
     </style>
 
+    <style name="App_Button.left">
+        <item name="android:drawableLeft">@drawable/ic_back</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginBottom">@dimen/app_margin</item>
+        <item name="android:paddingLeft">@dimen/app_padding</item>
+        <item name="android:layout_marginRight">@dimen/middle_space</item>
+        <item name="android:drawablePadding">@dimen/app_padding</item>
+    </style>
+
+    <style name="App_Button.accept">
+        <item name="android:text">@string/accept</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginBottom">@dimen/app_margin</item>
+        <item name="android:paddingLeft">@dimen/app_padding</item>
+        <item name="android:layout_marginRight">@dimen/middle_space</item>
+        <item name="android:drawablePadding">@dimen/app_padding</item>
+    </style>
+
+    <style name="App_Button.waiting">
+        <item name="android:text">Waiting</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginBottom">@dimen/app_margin</item>
+        <item name="android:paddingLeft">@dimen/app_padding</item>
+        <item name="android:layout_marginRight">@dimen/middle_space</item>
+        <item name="android:drawablePadding">@dimen/app_padding</item>
+    </style>
+
+    <style name="App_Button.send">
+        <item name="android:text">Send</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginBottom">@dimen/app_margin</item>
+        <item name="android:paddingLeft">@dimen/app_padding</item>
+        <item name="android:layout_marginRight">@dimen/middle_space</item>
+        <item name="android:drawablePadding">@dimen/app_padding</item>
+    </style>
+
+
+    <style name="App_Button.right">
+        <item name="android:drawableRight">@drawable/ic_continue</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginBottom">@dimen/app_margin</item>
+        <item name="android:paddingRight">@dimen/app_padding</item>
+        <item name="android:drawablePadding">@dimen/app_padding</item>
+    </style>
+
 <!--    <style name="NavigationMapRoute">-->
 <!--        &lt;!&ndash; colors&ndash;&gt;-->
 <!--    <item name="m">@color/mapboxBlue</item>-->

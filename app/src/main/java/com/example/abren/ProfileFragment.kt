@@ -1,13 +1,19 @@
 package com.example.abren
 
 import android.os.Bundle
+import android.telephony.emergency.EmergencyNumber
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import com.example.abren.viewmodel.UserViewModel
 
 class ProfileFragment : Fragment() {
-
+    private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -18,13 +24,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        view.findViewById<Button>(R.id.give_ride_button).setOnClickListener {
-//            findNavController().navigate(R.id.action_RegisterFragment_to_RegisterForm1Fragment)
-//        }
-//
-//        view.findViewById<Button>(R.id.receive_ride_button).setOnClickListener{
-//            findNavController().navigate(R.id.action_RegisterFragment_to_RegisterForm1Fragment)
-//        }
-    }
 
-}
+
+
+
+
+
+
+
+}}
