@@ -1,0 +1,735 @@
+Index: app/src/main/java/com/example/abren/ui/main/SectionsPagerAdapter.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/main/SectionsPagerAdapter.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/main/SectionsPagerAdapter.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,35 +0,0 @@
+-package com.example.abren.ui.main
+-
+-import android.content.Context
+-import androidx.fragment.app.Fragment
+-import androidx.fragment.app.FragmentManager
+-import androidx.fragment.app.FragmentPagerAdapter
+-import com.example.abren.R
+-
+-private val TAB_TITLES = arrayOf(
+-    R.string.tab_text_1,
+-    R.string.tab_text_2
+-)
+-
+-/**
+- * A [FragmentPagerAdapter] that returns a fragment corresponding to
+- * one of the sections/tabs/pages.
+- */
+-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+-    FragmentPagerAdapter(fm) {
+-
+-    override fun getItem(position: Int): Fragment {
+-        // getItem is called to instantiate the fragment for the given page.
+-        // Return a PlaceholderFragment (defined as a static inner class below).
+-        return PlaceholderFragment.newInstance(position + 1)
+-    }
+-
+-    override fun getPageTitle(position: Int): CharSequence? {
+-        return context.resources.getString(TAB_TITLES[position])
+-    }
+-
+-    override fun getCount(): Int {
+-        // Show 2 total pages.
+-        return 2
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation2.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation2.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation2.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation2"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation7.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation7.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation7.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation7"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation9.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation9.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation9.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation9"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/home/HomeViewModel.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/home/HomeViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/home/HomeViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,13 +0,0 @@
+-package com.example.abren.ui.home
+-
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.ViewModel
+-
+-class HomeViewModel : ViewModel() {
+-
+-    private val _text = MutableLiveData<String>().apply {
+-        value = "This is home Fragment"
+-    }
+-    val text: LiveData<String> = _text
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/dashboard/DashboardViewModel.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/dashboard/DashboardViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/dashboard/DashboardViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,13 +0,0 @@
+-package com.example.abren.ui.dashboard
+-
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.ViewModel
+-
+-class DashboardViewModel : ViewModel() {
+-
+-    private val _text = MutableLiveData<String>().apply {
+-        value = "This is dashboard Fragment"
+-    }
+-    val text: LiveData<String> = _text
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/notifications/NotificationsFragment.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/notifications/NotificationsFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/notifications/NotificationsFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,45 +0,0 @@
+-package com.example.abren.ui.notifications
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import android.widget.TextView
+-import androidx.fragment.app.Fragment
+-import androidx.lifecycle.Observer
+-import androidx.lifecycle.ViewModelProvider
+-import com.example.abren.R
+-import com.example.abren.databinding.FragmentNotificationsBinding
+-
+-class NotificationsFragment : Fragment() {
+-
+-    private lateinit var notificationsViewModel: NotificationsViewModel
+-    private var _binding: FragmentNotificationsBinding? = null
+-
+-    // This property is only valid between onCreateView and
+-    // onDestroyView.
+-    private val binding get() = _binding!!
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater,
+-        container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        notificationsViewModel =
+-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+-
+-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+-        val root: View = binding.root
+-
+-        val textView: TextView = binding.textNotifications
+-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+-            textView.text = it
+-        })
+-        return root
+-    }
+-
+-    override fun onDestroyView() {
+-        super.onDestroyView()
+-        _binding = null
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/navigation/bottom_nav_menu.xml
+===================================================================
+--- app/src/main/res/navigation/bottom_nav_menu.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/bottom_nav_menu.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-
+-<item
+-    android:id="@+id/accepted"
+-    android:title="Home"
+-    android:icon="@drawable/ic_home_foreground"/>
+-
+-<item
+-    android:id="@+id/requested"
+-    android:title="Settings"
+-    android:icon="@drawable/ic_settings_foreground"/>
+-</menu>
+Index: app/src/main/java/com/example/abren/ui/notifications/NotificationsViewModel.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/notifications/NotificationsViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/notifications/NotificationsViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,13 +0,0 @@
+-package com.example.abren.ui.notifications
+-
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.ViewModel
+-
+-class NotificationsViewModel : ViewModel() {
+-
+-    private val _text = MutableLiveData<String>().apply {
+-        value = "This is notifications Fragment"
+-    }
+-    val text: LiveData<String> = _text
+-}
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation4.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation4.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation4.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation4"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation5.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation5.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation5.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation5"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/home/HomeFragment.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/home/HomeFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/home/HomeFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,45 +0,0 @@
+-package com.example.abren.ui.home
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import android.widget.TextView
+-import androidx.fragment.app.Fragment
+-import androidx.lifecycle.Observer
+-import androidx.lifecycle.ViewModelProvider
+-import com.example.abren.R
+-import com.example.abren.databinding.FragmentHomeBinding
+-
+-class HomeFragment : Fragment() {
+-
+-    private lateinit var homeViewModel: HomeViewModel
+-    private var _binding: FragmentHomeBinding? = null
+-
+-    // This property is only valid between onCreateView and
+-    // onDestroyView.
+-    private val binding get() = _binding!!
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater,
+-        container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        homeViewModel =
+-            ViewModelProvider(this).get(HomeViewModel::class.java)
+-
+-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+-        val root: View = binding.root
+-
+-        val textView: TextView = binding.textHome
+-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+-            textView.text = it
+-        })
+-        return root
+-    }
+-
+-    override fun onDestroyView() {
+-        super.onDestroyView()
+-        _binding = null
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/main/PageViewModel.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/main/PageViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/main/PageViewModel.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,19 +0,0 @@
+-package com.example.abren.ui.main
+-
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.MutableLiveData
+-import androidx.lifecycle.Transformations
+-import androidx.lifecycle.ViewModel
+-import androidx.lifecycle.ViewModelProvider
+-
+-class PageViewModel : ViewModel() {
+-
+-    private val _index = MutableLiveData<Int>()
+-    val text: LiveData<String> = Transformations.map(_index) {
+-        "Hello world from section: $it"
+-    }
+-
+-    fun setIndex(index: Int) {
+-        _index.value = index
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation8.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation8.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation8.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation8"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/dashboard/DashboardFragment.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/dashboard/DashboardFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/dashboard/DashboardFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,45 +0,0 @@
+-package com.example.abren.ui.dashboard
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import android.widget.TextView
+-import androidx.fragment.app.Fragment
+-import androidx.lifecycle.Observer
+-import androidx.lifecycle.ViewModelProvider
+-import com.example.abren.R
+-import com.example.abren.databinding.FragmentDashboardBinding
+-
+-class DashboardFragment : Fragment() {
+-
+-    private lateinit var dashboardViewModel: DashboardViewModel
+-    private var _binding: FragmentDashboardBinding? = null
+-
+-    // This property is only valid between onCreateView and
+-    // onDestroyView.
+-    private val binding get() = _binding!!
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater,
+-        container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        dashboardViewModel =
+-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+-
+-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+-        val root: View = binding.root
+-
+-        val textView: TextView = binding.textDashboard
+-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+-            textView.text = it
+-        })
+-        return root
+-    }
+-
+-    override fun onDestroyView() {
+-        super.onDestroyView()
+-        _binding = null
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation3.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation3.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation3.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation3"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/res/navigation/mobile_navigation6.xml
+===================================================================
+--- app/src/main/res/navigation/mobile_navigation6.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/navigation/mobile_navigation6.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,25 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/mobile_navigation6"
+-    app:startDestination="@+id/navigation_home">
+-
+-    <fragment
+-        android:id="@+id/navigation_home"
+-        android:name="com.example.abren.ui.home.HomeFragment"
+-        android:label="@string/title_home"
+-        tools:layout="@layout/fragment_home" />
+-
+-    <fragment
+-        android:id="@+id/navigation_dashboard"
+-        android:name="com.example.abren.ui.dashboard.DashboardFragment"
+-        android:label="@string/title_dashboard"
+-        tools:layout="@layout/fragment_dashboard" />
+-
+-    <fragment
+-        android:id="@+id/navigation_notifications"
+-        android:name="com.example.abren.ui.notifications.NotificationsFragment"
+-        android:label="@string/title_notifications"
+-        tools:layout="@layout/fragment_notifications" />
+-</navigation>
+\ No newline at end of file
+Index: app/src/main/java/com/example/abren/ui/main/PlaceholderFragment.kt
+===================================================================
+--- app/src/main/java/com/example/abren/ui/main/PlaceholderFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/ui/main/PlaceholderFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
+@@ -1,73 +0,0 @@
+-package com.example.abren.ui.main
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import android.widget.TextView
+-import androidx.fragment.app.Fragment
+-import androidx.lifecycle.Observer
+-import androidx.lifecycle.ViewModelProvider
+-import com.example.abren.R
+-import com.example.abren.databinding.FragmentRequestsBinding
+-
+-/**
+- * A placeholder fragment containing a simple view.
+- */
+-class PlaceholderFragment : Fragment() {
+-
+-    private lateinit var pageViewModel: PageViewModel
+-    private var _binding: FragmentRequestsBinding? = null
+-
+-    // This property is only valid between onCreateView and
+-    // onDestroyView.
+-    private val binding get() = _binding!!
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
+-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-
+-        _binding = FragmentRequestsBinding.inflate(inflater, container, false)
+-        val root = binding.root
+-
+-        val textView: TextView = binding.sectionLabel
+-        pageViewModel.text.observe(viewLifecycleOwner, Observer {
+-            textView.text = it
+-        })
+-        return root
+-    }
+-
+-    companion object {
+-        /**
+-         * The fragment argument representing the section number for this
+-         * fragment.
+-         */
+-        private const val ARG_SECTION_NUMBER = "section_number"
+-
+-        /**
+-         * Returns a new instance of this fragment for the given section
+-         * number.
+-         */
+-        @JvmStatic
+-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
+-            return PlaceholderFragment().apply {
+-                arguments = Bundle().apply {
+-                    putInt(ARG_SECTION_NUMBER, sectionNumber)
+-                }
+-            }
+-        }
+-    }
+-
+-    override fun onDestroyView() {
+-        super.onDestroyView()
+-        _binding = null
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:orientation=\"vertical\"\r\n    >\r\n\r\n\r\n\r\n    <RelativeLayout\r\n        android:id=\"@+id/OTPcard\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"270dp\"\r\n        android:orientation=\"horizontal\"\r\n        >\r\n\r\n        <com.google.android.material.card.MaterialCardView\r\n            android:layout_width=\"170dp\"\r\n            android:layout_height=\"70dp\"\r\n            android:layout_margin=\"10dp\"\r\n            android:layout_weight=\"1\"\r\n            android:background=\"#FDFDFB\"\r\n            android:elevation=\"20dp\">\r\n\r\n\r\n            <TextView\r\n                android:id=\"@+id/otpField\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_centerVertical=\"true\"\r\n                android:layout_marginLeft=\"10dp\"\r\n                android:includeFontPadding=\"false\"\r\n                android:text=\"OTP:\"\r\n                android:textColor=\"#000\"\r\n                android:textSize=\"15sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n\r\n\r\n        </com.google.android.material.card.MaterialCardView>\r\n\r\n        <Button\r\n            android:id=\"@+id/button\"\r\n            android:layout_width=\"200dp\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Validate\"\r\n            android:backgroundTint=\"@color/orange\"\r\n            android:layout_marginLeft=\"200dp\"/>\r\n\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/card\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"300dp\"\r\n        android:paddingLeft=\"10dp\"\r\n        android:paddingRight=\"10dp\">\r\n\r\n        <com.google.android.material.card.MaterialCardView\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"200dp\"\r\n            android:layout_marginLeft=\"10dp\"\r\n            android:layout_marginRight=\"10dp\"\r\n            android:layout_weight=\"1\"\r\n            android:background=\"#FDFDFB\"\r\n            android:elevation=\"20dp\">\r\n\r\n\r\n            <RelativeLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"50dp\"\r\n                android:background=\" #fed8b1\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/profile_image\"\r\n                    android:layout_width=\"50dp\"\r\n                    android:layout_height=\"50dp\"\r\n                    android:layout_centerVertical=\"true\"\r\n                    android:src=\"@drawable/profile_image\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/fullname_field\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_centerVertical=\"true\"\r\n                    android:layout_marginLeft=\"10dp\"\r\n                    android:layout_toRightOf=\"@+id/profile_image\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:text=\"Driver 1\"\r\n                    android:textColor=\"#000\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/Driverrating\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"200dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingTop=\"5dp\"\r\n                    android:text=\"Rating\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n                <RatingBar\r\n                    android:id=\"@+id/ratingBar\"\r\n                    android:layout_width=\"150dp\"\r\n                    android:layout_height=\"50dp\"\r\n                    android:paddingTop=\"5dp\"\r\n                    android:layout_marginLeft=\"200dp\"\r\n                     />\r\n\r\n\r\n            </RelativeLayout>\r\n\r\n            <RelativeLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/gender\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_marginTop=\"50dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Gender:\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/genderType\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@+id/gender\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Female\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carColor\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:layout_below=\"@+id/carColorLabel\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Silver\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carColorLabel\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_below=\"@+id/genderType\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Car Color\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carTypeLabel\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:layout_below=\"@id/carColor\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Car Type\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carType\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"5dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:layout_below=\"@+id/carTypeLabel\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Vitz\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carLiscenceLabel\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:layout_below=\"@id/destinationAnswer\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Liscence Plate\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/carLiscence\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:layout_below=\"@id/carLiscenceLabel\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"XXXXXXXXXXXXXX\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n                <TextView\r\n                    android:id=\"@+id/ageGroup\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:layout_marginTop=\"50dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Age Group:\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n\r\n\r\n                <TextView\r\n                    android:id=\"@+id/ageGroupType\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@+id/ageGroup\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"18-25\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/destination\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@+id/ageGroupType\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Destination:\"\r\n                    android:textSize=\"20sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/destinationAnswer\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_below=\"@+id/destination\"\r\n                    android:layout_marginLeft=\"175dp\"\r\n                    android:includeFontPadding=\"false\"\r\n                    android:paddingBottom=\"5dp\"\r\n                    android:text=\"Roba Bakery\"\r\n                    android:textSize=\"15sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n\r\n            </RelativeLayout>\r\n\r\n\r\n        </com.google.android.material.card.MaterialCardView>\r\n\r\n\r\n\r\n\r\n    </LinearLayout>\r\n\r\n\r\n\r\n\r\n\r\n</LinearLayout>\r\n\r\n
+===================================================================
+--- app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml	(date 1632248577086)
+@@ -8,7 +8,6 @@
+     >
+ 
+ 
+-
+     <RelativeLayout
+         android:id="@+id/OTPcard"
+         android:layout_width="wrap_content"
+@@ -17,7 +16,7 @@
+         android:orientation="horizontal"
+         >
+ 
+-        <com.google.android.material.card.MaterialCardView
++        xx<com.google.android.material.card.MaterialCardView
+             android:layout_width="170dp"
+             android:layout_height="70dp"
+             android:layout_margin="10dp"
+Index: app/src/main/java/com/example/abren/RiderTabPageAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.abren\r\n\r\nimport AcceptedFragment\r\nimport RequestedFragment\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.fragment.app.FragmentActivity\r\nimport androidx.viewpager2.adapter.FragmentStateAdapter\r\n\r\nclass RiderTabPageAdapter (activity:FragmentActivity, private val tabCount: Int): FragmentStateAdapter(activity){\r\n\r\n    override fun getItemCount(): Int =tabCount\r\n\r\n    override fun createFragment(position: Int): Fragment {\r\n\r\n        return when(position){\r\n            0 -> NearbyDriversFragment()\r\n            1 -> NearbyDriversListScreenFragment()\r\n            2-> RequestedDriversScreenFragment()\r\n            3 -> AcceptedRequestScreenFragment()\r\n            else -> NearbyDriversFragment()\r\n        }\r\n    }\r\n}
+===================================================================
+--- app/src/main/java/com/example/abren/RiderTabPageAdapter.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/RiderTabPageAdapter.kt	(date 1632246211325)
+@@ -1,7 +1,5 @@
+ package com.example.abren
+ 
+-import AcceptedFragment
+-import RequestedFragment
+ import androidx.fragment.app.Fragment
+ import androidx.fragment.app.FragmentActivity
+ import androidx.viewpager2.adapter.FragmentStateAdapter
+Index: app/src/main/java/com/example/abren/CreateRouteFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.abren\r\n\r\nimport android.os.Build\r\nimport android.os.Bundle\r\nimport android.os.Handler\r\nimport android.text.Editable\r\nimport android.text.TextWatcher\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.AdapterView\r\nimport android.widget.TextView\r\nimport android.widget.Toast\r\nimport androidx.appcompat.widget.AppCompatAutoCompleteTextView\r\nimport androidx.lifecycle.Observer\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport com.example.abren.adapter.LocationSuggestionAdapter\r\nimport android.text.TextUtils\r\nimport android.view.ContextThemeWrapper\r\nimport android.widget.Button\r\nimport androidx.annotation.RequiresApi\r\nimport androidx.appcompat.widget.AppCompatImageButton\r\nimport androidx.constraintlayout.widget.ConstraintLayout\r\nimport androidx.navigation.ActivityNavigator\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.example.abren.models.Location\r\nimport com.example.abren.viewmodel.LocationViewModel\r\nimport androidx.constraintlayout.widget.ConstraintSet\r\nimport androidx.fragment.app.activityViewModels\r\nimport com.example.abren.viewmodel.RouteViewModel\r\nimport com.example.abren.viewmodel.UserViewModel\r\n\r\n\r\n// TODO: Rename parameter arguments, choose names that match\r\n// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER\r\nprivate const val ARG_PARAM1 = \"param1\"\r\nprivate const val ARG_PARAM2 = \"param2\"\r\n\r\n/**\r\n * A simple [Fragment] subclass.\r\n * Use the [CreateRouteFragment.newInstance] factory method to\r\n * create an instance of this fragment.\r\n */\r\nclass CreateRouteFragment : Fragment() {\r\n\r\n    private val TRIGGER_AUTO_COMPLETE = 100\r\n    private val AUTO_COMPLETE_DELAY: Long = 300\r\n\r\n    private lateinit var locationViewModel: LocationViewModel\r\n    private lateinit var startLocationSuggestionAdapter: LocationSuggestionAdapter\r\n    private lateinit var destinationLocationSuggestionAdapter: LocationSuggestionAdapter\r\n    private lateinit var waypointLocationSuggestionAdapter: LocationSuggestionAdapter\r\n\r\n    private lateinit var startHandler: Handler\r\n    private lateinit var destinationHandler: Handler\r\n    private lateinit var waypointHandler: Handler\r\n\r\n\r\n    private lateinit var routeViewModel: RouteViewModel\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        startLocationSuggestionAdapter = LocationSuggestionAdapter(\r\n            this.requireContext(),\r\n            android.R.layout.simple_dropdown_item_1line\r\n        )\r\n\r\n        destinationLocationSuggestionAdapter = LocationSuggestionAdapter(\r\n            this.requireContext(),\r\n            android.R.layout.simple_dropdown_item_1line\r\n        )\r\n\r\n        waypointLocationSuggestionAdapter = LocationSuggestionAdapter(\r\n            this.requireContext(),\r\n            android.R.layout.simple_dropdown_item_1line\r\n        )\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_create_route, container, false)\r\n    }\r\n\r\n    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1) //TODO: Look into this more\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        val startText: AppCompatAutoCompleteTextView = view.findViewById(R.id.start_text)\r\n        val destinationText: AppCompatAutoCompleteTextView = view.findViewById(R.id.destination_text)\r\n        val waypointText1: AppCompatAutoCompleteTextView = view.findViewById(R.id.waypoint_text1)\r\n\r\n        val selectedText: TextView = view.findViewById(R.id.selected_text)\r\n\r\n        startText.threshold = 2;\r\n        startText.setAdapter(startLocationSuggestionAdapter);\r\n        startText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {\r\n            selectedText.text = startLocationSuggestionAdapter.getObject(position).name\r\n        })\r\n        startText.addTextChangedListener(object : TextWatcher {\r\n\r\n            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {\r\n            }\r\n\r\n            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {\r\n                startHandler.removeMessages(TRIGGER_AUTO_COMPLETE)\r\n                startHandler.sendEmptyMessageDelayed(\r\n                    TRIGGER_AUTO_COMPLETE,\r\n                    AUTO_COMPLETE_DELAY\r\n                )\r\n            }\r\n\r\n            override fun afterTextChanged(s: Editable) {\r\n            }\r\n        })\r\n\r\n        destinationText.threshold = 2;\r\n        destinationText.setAdapter(destinationLocationSuggestionAdapter);\r\n        destinationText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {\r\n            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name\r\n        })\r\n        destinationText.addTextChangedListener(object : TextWatcher {\r\n\r\n            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {\r\n            }\r\n\r\n            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {\r\n                destinationHandler.removeMessages(TRIGGER_AUTO_COMPLETE)\r\n                destinationHandler.sendEmptyMessageDelayed(\r\n                    TRIGGER_AUTO_COMPLETE,\r\n                    AUTO_COMPLETE_DELAY\r\n                )\r\n            }\r\n\r\n            override fun afterTextChanged(s: Editable) {\r\n            }\r\n        })\r\n\r\n        waypointText1.threshold = 2;\r\n        waypointText1.setAdapter(waypointLocationSuggestionAdapter);\r\n        waypointText1.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {\r\n            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name\r\n        })\r\n        waypointText1.addTextChangedListener(object : TextWatcher {\r\n\r\n            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {\r\n            }\r\n\r\n            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {\r\n                waypointHandler.removeMessages(TRIGGER_AUTO_COMPLETE)\r\n                waypointHandler.sendEmptyMessageDelayed(\r\n                    TRIGGER_AUTO_COMPLETE,\r\n                    AUTO_COMPLETE_DELAY\r\n                )\r\n            }\r\n\r\n            override fun afterTextChanged(s: Editable) {\r\n            }\r\n        })\r\n\r\n        startHandler = Handler { msg ->\r\n            if (msg.what == TRIGGER_AUTO_COMPLETE) {\r\n                if (!TextUtils.isEmpty(startText.text)) {\r\n                    makeApiCall(startText.text.toString(), startLocationSuggestionAdapter)\r\n                }\r\n            }\r\n            false\r\n        }\r\n\r\n        destinationHandler = Handler { msg ->\r\n            if (msg.what == TRIGGER_AUTO_COMPLETE) {\r\n                if (!TextUtils.isEmpty(startText.text)) {\r\n                    makeApiCall(destinationText.text.toString(), destinationLocationSuggestionAdapter)\r\n                }\r\n            }\r\n            false\r\n        }\r\n\r\n        waypointHandler = Handler { msg ->\r\n            if (msg.what == TRIGGER_AUTO_COMPLETE) {\r\n                if (!TextUtils.isEmpty(startText.text)) {\r\n                    makeApiCall(waypointText1.text.toString(), waypointLocationSuggestionAdapter)\r\n                }\r\n            }\r\n            false\r\n        }\r\n\r\n        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)\r\n        view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener{\r\n            val waypointText2 = AppCompatAutoCompleteTextView(ContextThemeWrapper(this.requireContext(), R.style.App_EditText), null, 0)\r\n\r\n            val set = ConstraintSet()\r\n\r\n            waypointText2.id = View.generateViewId()\r\n\r\n            val waypointText2Params = ConstraintLayout.LayoutParams(\r\n                ConstraintLayout.LayoutParams.MATCH_PARENT,\r\n                ConstraintLayout.LayoutParams.WRAP_CONTENT\r\n            )\r\n            waypointText2.layoutParams = waypointText2Params\r\n\r\n            layout.addView(waypointText2, 0)\r\n\r\n            set.clone(layout)\r\n            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)\r\n            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)\r\n            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)\r\n            set.applyTo(layout)\r\n\r\n            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()\r\n\r\n        }\r\n    }\r\n\r\n    companion object {\r\n        /**\r\n         * Use this factory method to create a new instance of\r\n         * this fragment using the provided parameters.\r\n         *\r\n         * @param param1 Parameter 1.\r\n         * @param param2 Parameter 2.\r\n         * @return A new instance of fragment CreateRouteFragment.\r\n         */\r\n        // TODO: Rename and change types and number of parameters\r\n        @JvmStatic\r\n        fun newInstance(param1: String, param2: String) =\r\n            CreateRouteFragment().apply {\r\n                arguments = Bundle().apply {\r\n                    putString(ARG_PARAM1, param1)\r\n                    putString(ARG_PARAM2, param2)\r\n                }\r\n            }\r\n    }\r\n\r\n    private fun makeApiCall(text: String, adapter: LocationSuggestionAdapter) {\r\n        var locationViewModel = ViewModelProvider(this)[LocationViewModel::class.java]\r\n\r\n        locationViewModel.fetchAllLocations(text)\r\n\r\n        locationViewModel.locationListLiveData?.observe(viewLifecycleOwner, Observer {\r\n            if (it!=null){\r\n                adapter.setData(it as ArrayList<Location>)\r\n            }else{\r\n                Toast.makeText(this.requireContext(),\"Something Went Wrong\", Toast.LENGTH_SHORT).show()\r\n            }\r\n        })\r\n\r\n\r\n    }\r\n\r\n}
+===================================================================
+--- app/src/main/java/com/example/abren/CreateRouteFragment.kt	(revision bf8f42e9948adc3f036a78c30dbe38b8eca24487)
++++ app/src/main/java/com/example/abren/CreateRouteFragment.kt	(date 1632246149305)
+@@ -95,12 +95,12 @@
+         val destinationText: AppCompatAutoCompleteTextView = view.findViewById(R.id.destination_text)
+         val waypointText1: AppCompatAutoCompleteTextView = view.findViewById(R.id.waypoint_text1)
+ 
+-        val selectedText: TextView = view.findViewById(R.id.selected_text)
++//        val selectedText: TextView = view.findViewById(R.id.selected_text)
+ 
+         startText.threshold = 2;
+         startText.setAdapter(startLocationSuggestionAdapter);
+         startText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
+-            selectedText.text = startLocationSuggestionAdapter.getObject(position).name
++//            selectedText.text = startLocationSuggestionAdapter.getObject(position).name
+         })
+         startText.addTextChangedListener(object : TextWatcher {
+ 
+@@ -122,7 +122,7 @@
+         destinationText.threshold = 2;
+         destinationText.setAdapter(destinationLocationSuggestionAdapter);
+         destinationText.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
+-            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name
++//            selectedText.text = destinationLocationSuggestionAdapter.getObject(position).name
+         })
+         destinationText.addTextChangedListener(object : TextWatcher {
+ 
+@@ -144,7 +144,7 @@
+         waypointText1.threshold = 2;
+         waypointText1.setAdapter(waypointLocationSuggestionAdapter);
+         waypointText1.onItemClickListener = AdapterView.OnItemClickListener(fun (_: AdapterView<*>, _: View, position: Int, _: Long) {
+-            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name
++//            selectedText.text = waypointLocationSuggestionAdapter.getObject(position).name
+         })
+         waypointText1.addTextChangedListener(object : TextWatcher {
+ 
+@@ -190,7 +190,7 @@
+             false
+         }
+ 
+-        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)
++//        val layout = view.findViewById<ConstraintLayout>(R.id.create_route_layout)
+         view.findViewById<AppCompatImageButton>(R.id.add_button).setOnClickListener{
+             val waypointText2 = AppCompatAutoCompleteTextView(ContextThemeWrapper(this.requireContext(), R.style.App_EditText), null, 0)
+ 
+@@ -204,15 +204,15 @@
+             )
+             waypointText2.layoutParams = waypointText2Params
+ 
+-            layout.addView(waypointText2, 0)
+-
+-            set.clone(layout)
+-            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)
+-            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)
+-            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)
+-            set.applyTo(layout)
+-
+-            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
++//            layout.addView(waypointText2, 0)
++//
++//            set.clone(layout)
++//            set.connect(waypointText2.id, ConstraintSet.TOP, waypointText1.id, ConstraintSet.BOTTOM, 20)
++//            set.connect(waypointText2.id, ConstraintSet.START, layout.id, ConstraintSet.START, 10)
++//            set.connect(waypointText2.id, ConstraintSet.END, layout.id, ConstraintSet.END, 10)
++//            set.applyTo(layout)
++//
++//            Toast.makeText(this.requireContext(),layout.childCount.toString(), Toast.LENGTH_SHORT).show()
+ 
+         }
+     }
