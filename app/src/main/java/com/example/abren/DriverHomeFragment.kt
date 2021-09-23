@@ -60,10 +60,10 @@ class DriverHomeFragment : Fragment() {
                 Log.d("driver Home , Starting Location name =", startingLocation.displayName.toString())
                 Log.d("driver Home , Starting Location name =", startingLocation.name.toString())
 
-                var startingName = startingLocation.name.toString().substringBefore(",")
-                var destinationName = destinationLocation.name.toString().substringBefore(",")
-                var waypointName1 = wayPointLocations[0].name.toString().substringBefore(",")
-                var waypointName2 = wayPointLocations[1].name.toString().substringBefore(",")
+                val startingName = startingLocation.name.toString().substringBefore(",")
+                val destinationName = destinationLocation.name.toString().substringBefore(",")
+                val waypointName1 = wayPointLocations[0].name.toString().substringBefore(",")
+                val waypointName2 = wayPointLocations[1].name.toString().substringBefore(",")
 
 //                for (i in wayPointLocations.indices){
 //                   var name1 = wayPointLocations[i].name.toString().substringBefore(",")
