@@ -105,7 +105,7 @@ dependencies {
 
     //for timeline view
     implementation 'com.anton46:stepsview:0.0.2'
-//    implementation ''
+    implementation 'com.params.stepview:stepview:1.0.2'
 
     //Cloudinary
     implementation group: 'com.cloudinary', name: 'cloudinary-android', version: '1.30.0'

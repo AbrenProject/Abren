@@ -21,6 +21,7 @@ class RouteViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         createdRouteLiveData = MutableLiveData()
     }
 
+
     fun createRoute(route: Route, context: Context) {
         createdRouteLiveData = routeRepository?.createRoute(route, context)
     }

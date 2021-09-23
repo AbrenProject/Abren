@@ -2,6 +2,7 @@ package com.example.abren
 
 import android.os.Bundle
 import android.content.Context
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,25 +10,29 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
-import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.anton46.stepsview.StepsView
 import androidx.navigation.fragment.findNavController
+import com.example.abren.viewmodel.RouteViewModel
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
+//private lateinit var startingLocation:com.example.abren.models.Location
+//private lateinit var destinationLocation:com.example.abren.models.Location
+//private lateinit var wayPointLocations:ArrayList<com.example.abren.models.Location>
 
 class DriverHomeFragment : Fragment() {
 
+    private val routeViewModel: RouteViewModel by activityViewModels()
     private val views = arrayOf("View 1")
+
+    private lateinit var startingLocation:com.example.abren.models.Location
+    private lateinit var destinationLocation:com.example.abren.models.Location
+    private lateinit var wayPointLocations:ArrayList<com.example.abren.models.Location>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
 
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,19 +43,48 @@ class DriverHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mListView = view.findViewById<View>(R.id.list_listView) as ListView
-        val adapter = MyAdapter(requireContext(),0)
-        adapter.addAll(*views)
-        mListView.adapter = adapter
+        routeViewModel.selectedRoute.observe(viewLifecycleOwner, Observer { route->
+            Log.d("Calling on listRoute",route.toString())
+        })
+//        val locationNameArray:Array<String> =
+//            arrayOf(arrayOf(startingLocation.displayName,destinationLocation.displayName,wayPointLocations[0].displayName).toString())
 
-//        view.findViewById<Button>(R.id.create_route_button).setOnClickListener{
-//            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
-//        }
+        val mListView = view.findViewById<View>(R.id.list_listView) as ListView
+
+        if(routeViewModel.createdRouteLiveData?.value != null) {
+
+            routeViewModel.createdRouteLiveData?.observe(viewLifecycleOwner, Observer { route ->
+                startingLocation = route.startingLocation!!
+                destinationLocation = route.destinationLocation!!
+                wayPointLocations = route.waypointLocations
+                Log.d("driver Home , Starting Location name =", startingLocation.displayName.toString())
+                Log.d("driver Home , Starting Location name =", startingLocation.name.toString())
+
+                var startingName = startingLocation.name.toString().substringBefore(",")
+                var destinationName = destinationLocation.name.toString().substringBefore(",")
+                var waypointName1 = wayPointLocations[0].name.toString().substringBefore(",")
+                var waypointName2 = wayPointLocations[1].name.toString().substringBefore(",")
+
+//                for (i in wayPointLocations.indices){
+//                   var name1 = wayPointLocations[i].name.toString().substringBefore(",")
+//                }
+                val adapter = MyAdapter(requireContext(), 0, startingName,waypointName1,waypointName2,destinationName)
+                adapter.addAll(*views)
+                mListView.adapter = adapter
+            })
+
+        }
+
+        view.findViewById<Button>(R.id.create_route_button).setOnClickListener{
+            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
+        }
     }
 
-    class MyAdapter(context: Context?, resource: Int) :
-        ArrayAdapter<String?>(context!!, resource) {
-        private val labels = arrayOf("5kilo", "Stadium", "Dembel", "WeloSefer", "Bole")
+    class MyAdapter(context: Context?, resource: Int, start:String,mid1:String,mid2:String,end:String) : ArrayAdapter<String?>(context!!, resource) {
+
+//        private val labels = arrayOf("Stadium", "Dembel", "WeloSefer", "Bole")
+        private val labels = arrayOf(start,mid1,mid2,end)
+
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var convertView = convertView
             val holder: MyAdapter.ViewHolder
@@ -65,7 +99,8 @@ class DriverHomeFragment : Fragment() {
             holder.mStepsView.setCompletedPosition(position % labels.size)
                 .setLabels(labels)
                 .setBarColorIndicator(
-                    context.resources.getColor(android.R.color.darker_gray))
+                    context.resources.getColor(android.R.color.darker_gray)
+                )
                 .setProgressColorIndicator(context.resources.getColor(R.color.orange))
                 .setLabelColorIndicator(context.resources.getColor(R.color.orange))
                 .drawView()
@@ -73,7 +108,7 @@ class DriverHomeFragment : Fragment() {
         }
 
         internal class ViewHolder(view: View?) {
-//            var mLabel: TextView
+            //            var mLabel: TextView
             var mStepsView: StepsView
 
             init {
