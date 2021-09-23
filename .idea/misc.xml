@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/content_rider_routes_home.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/layout_bg.xml" value="0.2203125" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml" value="0.25" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers_list_screen.xml" value="0.22" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_requested_drivers.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

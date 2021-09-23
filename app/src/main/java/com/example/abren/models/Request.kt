@@ -6,6 +6,9 @@ import com.google.gson.annotations.Expose
 data class Request(
     @Expose var _id: String? = null,
     @Expose var riderId: String? = null,
+    @Expose var riderGender: String? = null,
+    @Expose var riderAgeGroup: String? = null,
+    @Expose var riderRating: MutableList<Int>? = null,
     @Expose var riderLocation: Location? = null,
     @Expose var destination: Location? = null,
     @Expose var status: String? = null,

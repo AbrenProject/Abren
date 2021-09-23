@@ -113,7 +113,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/back_button1"
+                android:id="@+id/riderPrevButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                 style="@style/App_Button.drawableStart" />
 
             <Button
-                android:id="@+id/continue_button1"
+                android:id="@+id/riderNextButton"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

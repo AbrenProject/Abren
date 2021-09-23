@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,16 +24,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
-import com.example.abren.adapter.VehicleInformationAdapter
 import com.example.abren.models.VehicleInformation
-import com.example.abren.responses.AuthResponse
 
 
 const val MY_PERMISSIONS_REQUEST = 100
@@ -79,12 +73,12 @@ class RegisterForm1Fragment : Fragment() {
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
 
 
-        view.findViewById<Button>(R.id.back_button1).setOnClickListener {
+        view.findViewById<Button>(R.id.riderPrevButton).setOnClickListener {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
         // call registerUser network call when continue button clicked for rider
-        view.findViewById<Button>(R.id.continue_button1).setOnClickListener {
+        view.findViewById<Button>(R.id.riderNextButton).setOnClickListener {
             Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())

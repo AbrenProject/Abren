@@ -24,7 +24,7 @@ class RequestRepository {
     private val data = MutableLiveData<Request>()
 
     fun createRequest(request: Request, context: Context): MutableLiveData<Request> {
-        Log.i("Route Repo: Create Request" , request.toString())
+        Log.i("Request Repo: Create Request" , request.toString())
 
         prefs = context.getSharedPreferences("ABREN", Context.MODE_PRIVATE)
 
@@ -37,15 +37,15 @@ class RequestRepository {
                 val gson = Gson()
                 if (response.code() == 200) {
                     data.value = response.body()
-                    Log.d("Route Repo: On 200:", response.body().toString())
+                    Log.d("Request Repo: On 200:", response.body().toString())
                 }else {
-                    Log.d("Route Repo: Header = ", response.headers().toString())
+                    Log.d("Request Repo: Header = ", response.headers().toString())
 
                     if(response.code() != 401){
                         val errorResponse = gson.fromJson(response.errorBody()?.string(), BadRequestResponse::class.java)
-                        Log.d("Route Repo: Error Body", errorResponse.message)
+                        Log.d("Request Repo: Error Body", errorResponse.message)
                     }else{
-                        Log.d("Route Repo: Error - ", "Unauthorized")
+                        Log.d("Request Repo: Error - ", "Unauthorized")
                     }
                 }
             }

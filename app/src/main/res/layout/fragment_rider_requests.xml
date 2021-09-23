@@ -36,7 +36,7 @@
                     android:src="@drawable/profile_image" />
 
                 <TextView
-                    android:id="@+id/fullname_field"
+                    android:id="@+id/driverNumberText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -66,7 +66,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/genderType"
+                    android:id="@+id/driverGenderText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/gender"
@@ -81,7 +81,7 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/genderType"
+                    android:layout_below="@+id/driverGenderText1"
                     android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
@@ -90,7 +90,7 @@
                     android:textStyle="bold" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar3"
+                    android:id="@+id/driverRatingBar1"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/rating" />
@@ -108,7 +108,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/ageGroupType"
+                    android:id="@+id/driverAgeGroupText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ageGroup"
@@ -123,7 +123,7 @@
                     android:id="@+id/destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ageGroupType"
+                    android:layout_below="@+id/driverAgeGroupText1"
                     android:layout_marginLeft="175dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
@@ -165,7 +165,7 @@
         android:layout_marginTop="0dp">
 
         <Button
-            android:id="@+id/back_button1"
+            android:id="@+id/riderPrevButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
             style="@style/App_Button.left" />
 
         <Button
-            android:id="@+id/accept"
+            android:id="@+id/sendButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
             style="@style/App_Button.accept" />
 
         <Button
-            android:id="@+id/continue_button1"
+            android:id="@+id/riderNextButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

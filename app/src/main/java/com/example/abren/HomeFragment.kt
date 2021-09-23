@@ -169,6 +169,11 @@ class HomeFragment : Fragment() {
                             Log.d("LOCATION", "After location is null")
                         } else {
                             Log.d("LOCATION", "After location is not null")
+                            Toast.makeText(
+                                this.requireContext(),
+                                "Location Retrieved",
+                                Toast.LENGTH_LONG
+                            ).show()
                             requestViewModel.setRiderLocation(
                                 LocationModel(
                                     name = "",
@@ -192,6 +197,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
+        Log.d("LOCATION", "In request new location")
         val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 5
@@ -208,7 +214,13 @@ class HomeFragment : Fragment() {
 
     private val mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
+            Log.d("LOCATION", "In location result")
             val mLastLocation: Location = locationResult.lastLocation
+            Toast.makeText(
+                requireContext(),
+                "Location Retrieved",
+                Toast.LENGTH_LONG
+            ).show()
             requestViewModel.setRiderLocation(
                 LocationModel(
                     name = "",

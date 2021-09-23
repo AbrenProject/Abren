@@ -8,269 +8,210 @@
     >
 
 
-
-    <RelativeLayout
-        android:id="@+id/OTPcard"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="270dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="410dp"
         android:orientation="horizontal"
-        >
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="170dp"
-            android:layout_height="70dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="#FDFDFB"
-            android:elevation="20dp">
-
-
-            <TextView
-                android:id="@+id/otpField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:includeFontPadding="false"
-                android:text="OTP:"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-
-
-        </com.google.android.material.card.MaterialCardView>
+        <EditText
+            android:id="@+id/codeText"
+            style="@style/App_EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="5"
+            android:ems="10"
+            android:hint="Enter Code"
+            android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="200dp"
+            android:id="@+id/validateButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Validate"
-            android:backgroundTint="@color/orange"
-            android:layout_marginLeft="200dp"/>
-
-
-    </RelativeLayout>
-
+            android:layout_weight="1"
+            android:text="Validate" />
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/card"
+        android:id="@+id/acceptedCard"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#FDFDFB"
-            android:elevation="20dp">
+            android:background="#FDFDFB">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background=" #fed8b1">
-
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/profile_image" />
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/fullname_field"
+                    android:id="@+id/carMake2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/profile_image"
+                    android:layout_below="@+id/driverAgeGroupText3"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="175dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="0dp"
                     android:includeFontPadding="false"
-                    android:text="Driver 1"
+                    android:paddingBottom="5dp"
+                    android:text="Car Make:"
                     android:textColor="#000"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/Driverrating"
+                    android:id="@+id/driverCarLicenseNumberText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="200dp"
+                    android:layout_below="@+id/carLicenseNumber"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="175dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
                     android:includeFontPadding="false"
-                    android:paddingTop="5dp"
-                    android:text="Rating"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:paddingTop="5dp"
-                    android:layout_marginLeft="200dp"
-                     />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                    android:paddingBottom="5dp"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/gender"
+                    android:id="@+id/carLicenseNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/driverCarMakeText"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="175dp"
+                    android:layout_marginLeft="5dp"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="License Plate Number:"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/driverCarMakeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/carMake2"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="175dp"
+                    android:layout_marginLeft="0dp"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/carModel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/driverRatingBar3"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="Car Model:"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/driverCarModelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/carModel"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="0dp"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/gender3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Gender:"
-                    android:textSize="20sp"
+                    android:textColor="#000"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/genderType"
+                    android:id="@+id/driverGenderText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/gender"
+                    android:layout_below="@+id/gender3"
                     android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
-                    android:text="Female"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/carColor"
+                    android:id="@+id/rating3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/driverGenderText3"
                     android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
-                    android:layout_below="@+id/carColorLabel"
                     android:paddingBottom="5dp"
-                    android:text="Silver"
-                    android:textSize="15sp"
+                    android:text="Rating"
+                    android:textColor="#000"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
-
-
-                <TextView
-                    android:id="@+id/carColorLabel"
+                <RatingBar
+                    android:id="@+id/driverRatingBar3"
+                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/rating3"
                     android:layout_marginLeft="5dp"
-                    android:layout_below="@+id/genderType"
-                    android:includeFontPadding="false"
-                    android:paddingBottom="5dp"
-                    android:text="Car Color"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:numStars="5" />
 
                 <TextView
-                    android:id="@+id/carTypeLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_below="@id/carColor"
-                    android:includeFontPadding="false"
-                    android:paddingBottom="5dp"
-                    android:text="Car Type"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/carType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:includeFontPadding="false"
-                    android:layout_below="@+id/carTypeLabel"
-                    android:paddingBottom="5dp"
-                    android:text="Vitz"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/carLiscenceLabel"
+                    android:id="@+id/ageGroup3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="175dp"
-                    android:layout_below="@id/destinationAnswer"
-                    android:includeFontPadding="false"
-                    android:paddingBottom="5dp"
-                    android:text="Liscence Plate"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/carLiscence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="175dp"
-                    android:includeFontPadding="false"
-                    android:layout_below="@id/carLiscenceLabel"
-                    android:paddingBottom="5dp"
-                    android:text="XXXXXXXXXXXXXX"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/ageGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="175dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Age Group:"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-
-
-                <TextView
-                    android:id="@+id/ageGroupType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ageGroup"
-                    android:layout_marginLeft="175dp"
-                    android:includeFontPadding="false"
-                    android:paddingBottom="5dp"
-                    android:text="18-25"
-                    android:textSize="15sp"
+                    android:textColor="#000"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/destination"
+                    android:id="@+id/driverAgeGroupText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ageGroupType"
+                    android:layout_below="@+id/ageGroup3"
                     android:layout_marginLeft="175dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
-                    android:text="Destination:"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/destinationAnswer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/destination"
-                    android:layout_marginLeft="175dp"
-                    android:includeFontPadding="false"
-                    android:paddingBottom="5dp"
-                    android:text="Roba Bakery"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
 
             </RelativeLayout>
@@ -279,13 +220,7 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-
-
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>
 
