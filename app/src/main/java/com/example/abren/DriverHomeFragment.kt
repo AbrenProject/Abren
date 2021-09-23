@@ -2,6 +2,7 @@ package com.example.abren
 
 import android.os.Bundle
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,11 +17,10 @@ import com.anton46.stepsview.StepsView
 import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.RouteViewModel
 
-//private lateinit var startingLocation:com.example.abren.models.Location
-//private lateinit var destinationLocation:com.example.abren.models.Location
-//private lateinit var wayPointLocations:ArrayList<com.example.abren.models.Location>
-
 class DriverHomeFragment : Fragment() {
+
+    lateinit var sharedPrefs: SharedPreferences
+    private val PREF_NAME = "route_names"
 
     private val routeViewModel: RouteViewModel by activityViewModels()
     private val views = arrayOf("View 1")
@@ -29,10 +29,6 @@ class DriverHomeFragment : Fragment() {
     private lateinit var destinationLocation:com.example.abren.models.Location
     private lateinit var wayPointLocations:ArrayList<com.example.abren.models.Location>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +38,11 @@ class DriverHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val PREF_START_NAME = "startPreference"
+        val PREF_MIDDLE_NAME1 = "middlePreference1"
+        val PREF_MIDDLE_NAME2 = "middlePreference2"
+        val PREF_DEST_NAME = "destPreference"
 
         routeViewModel.selectedRoute.observe(viewLifecycleOwner, Observer { route->
             Log.d("Calling on listRoute",route.toString())
@@ -68,7 +69,19 @@ class DriverHomeFragment : Fragment() {
 //                for (i in wayPointLocations.indices){
 //                   var name1 = wayPointLocations[i].name.toString().substringBefore(",")
 //                }
-                val adapter = MyAdapter(requireContext(), 0, startingName,waypointName1,waypointName2,destinationName)
+
+                sharedPrefs = requireContext().getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+                sharedPrefs.edit().putString(PREF_START_NAME, startingName).apply()
+                sharedPrefs.edit().putString(PREF_MIDDLE_NAME1, waypointName1).apply()
+                sharedPrefs.edit().putString(PREF_MIDDLE_NAME2, waypointName2).apply()
+                sharedPrefs.edit().putString(PREF_DEST_NAME, destinationName).apply()
+
+                val namesPref1 = sharedPrefs.getString(PREF_START_NAME,"entoto")
+                val namesPref2 = sharedPrefs.getString(PREF_MIDDLE_NAME1,"6 Kilo")
+                val namesPref3 = sharedPrefs.getString(PREF_MIDDLE_NAME2,"4 kilo")
+                val namesPref4 = sharedPrefs.getString(PREF_DEST_NAME,"stadium")
+
+                val adapter = MyAdapter(requireContext(), 0,namesPref1!!,namesPref2!!,namesPref3!!,namesPref4!!)
                 adapter.addAll(*views)
                 mListView.adapter = adapter
             })
@@ -79,6 +92,8 @@ class DriverHomeFragment : Fragment() {
             findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
         }
     }
+
+
 
     class MyAdapter(context: Context?, resource: Int, start:String,mid1:String,mid2:String,end:String) : ArrayAdapter<String?>(context!!, resource) {
 
