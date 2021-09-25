@@ -7,11 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ListView
-import android.widget.TextView
 import com.anton46.stepsview.StepsView
-import androidx.navigation.fragment.findNavController
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -78,7 +75,7 @@ class DriverHomeFragment : Fragment() {
 
             init {
 //                mLabel = view!!.findViewById<View>(R.id.label) as TextView
-                mStepsView = view?.findViewById<View>(R.id.stepsView) as StepsView
+                mStepsView = view?.findViewById<View>(R.id.routeView) as StepsView
 //                mLabel.rotation = (-45).toFloat()
             }
         }

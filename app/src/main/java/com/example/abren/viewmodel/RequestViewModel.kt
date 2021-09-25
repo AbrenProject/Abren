@@ -17,14 +17,12 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
     val selectedRequest: LiveData<Request> get() = mutableSelectedRequest
 
     var createdRequestLiveData: MutableLiveData<Request>? = null
+    var acceptedRequestLiveData: MutableLiveData<Request>? = null
 
     init {
         requestRepository = RequestRepository()
         createdRequestLiveData = MutableLiveData()
-    }
-
-    fun createRequest(request: Request, context: Context) {
-        createdRequestLiveData = requestRepository?.createRequest(request, context)
+        acceptedRequestLiveData = MutableLiveData()
     }
 
     fun setRequest(request: Request) {
@@ -37,5 +35,17 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
 
     fun setDestination(location: Location) {
         mutableSelectedRequest.value?.destination = location
+    }
+
+    fun createRequest(request: Request, context: Context) {
+        createdRequestLiveData = requestRepository?.createRequest(request, context)
+    }
+
+    fun sendRequest(requestId: String, rideId: String, context: Context) {
+        requestRepository?.sendRequest(requestId, rideId, context)
+    }
+
+    fun startRide(requestId: String, otp: String, context: Context) {
+        acceptedRequestLiveData = requestRepository?.startRide(requestId, otp, context)
     }
 }

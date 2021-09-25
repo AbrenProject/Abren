@@ -1,17 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/finishedLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="410dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:visibility="invisible">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FDFDFB"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/ended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="The Ride has Ended."
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FDFDFB"
+            android:padding="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/amountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="0 birr"
+                    android:textColor="@color/orange"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="has been deducted from  your account"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FDFDFB"
+            android:padding="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="Please rate the driver:"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:numStars="5" />
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rate" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingTop="5dp"
@@ -23,30 +147,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_weight="5"
             android:ems="10"
             android:hint="Enter Code"
             android:inputType="textPersonName" />
 
-        <Button
+        <ImageButton
             android:id="@+id/validateButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Validate" />
+            android:background="@color/orange"
+            android:src="@drawable/ic_continue" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/acceptedCard"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:paddingRight="10dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="170dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="#FDFDFB">
@@ -58,7 +183,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/carMake2"
+                    android:id="@+id/carMake"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/driverAgeGroupText3"
@@ -70,7 +195,7 @@
                     android:paddingBottom="5dp"
                     android:text="Car Make:"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,7 +210,7 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/carLicenseNumber"
@@ -99,21 +224,21 @@
                     android:paddingBottom="5dp"
                     android:text="License Plate Number:"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/driverCarMakeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/carMake2"
+                    android:layout_below="@+id/carMake"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="175dp"
                     android:layout_marginLeft="0dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/carModel"
@@ -127,7 +252,7 @@
                     android:paddingBottom="5dp"
                     android:text="Car Model:"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -141,7 +266,7 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/gender3"
@@ -153,7 +278,7 @@
                     android:paddingBottom="5dp"
                     android:text="Gender:"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -165,7 +290,7 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/rating3"
@@ -177,7 +302,7 @@
                     android:paddingBottom="5dp"
                     android:text="Rating"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <RatingBar
@@ -199,7 +324,7 @@
                     android:paddingBottom="5dp"
                     android:text="Age Group:"
                     android:textColor="#000"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -211,10 +336,59 @@
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/route3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/driverCarModelText"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:includeFontPadding="false"
+                    android:paddingBottom="5dp"
+                    android:text="Route:"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/route3"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/routeStartText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Start"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/routeWaypointText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Waypoints" />
+
+                    <TextView
+                        android:id="@+id/routeDestinationText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Destination"
+                        android:textColor="@color/orange"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
 
             </RelativeLayout>
+
+
 
 
         </com.google.android.material.card.MaterialCardView>
