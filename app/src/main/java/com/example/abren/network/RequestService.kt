@@ -22,4 +22,11 @@ interface RequestService {
         @Query("otp") otp: String,
         @Header("Authorization") token: String
     ): Call<Request>
+
+    @GET("/api/requests/")
+    fun getRequests(
+        @Path("id") requestId:String,
+        @Path("riderId") rideId: String,
+        @Header("Authorization") token: String
+    ): Call<Request>
 }

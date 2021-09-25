@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Location
+import com.example.abren.models.Ride
 import com.example.abren.models.Route
 import com.example.abren.network.RetrofitClient
 import com.example.abren.network.RideService
@@ -63,4 +64,16 @@ class RideRepository {
 
         return nearbyData
     }
+
+    fun acceptedRide(requestId: String, context: Context) {
+
+
+    }
+
+
+
+
+
+
+
 }

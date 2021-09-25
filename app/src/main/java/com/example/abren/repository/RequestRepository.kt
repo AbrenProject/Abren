@@ -25,6 +25,7 @@ class RequestRepository {
     private val data = MutableLiveData<Request>()
     private val acceptedRequestData = MutableLiveData<Request>()
     private val rideData = MutableLiveData<Ride>()
+    private val requestData = MutableLiveData<Request>()
 
     fun createRequest(request: Request, context: Context): MutableLiveData<Request> {
         Log.i("Request Repo: Create Request" , request.toString())
@@ -86,6 +87,38 @@ class RequestRepository {
         })
 
         return rideData
+    }
+
+
+    fun getRequests(requestId: String, rideId: String, context: Context): MutableLiveData<Request> {
+        Log.i("Request Repo: Send Request" , requestId)
+
+        prefs = context.getSharedPreferences("ABREN", Context.MODE_PRIVATE)
+
+        requestService?.getRequests(requestId, rideId, "Bearer ${prefs.getString("TOKEN", null)}")?.enqueue(object : Callback<Request> {
+            override fun onFailure(call: Call<Request>, t: Throwable) {
+                Log.d("Request Repo: ONFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Request>, response: Response<Request>) {
+                val gson = Gson()
+                if (response.code() == 200) {
+                    requestData.value = response.body()
+                    Log.d("Request Repo: On 200:", response.body().toString())
+                }else {
+                    Log.d("Request Repo: Header = ", response.headers().toString())
+
+                    if(response.code() != 401){
+                        val errorResponse = gson.fromJson(response.errorBody()?.string(), BadRequestResponse::class.java)
+                        Log.d("Request Repo: Error Body", errorResponse.message)
+                    }else{
+                        Log.d("Request Repo: Error - ", "Unauthorized")
+                    }
+                }
+            }
+        })
+
+        return requestData
     }
 
     fun startRide(requestId: String, otp: String, context: Context): MutableLiveData<Request> {

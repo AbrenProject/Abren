@@ -43,15 +43,15 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
         val noOfRequestedRidersText = view.findViewById<TextView>(R.id.noOfRequestedRidersText)
 
 
-        requestViewModel.currentRequestedRidesLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+        requestViewModel.requestedLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRequestedRides?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRidersRequest?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index != requests.requested.size - 1
+                        nextButton.isEnabled = index > 0 && index != requests.requested.size - 1
 
                         if(!requests.requestedRides.isNullOrEmpty()){
-                            noOfRequestedRiders.text = requests.requestedRides.size.toString()
+                            noOfRequestedRiders.text = requests.requested.size.toString()
                             val current = requests.requested[index]
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
@@ -74,7 +74,7 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
         })
 
         acceptButton.setOnClickListener {
-           // makeApiCall()
+            makeAcceptedRequestApiCall()
         }
 
         nextButton.setOnClickListener {
@@ -96,21 +96,10 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
         return (prod.toFloat()) / ratingInput.sum()
     }
 
-//    private fun makeApiCall() {
-//        Log.d("RIDE", "Making api call")
-//
-//        requestViewModel.currentRequestedRidesLiveData?.observe(viewLifecycleOwner, Observer { request ->
-//            if (request != null) {
-//                Log.d("RIDE", "Making api call after observe")
-//                requestViewModel.fetchNearbyRides(request._id!!, request.riderLocation!!, requireContext())
-//            } else {
-//                Log.d("RIDE", "Problem in making api call")
-//                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        }
-//        )
-//    }
+    private fun makeAcceptedRequestApiCall() {
+
+        })
+    }
 
 
     }

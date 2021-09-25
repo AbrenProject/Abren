@@ -38,15 +38,15 @@ class AcceptedRidersFragment:Fragment(R.layout.fragment_rider_accepted) {
         val riderDestinationAnswer = view.findViewById<TextView>(R.id.riderDestinationAnswer)
 
 
-        requestViewModel.currentRequestedRidesLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+        requestViewModel.acceptedRequestLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRequestedRides?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index != requests.accepted.size - 1
+                        nextButton.isEnabled = index > 0 && index != requests.accepted.size - 1
 
                         if(!requests.requestedRides.isNullOrEmpty()){
-                            val current = requests.requested[index]
+                            val current = requests.accepted[index]
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
                             riderRatingBar.rating = calculateRating(current?.riderRating!!)
