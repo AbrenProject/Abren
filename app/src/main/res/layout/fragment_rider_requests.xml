@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="500dp"
         android:padding="10dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -24,33 +24,6 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background=" #fed8b1"
-                android:padding="10dp">
-
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/profile_image" />
-
-                <TextView
-                    android:id="@+id/driverNumberText1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/profile_image"
-                    android:includeFontPadding="false"
-                    android:text="Rider 1"
-                    android:textColor="#000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -58,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="10dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Gender:"
@@ -90,17 +63,20 @@
                     android:textStyle="bold" />
 
                 <RatingBar
-                    android:id="@+id/driverRatingBar1"
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/rating" />
+                    android:id="@+id/driverRatingBar3"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rating"
+                    android:layout_marginLeft="5dp"
+                    android:numStars="5" />
 
                 <TextView
                     android:id="@+id/ageGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="175dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="10dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
                     android:text="Age Group:"
