@@ -41,7 +41,7 @@ class RideRepository {
                 val gson = Gson()
                 if (response.code() == 200) {
                     nearbyData.value = response.body()
-                    Log.d("Ride Repo: On 200:", response.body().toString())
+//                    Log.d("Ride Repo: On 200:", response.body().toString())
                 }else {
                     nearbyData.value = null //TODO: Do for others too
                     Log.d("Ride Repo: Header = ", response.headers().toString())

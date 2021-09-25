@@ -1,26 +1,25 @@
 package com.example.abren.network
 
 import com.example.abren.models.Request
+import com.example.abren.models.Ride
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RequestService {
     @POST("requests")
     fun createRequest(@Body request: Request, @Header("Authorization") token: String): Call<Request>
 
-    @GET("api/requests/current/{id}")
-    fun getRequests() {
-    }
+    @PUT("requests/{id}")
+    fun sendRequest(
+        @Path("id") requestId: String,
+        @Query("rideId") rideId: String,
+        @Header("Authorization") token: String
+    ): Call<Ride>
 
+    @POST("requests/start/{id}")
+    fun startRide(
+        @Path("id") requestId: String,
+        @Query("otp") otp: String,
+        @Header("Authorization") token: String
+    ): Call<Request>
 }
-
-
-//Inputs:
-//Required:
-//name: String
-//latitude: Double
-//longitude: Double
-

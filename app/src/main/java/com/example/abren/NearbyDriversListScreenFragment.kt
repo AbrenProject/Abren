@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.anton46.stepsview.StepsView
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
 
@@ -41,23 +42,38 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         val genderText = view.findViewById<TextView>(R.id.driverGenderText1)
         val ageGroupText = view.findViewById<TextView>(R.id.driverAgeGroupText1)
         val ratingBar = view.findViewById<RatingBar>(R.id.driverRatingBar1)
+        val routeStartText = view.findViewById<TextView>(R.id.routeStartText)
+        val routeWaypointText = view.findViewById<TextView>(R.id.routeWaypointText)
+        val routeDestinationText = view.findViewById<TextView>(R.id.routeDestinationText)
         val numberText = view.findViewById<TextView>(R.id.driverNumberText1)
         val nearbyCountText = view.findViewById<TextView>(R.id.nearbyCountText)
+
+        val routeView = view.findViewById<StepsView>(R.id.routeView)
 
         rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
             if (rides != null) {
                 rideViewModel.currentNearby?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index != rides.nearby.size - 1
+                        nextButton.isEnabled = index >= 0 && index != rides.nearby.size - 1
 
-                        if(!rides.nearby.isNullOrEmpty()){
+                        if (!rides.nearby.isNullOrEmpty()) {
                             nearbyCountText.text = rides.nearby.size.toString()
                             val current = rides.nearby[index]
                             numberText.text = "${index + 1}"
                             genderText.text = current?.driverGender
                             ageGroupText.text = current?.driverAgeGroup
                             ratingBar.rating = calculateRating(current?.driverRating!!)
+
+                            routeWaypointText.text = ""
+
+                            for(i in 0 until current.route?.waypointLocations?.size!!){
+                                routeWaypointText.text = routeWaypointText.text.toString() + "${current.route?.waypointLocations?.get(i)?.name!!} > "
+                            }
+
+                            routeStartText.text = "${current.route?.startingLocation?.name!!} > "
+                            routeDestinationText.text = "${current.route?.destinationLocation?.name!!}"
+
                         }
                     } else {
                         Toast.makeText(
@@ -75,7 +91,7 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         })
 
         sendButton.setOnClickListener {
-            makeApiCall()
+            makeSendRequestApiCall()
         }
 
         nextButton.setOnClickListener {
@@ -89,27 +105,29 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
 
     private fun calculateRating(ratingInput: MutableList<Int>): Float {
         var prod = 0
-        for(i in 0 until ratingInput.size){
-            prod += ((i+1) * ratingInput[i])
+        for (i in 0 until ratingInput.size) {
+            prod += ((i + 1) * ratingInput[i])
         }
 
         return (prod.toFloat()) / ratingInput.sum()
     }
 
-    private fun makeApiCall() {
-        Log.d("RIDE", "Making api call")
+    private fun makeSendRequestApiCall() {
+        Log.d("REQUEST", "Making api call - send request")
 
         requestViewModel.createdRequestLiveData?.observe(viewLifecycleOwner, Observer { request ->
-            if (request != null) {
-                Log.d("RIDE", "Making api call after observe")
-                rideViewModel.fetchNearbyRides(request._id!!, request.riderLocation!!, requireContext())
+            if (request != null && rideViewModel.nearbyRidesLiveData?.value?.nearby?.size != 0) {
+                requestViewModel.sendRequest(
+                    request._id!!,
+                    rideViewModel.nearbyRidesLiveData?.value?.nearby?.get(rideViewModel.currentNearby?.value!!)?._id!!,
+                    requireContext()
+                )
             } else {
-                Log.d("RIDE", "Problem in making api call")
-                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
-                    .show()
+                Log.d("REQUEST", "Problem in making api call")
+//                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
+//                    .show()
             }
-        }
-        )
+        })
     }
 }
 

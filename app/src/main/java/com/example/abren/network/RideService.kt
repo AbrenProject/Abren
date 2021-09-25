@@ -7,5 +7,10 @@ import retrofit2.http.*
 
 interface RideService {
     @POST("rides/nearby/{id}")
-    fun fetchNearbyRides(@Path("id") requestId: String, @Body location: Location, @Header("Authorization") token: String): Call<RidesResponse>
+    fun fetchNearbyRides(
+        @Path("id") requestId: String,
+        @Body location: Location,
+        @Header("Authorization") token: String
+    ): Call<RidesResponse>
+
 }

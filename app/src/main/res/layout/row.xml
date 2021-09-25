@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
         <com.anton46.stepsview.StepsView
-            android:id="@+id/stepsView"
+            android:id="@+id/routeView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/app_margin" />

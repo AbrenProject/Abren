@@ -12,37 +12,19 @@ import com.example.abren.repository.RequestRepository
 
 class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
 
-
     private var requestRepository: RequestRepository? = null
     private val mutableSelectedRequest = MutableLiveData<Request>()
     val selectedRequest: LiveData<Request> get() = mutableSelectedRequest
-    var currentRequestedRides: MutableLiveData<Int>? = null
-    var currentRequested: MutableLiveData<Int>? = null
-
 
     var createdRequestLiveData: MutableLiveData<Request>? = null
-    var currentRequestedRidesLiveData: MutableLiveData<Request?>? = null
+    var acceptedRequestLiveData: MutableLiveData<Request>? = null
 
     init {
         requestRepository = RequestRepository()
         createdRequestLiveData = MutableLiveData()
-        currentRequested = MutableLiveData()
-        currentRequested?.value = 0
+        acceptedRequestLiveData = MutableLiveData()
     }
 
-    fun createRequest(request: Request, context: Context) {
-        createdRequestLiveData = requestRepository?.createRequest(request, context)
-    }
-    fun getRequests(requestId: String, location: Location, context: Context) {
-        currentRequestedRidesLiveData = requestRepository?.getRequests(requestId, location, context)
-    }
-    fun setNextRequested() {
-        currentRequested?.value = currentRequested?.value?.plus(1)
-    }
-
-    fun setPrevRequested() {
-        currentRequested?.value = currentRequested?.value?.minus(1)
-    }
     fun setRequest(request: Request) {
         mutableSelectedRequest.value = request
     }
@@ -53,5 +35,17 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
 
     fun setDestination(location: Location) {
         mutableSelectedRequest.value?.destination = location
+    }
+
+    fun createRequest(request: Request, context: Context) {
+        createdRequestLiveData = requestRepository?.createRequest(request, context)
+    }
+
+    fun sendRequest(requestId: String, rideId: String, context: Context) {
+        requestRepository?.sendRequest(requestId, rideId, context)
+    }
+
+    fun startRide(requestId: String, otp: String, context: Context) {
+        acceptedRequestLiveData = requestRepository?.startRide(requestId, otp, context)
     }
 }
