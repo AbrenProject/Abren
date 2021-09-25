@@ -17,3 +17,4 @@ data class Request(
     var updatedAt: LocalDateTime = LocalDateTime.now(),
     var deletedAt: LocalDateTime? = null
 )
+

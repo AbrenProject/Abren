@@ -6,11 +6,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="450dp"
+        android:background="@drawable/layout_bg"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/noOfRequestedRiders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/orange"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/noOfRequestedRidersText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="#FFFFFF"
+            android:text="Requests"
+            android:textColor="#000"
+            android:textSize="17sp" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp">
 
         <com.google.android.material.card.MaterialCardView
@@ -39,7 +68,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverGenderText1"
+                    android:id="@+id/riderGenderText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/gender"
@@ -54,7 +83,7 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverGenderText1"
+                    android:layout_below="@+id/riderGenderText"
                     android:layout_marginLeft="5dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
@@ -63,7 +92,7 @@
                     android:textStyle="bold" />
 
                 <RatingBar
-                    android:id="@+id/driverRatingBar3"
+                    android:id="@+id/riderRatingBar"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +113,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverAgeGroupText1"
+                    android:id="@+id/riderAgeGroupText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ageGroup"
@@ -99,7 +128,7 @@
                     android:id="@+id/destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverAgeGroupText1"
+                    android:layout_below="@+id/riderAgeGroupText"
                     android:layout_marginLeft="175dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
@@ -108,7 +137,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/destinationAnswer"
+                    android:id="@+id/riderDestinationAnswer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/destination"
@@ -150,7 +179,7 @@
             style="@style/App_Button.left" />
 
         <Button
-            android:id="@+id/sendButton"
+            android:id="@+id/acceptButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

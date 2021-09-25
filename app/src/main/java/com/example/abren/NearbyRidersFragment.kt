@@ -5,13 +5,24 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
+import com.example.abren.models.Location
+import com.example.abren.viewmodel.RequestViewModel
+import com.example.abren.viewmodel.RideViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
@@ -21,7 +32,7 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
-import kotlinx.android.synthetic.main.fragment_accepted.*
+
 
 class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListener {
 
@@ -30,6 +41,20 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
     private var permissionManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
 
+    private lateinit var tabAdapter: DriverTabPageAdapter
+    private lateinit var viewPager: ViewPager2
+
+    private val requestViewModel: RequestViewModel by activityViewModels()
+    private val rideViewModel: RideViewModel by activityViewModels()
+
+    val locationHandler = Handler(Looper.getMainLooper())
+
+    private val apiCallTask = object : Runnable {
+        override fun run() {
+            makeApiCall()
+            locationHandler.postDelayed(this, 5000)
+        }
+    }
 
 
     override fun onCreateView(
@@ -54,9 +79,37 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync(this)
 //            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-//                // add data or make other map adjustments
+//                //
+    //add data or make other map adjustments
 //            }
+
+        tabAdapter = DriverTabPageAdapter(this, 3)
+        viewPager = view.findViewById(R.id.viewPager)
+        viewPager.adapter = tabAdapter
+//
+        val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Requested"
+                1 -> "Accepted"
+                else -> "Requested"
+            }
+
+            tab.icon =
+                when (position) {
+                    0 -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_requested)
+                    1 -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_accepted)
+                    else -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_requested)
+                }
+        }.attach()
+
+
+        locationHandler.post(apiCallTask)
     }
+
+
+
+
 
 
     override fun onMapReady(mapboxMap: MapboxMap) {
@@ -135,6 +188,38 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
     }
 
 
+    private fun makeApiCall() {
+        Log.d("RIDE", "Making api call")
+
+        requestViewModel.createdRequestLiveData?.observe(viewLifecycleOwner, Observer { request ->
+            if (request != null) {
+                Log.d("RIDE", "Making api call after observe")
+
+                if(locationComponent == null){
+                    rideViewModel.fetchNearbyRides(
+                        request._id!!,
+                        request.riderLocation!!,
+                        requireContext()
+                    )
+                }else{
+                    val currentLocation = locationComponent?.lastKnownLocation
+                    val location = Location(name=" ", latitude = currentLocation?.latitude, longitude = currentLocation?.longitude)
+                    rideViewModel.fetchNearbyRides(
+                        request._id!!,
+                        location,
+                        requireContext()
+                    )
+                }
+            } else {
+                Log.d("RIDE", "Problem in making api call")
+                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        )
+    }
+
+
     override fun onStart() {
         super.onStart()
         mapView?.onStart()
@@ -142,16 +227,19 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
 
     override fun onResume() {
         super.onResume()
+        locationHandler.post(apiCallTask)
         mapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
+        locationHandler.removeCallbacks(apiCallTask)
         mapView?.onPause()
     }
 
     override fun onStop() {
         super.onStop()
+        locationHandler.removeCallbacks(apiCallTask)
         mapView?.onStop()
     }
 
@@ -167,8 +255,12 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
 
     override fun onDestroyView() {
         super.onDestroyView()
+//        locationHandler.removeCallbacks(apiCallTask)
         mapView?.onDestroy()
     }
+
+
+
 
 }
 
