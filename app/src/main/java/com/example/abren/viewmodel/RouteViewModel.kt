@@ -15,6 +15,7 @@ class RouteViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     val selectedRoute: LiveData<Route> get() = mutableSelectedRoute
 
     var createdRouteLiveData: MutableLiveData<Route>? = null
+    var createdRouteLiveDataList: MutableLiveData<List<Route>>? = null
 
     init {
         routeRepository = RouteRepository()
@@ -40,5 +41,9 @@ class RouteViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
 
     fun addWaypointLocation(location: Location) {
         mutableSelectedRoute.value?.waypointLocations?.add(location)
+    }
+
+    fun listRoutes(context: Context){
+        createdRouteLiveDataList = routeRepository?.listRoutes(context)
     }
 }

@@ -13,5 +13,5 @@ interface RouteService {
     fun createRoute(@Body route: Route, @Header("Authorization") token: String): Call<Route>
 
     @GET("routes")
-    fun listRoutes():Call<Route>
+    fun listRoutes(@Header("Authorization") token: String):Call<List<Route>>
 }
