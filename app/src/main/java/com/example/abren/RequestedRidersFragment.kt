@@ -100,13 +100,13 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
     private fun makeAcceptedRequestApiCall() {
         Log.d("REQUEST", "Making api call - accept request")
 
-        rideViewModel.acceptedRidesLiveData?.observe(viewLifecycleOwner, Observer { ride->
-            if (ride != null) {
-//                rideViewModel.acceptRides(
-//
-//
-//
-//                )
+        rideViewModel.acceptedRide?.observe(viewLifecycleOwner, Observer { ride->
+            if (ride != null&& requestViewModel.acceptedRiderRequestLiveData?.value?.accepted?.size != 0) {
+                 rideViewModel.acceptRide(
+                     ride._id!!,
+                     requestViewModel.acceptedRiderRequestLiveData?.value?.accepted?.get(rideViewModel.currentAcceptedRequest?.value!!)?._id!!,
+                     requireContext()
+                 )
             } else {
                 Log.d("REQUEST", "Problem in making api call")
                 Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
@@ -115,8 +115,7 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
         })
     }
 
-
-        }
+}
 
 
 

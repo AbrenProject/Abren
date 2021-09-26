@@ -26,6 +26,7 @@ class RideRepository {
 
     private val nearbyData = MutableLiveData<RidesResponse?>()
     private val createdData = MutableLiveData<Ride?>()
+    private val acceptedData = MutableLiveData<Ride?>()
 
     fun fetchNearbyRides(
         requestId: String,
@@ -116,12 +117,43 @@ class RideRepository {
         return createdData
     }
 
-    fun acceptedRide(requestId: String, context: Context) {
+    fun acceptRide(rideId: String, requestId: String, context: Context) : MutableLiveData<Ride?> {
 
+        prefs = context.getSharedPreferences("ABREN", Context.MODE_PRIVATE)
 
+        rideService?.acceptRide(rideId, requestId, "Bearer ${prefs.getString("TOKEN", null)}")?.enqueue(object :
+            Callback<Ride> {
+
+            override fun onFailure(call: Call<Ride>, t: Throwable) {
+                Log.d("Ride Repo: ONFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Ride>, response: Response<Ride>) {
+                val gson = Gson()
+                if (response.code() == 200) {
+                    acceptedData.value = response.body()
+//                    Log.d("Ride Repo: On 200:", response.body().toString())
+                }else {
+                    acceptedData.value = null //TODO: Do for others too
+                    Log.d("Ride Repo: Header = ", response.headers().toString())
+
+                    if(response.code() != 401){
+                        val errorResponse = gson.fromJson(response.errorBody()?.string(), BadRequestResponse::class.java)
+                        if(errorResponse != null){
+                            Log.d("Ride Repo: Error Body", errorResponse.message)
+                        }else{
+                            Log.d("Ride Repo: ", "Unknown Error")
+                        }
+
+                    }else{
+                        Log.d("Ride Repo: Error - ", "Unauthorized")
+                    }
+                }
+            }
+        })
+
+        return acceptedData
     }
-
-
 
 
 
