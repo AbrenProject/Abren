@@ -21,7 +21,9 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     var nearbyRidesLiveData: MutableLiveData<RidesResponse?>? = null
     var currentNearby: MutableLiveData<Int>? = null
     var currentRequested: MutableLiveData<Int>? = null
+    var currentAcceptedRequest: MutableLiveData<Int>? = null
     var acceptedRidesLiveData: MutableLiveData<RidesResponse?>? = null
+    var acceptedRide: MutableLiveData<Ride?>? = null
 
     init {
         rideRepository = RideRepository()
@@ -31,6 +33,8 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         currentRequested = MutableLiveData()
         currentRequested?.value = 0
         acceptedRidesLiveData = MutableLiveData()
+        acceptedRide = MutableLiveData()
+        currentAcceptedRequest = MutableLiveData()
     }
 
     fun fetchNearbyRides(requestId: String, location: Location, context: Context) {
@@ -53,9 +57,9 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         currentRequested?.value = currentRequested?.value?.minus(1)
     }
 
-    fun acceptRides(rideId: String, context: Context)
+    fun acceptRide(rideId: String, requestId: String, context: Context)
     {
-
+        acceptedRide = rideRepository?.acceptRide(rideId, requestId, context)
 
     }
 }

@@ -14,9 +14,11 @@ interface RideService {
         @Header("Authorization") token: String
     ): Call<RidesResponse>
 
-    @PUT("/api/requests/{id}")
-            fun acceptedRide(
+    @PUT("/api/rides/{id}")
+            fun acceptRide(
+
         @Query("rideId") rideId: String,
+        @Path("request") requestId: String,
         @Header("Authorization") token: String
     ): Call<Ride>
 
