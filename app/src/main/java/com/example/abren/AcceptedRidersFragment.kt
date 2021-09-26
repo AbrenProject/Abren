@@ -38,19 +38,23 @@ class AcceptedRidersFragment:Fragment(R.layout.fragment_rider_accepted) {
         val riderDestinationAnswer = view.findViewById<TextView>(R.id.riderDestinationAnswer)
 
 
-        requestViewModel.acceptedRequestLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+
+
+
+        requestViewModel.acceptedRiderRequestLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRiderAcceptedRequest?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
                         nextButton.isEnabled = index > 0 && index != requests.accepted.size - 1
 
-                        if(!requests.requestedRides.isNullOrEmpty()){
+                        if(!requests.accepted.isNullOrEmpty()){
                             val current = requests.accepted[index]
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
                             riderRatingBar.rating = calculateRating(current?.riderRating!!)
-                            riderDestinationAnswer.text= current?.riderDestination
+                            riderDestinationAnswer.text= current?.destination.toString()
+                         //   otpDetail.text= rideViewModel.acceptedRidesLiveData?
                         }
                     } else {
                         Toast.makeText(
@@ -65,7 +69,13 @@ class AcceptedRidersFragment:Fragment(R.layout.fragment_rider_accepted) {
                 Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
                     .show()
             }
-        })
+        }
+
+        )
+
+
+
+
 
         nextButton.setOnClickListener {
             requestViewModel.setNextRequested()
@@ -87,4 +97,10 @@ class AcceptedRidersFragment:Fragment(R.layout.fragment_rider_accepted) {
         return (prod.toFloat()) / ratingInput.sum()
     }
 
-}
+
+
+    }
+
+
+
+

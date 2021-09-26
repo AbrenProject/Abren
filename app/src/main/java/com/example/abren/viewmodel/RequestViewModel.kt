@@ -19,18 +19,24 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
     val selectedRequest: LiveData<Request> get() = mutableSelectedRequest
     var currentRequested: MutableLiveData<Int>? = null
     var currentRidersRequest: MutableLiveData<Int>? =null
+    var currentRiderAcceptedRequest: MutableLiveData<Int>? =null
     var createdRequestLiveData: MutableLiveData<Request>? = null
     var acceptedRequestLiveData: MutableLiveData<Request>? = null
     var requestedLiveData:  MutableLiveData<RequestsResponse?>? = null
+    var acceptedRiderRequestLiveData:  MutableLiveData<RequestsResponse?>? = null
 
     init {
         requestRepository = RequestRepository()
         createdRequestLiveData = MutableLiveData()
         acceptedRequestLiveData = MutableLiveData()
+        acceptedRiderRequestLiveData = MutableLiveData()
         currentRequested = MutableLiveData()
         currentRequested?.value = 0
         requestedLiveData = MutableLiveData()
         currentRidersRequest = MutableLiveData()
+        currentRiderAcceptedRequest = MutableLiveData()
+
+
 
     }
 
@@ -55,7 +61,7 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
     }
 
     fun getRequests(requestId: String, rideId: String, context: Context) {
-       requestedLiveData = requestRepository?.getRequests(requestId, rideId, context)
+       // requestedLiveData= requestRepository?.getRequests(requestId, context)
     }
 
     fun startRide(requestId: String, otp: String, context: Context) {

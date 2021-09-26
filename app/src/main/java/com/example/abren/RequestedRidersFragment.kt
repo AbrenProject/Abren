@@ -50,13 +50,13 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
                         prevButton.isEnabled = index != 0
                         nextButton.isEnabled = index > 0 && index != requests.requested.size - 1
 
-                        if(!requests.requestedRides.isNullOrEmpty()){
+                        if(!requests.requested.isNullOrEmpty()){
                             noOfRequestedRiders.text = requests.requested.size.toString()
                             val current = requests.requested[index]
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
                             riderRatingBar.rating = calculateRating(current?.riderRating!!)
-                            riderDestinationAnswer.text= current?.riderDestination
+                            riderDestinationAnswer.text= current?.destination.toString()
                         }
                     } else {
                         Toast.makeText(
@@ -97,9 +97,27 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
     }
 
     private fun makeAcceptedRequestApiCall() {
+        Log.d("REQUEST", "Making api call - accept request")
 
+        rideViewModel.acceptedRidesLiveData?.observe(viewLifecycleOwner, Observer { ride->
+            if (ride != null) {
+//                rideViewModel.acceptRides(
+//
+//
+//
+//                )
+            } else {
+                Log.d("REQUEST", "Problem in making api call")
+                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
+                    .show()
+            }
         })
     }
 
 
-    }
+        }
+
+
+
+
+
