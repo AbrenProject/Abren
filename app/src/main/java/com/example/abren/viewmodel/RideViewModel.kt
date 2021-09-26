@@ -13,6 +13,8 @@ import com.example.abren.models.Route
 import com.example.abren.repository.RideRepository
 import com.example.abren.repository.RouteRepository
 import com.example.abren.responses.RidesResponse
+import retrofit2.http.Header
+import retrofit2.http.Query
 
 class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     private var rideRepository: RideRepository? = null
@@ -23,6 +25,7 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     var nearbyRidesLiveData: MutableLiveData<RidesResponse?>? = null
     var currentNearby: MutableLiveData<Int>? = null
     var currentRequested: MutableLiveData<Int>? = null
+    var acceptedRidesLiveData: MutableLiveData<RidesResponse?>? = null
 
     var createdRideLiveData: MutableLiveData<Ride?>? = null
 
@@ -34,10 +37,12 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         currentRequested = MutableLiveData()
         currentRequested?.value = 0
         createdRideLiveData = MutableLiveData()
+        acceptedRidesLiveData = MutableLiveData()
     }
 
     fun setRide(ride: Ride) {
         mutableSelectedRide.value = ride
+
     }
 
     fun fetchNearbyRides(requestId: String, location: Location, context: Context) {
@@ -70,5 +75,11 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
 
     fun setPrevRequested() {
         currentRequested?.value = currentRequested?.value?.minus(1)
+    }
+
+    fun acceptRides(rideId: String, context: Context)
+    {
+
+
     }
 }

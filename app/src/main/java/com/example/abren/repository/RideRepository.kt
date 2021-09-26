@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Location
 import com.example.abren.models.Ride
 import com.example.abren.network.MainAPIClient
+import com.example.abren.models.Route
 import com.example.abren.network.RideService
 import com.example.abren.responses.BadRequestResponse
 import com.example.abren.responses.RidesResponse
@@ -114,4 +115,16 @@ class RideRepository {
 
         return createdData
     }
+
+    fun acceptedRide(requestId: String, context: Context) {
+
+
+    }
+
+
+
+
+
+
+
 }
