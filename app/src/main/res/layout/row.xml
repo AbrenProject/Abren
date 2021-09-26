@@ -5,19 +5,26 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="StepsView 1"/>
-
         <com.anton46.stepsview.StepsView
             android:id="@+id/stepsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/app_margin" />
+            android:layout_marginStart="-10dp"
+            android:layout_marginBottom="@dimen/app_margin" >
 
-<!--        <params.com.stepview.StatusViewScroller-->
+        </com.anton46.stepsview.StepsView>
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="StepsView 1"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <!--        <params.com.stepview.StatusViewScroller-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            app:stepCount="5"-->
