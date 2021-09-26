@@ -20,12 +20,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.abren.models.Location
+import com.example.abren.models.Route
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
+import com.example.abren.viewmodel.RouteViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -39,6 +42,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.utils.ColorUtils
+import com.mapbox.turf.TurfMeasurement
 import kotlinx.android.synthetic.main.fragment_nearby_drivers.*
 
 
@@ -54,6 +58,7 @@ class NearbyRidersFragment : Fragment(), OnMapReadyCallback, PermissionsListener
 
     private val requestViewModel: RequestViewModel by activityViewModels()
     private val rideViewModel: RideViewModel by activityViewModels()
+    private val routeViewModel: RouteViewModel by activityViewModels()
 
     val locationHandler = Handler(Looper.getMainLooper())
 
@@ -134,79 +139,60 @@ class NearbyRidersFragment : Fragment(), OnMapReadyCallback, PermissionsListener
 
         this.mapboxMap = mapboxMap
 
-//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
-//            if (rides != null) {
-//                rideViewModel.currentNearby?.observe(viewLifecycleOwner, Observer { index ->
-//                    if (index != null) {
-//                        if(!rides.nearby.isNullOrEmpty()) {
-//                            val current = rides.nearby[index]
-//                            mapboxMap.setStyle(
-//                                Style.Builder()
-//                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
-//                            ) { style ->
-//                                if(tabLayout.selectedTabPosition == 0){
-//                                    symbolManager?.deleteAll()
-//                                    val nearbyOptions = SymbolOptions()
-//                                        .withLatLng(LatLng(current?.driverLocation?.latitude!!, current.driverLocation?.longitude!!))
-//                                        .withIconImage("marker")
-//                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
-//                                        .withIconSize(0.07f)
-//                                        .withSymbolSortKey(5.0f)
-//                                    symbolManager?.create(nearbyOptions)
-//                                }
-//                            }
-//                        }
-//                    }
-//                })
-//            }
-//        })
+        requestViewModel.currentRequestsLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+            if (requests != null) {
+                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
+                    if (index != null) {
+                        if(!requests.requested.isNullOrEmpty()) {
+                            val current = requests.requested[index]
+                            mapboxMap.setStyle(
+                                Style.Builder()
+                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
+                            ) { style ->
+                                if(tabLayout.selectedTabPosition == 0){
+                                    symbolManager?.deleteAll()
+                                    val nearbyOptions = SymbolOptions()
+                                        .withLatLng(LatLng(current?.riderLocation?.latitude!!, current.riderLocation?.longitude!!))
+                                        .withIconImage("marker")
+                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
+                                        .withIconSize(0.07f)
+                                        .withSymbolSortKey(5.0f)
+                                    symbolManager?.create(nearbyOptions)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        })
 
-//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
-//            if (rides != null) {
-//                rideViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
-//                    if (index != null) {
-//                        if(!rides.requested.isNullOrEmpty()) {
-//                            val current = rides.requested[index]
-//                            mapboxMap.setStyle(
-//                                Style.Builder()
-//                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
-//                            ) { style ->
-//
-//                                if(tabLayout.selectedTabPosition == 1) {
-//                                    symbolManager?.deleteAll()
-//                                    val nearbyOptions = SymbolOptions()
-//                                        .withLatLng(LatLng(current?.driverLocation?.latitude!!, current.driverLocation?.longitude!!))
-//                                        .withIconImage("marker")
-//                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
-//                                        .withIconSize(0.07f)
-//                                        .withSymbolSortKey(5.0f)
-//                                    symbolManager?.create(nearbyOptions)
-//                                }
-//                            }
-//                        }
-//                    }
-//                })
-//            }
-//        })
+        requestViewModel.currentRequestsLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+            if (requests != null) {
+                requestViewModel.currentAccepted?.observe(viewLifecycleOwner, Observer { index ->
+                    if (index != null) {
+                        if(!requests.accepted.isNullOrEmpty()) {
+                            val current = requests.accepted[index]
+                            mapboxMap.setStyle(
+                                Style.Builder()
+                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
+                            ) { style ->
 
-//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
-//            if (rides != null) {
-//                if (rides.accepted != null) {
-//                    tabLayout.getTabAt(0)?.view?.isClickable = false
-//                    tabLayout.getTabAt(1)?.view?.isClickable = false
-//                    if(tabLayout.selectedTabPosition == 2) {
-//                        symbolManager?.deleteAll()
-//                        val nearbyOptions = SymbolOptions()
-//                            .withLatLng(LatLng(rides.accepted?.driverLocation?.latitude!!, rides.accepted?.driverLocation?.longitude!!))
-//                            .withIconImage("marker")
-//                            .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
-//                            .withIconSize(0.07f)
-//                            .withSymbolSortKey(5.0f)
-//                        symbolManager?.create(nearbyOptions)
-//                    }
-//                }
-//            }
-//        })
+                                if(tabLayout.selectedTabPosition == 1) {
+                                    symbolManager?.deleteAll()
+                                    val nearbyOptions = SymbolOptions()
+                                        .withLatLng(LatLng(current?.riderLocation?.latitude!!, current.riderLocation?.longitude!!))
+                                        .withIconImage("marker")
+                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
+                                        .withIconSize(0.07f)
+                                        .withSymbolSortKey(5.0f)
+                                    symbolManager?.create(nearbyOptions)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        })
     }
 
     private fun enableLocationComponent(loadedMapStyle: Style?) {

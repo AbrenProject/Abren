@@ -20,7 +20,7 @@ data class Ride(
     @Expose var requests: MutableList<String> = ArrayList(),
     @Expose var acceptedRequests: MutableList<String> = ArrayList(),
     @Expose var cost: Double = 0.0,
-    var otp: Otp? = null,
+    @Expose var otp: Otp? = null,
     var createdAt: LocalDateTime? = LocalDateTime.now(),
     var updatedAt: LocalDateTime? = LocalDateTime.now(),
     var deletedAt: LocalDateTime? = null,

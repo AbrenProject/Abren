@@ -33,11 +33,5 @@ interface RequestService {
         @Header("Authorization") token: String
     ): Call<RequestsResponse>
 
-    @GET("/api/requests/current/{id}")
-    fun getCurrentRequest(
-    @Path("id") requestId:String,
-    @Path("riderId") rideId: String,
-    @Header("Authorization") token: String
-    ): Call<Request>
 
 }

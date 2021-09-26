@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.anton46.stepsview.StepsView
 import com.example.abren.R
 import com.example.abren.models.Route
@@ -37,7 +38,7 @@ class RouteAdapter(context: Context?, resource: Int, private val routeList: List
                 context.resources.getColor(android.R.color.darker_gray)
             )
             .setProgressColorIndicator(context.resources.getColor(android.R.color.darker_gray))
-            .setLabelColorIndicator(context.resources.getColor(android.R.color.darker_gray))
+            .setLabelColorIndicator(ContextCompat.getColor(context, R.color.darkGray))
             .drawView()
 
         return rowView

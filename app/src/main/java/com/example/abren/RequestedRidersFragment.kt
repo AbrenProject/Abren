@@ -14,7 +14,7 @@ import com.example.abren.R
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
 
-class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
+class RequestedRidersFragment : Fragment(R.layout.fragment_rider_requests) {
 
     private val rideViewModel: RideViewModel by activityViewModels()
     private val requestViewModel: RequestViewModel by activityViewModels()
@@ -50,14 +50,14 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
                         prevButton.isEnabled = index != 0
                         nextButton.isEnabled = index > 0 && index != requests.requested.size - 1
 
-                        if(!requests.requested.isNullOrEmpty()){
+                        if (!requests.requested.isNullOrEmpty()) {
                             requestedNumber.text = requests.requested.size.toString()
                             val current = requests.requested[index]
                             riderNumber.text = "${index + 1}"
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
                             riderRatingBar.rating = calculateRating(current?.riderRating!!)
-                            riderDestinationText.text= current.destination?.name.toString()
+                            riderDestinationText.text = current.destination?.name.toString()
                         }
                     } else {
                         Toast.makeText(
@@ -90,8 +90,8 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
 
     private fun calculateRating(ratingInput: MutableList<Int>): Float {
         var prod = 0
-        for(i in 0 until ratingInput.size){
-            prod += ((i+1) * ratingInput[i])
+        for (i in 0 until ratingInput.size) {
+            prod += ((i + 1) * ratingInput[i])
         }
 
         return (prod.toFloat()) / ratingInput.sum()
@@ -100,13 +100,15 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
     private fun makeAcceptedRequestApiCall() {
         Log.d("REQUEST", "Making api call - accept request")
 
-        rideViewModel.acceptedRide?.observe(viewLifecycleOwner, Observer { ride->
-            if (ride != null&& requestViewModel.acceptedRiderRequestLiveData?.value?.accepted?.size != 0) {
-                 rideViewModel.acceptRide(
-                     ride._id!!,
-                     requestViewModel.acceptedRiderRequestLiveData?.value?.accepted?.get(rideViewModel.currentAcceptedRequest?.value!!)?._id!!,
-                     requireContext()
-                 )
+        rideViewModel.createdRideLiveData?.observe(viewLifecycleOwner, Observer { ride ->
+            if (ride != null && requestViewModel.currentRequestsLiveData?.value?.requested?.size != 0) {
+                rideViewModel.acceptRequest(
+                    ride._id!!,
+                    requestViewModel.currentRequestsLiveData?.value?.requested?.get(
+                        rideViewModel.currentRequested?.value!!
+                    )?._id!!,
+                    requireContext()
+                )
             } else {
                 Log.d("REQUEST", "Problem in making api call")
                 Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
