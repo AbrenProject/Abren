@@ -12,7 +12,7 @@
             android:text="StepsView 1"/>
 
         <com.anton46.stepsview.StepsView
-            android:id="@+id/routeView"
+            android:id="@+id/stepsView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/app_margin" />

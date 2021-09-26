@@ -48,8 +48,6 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         val numberText = view.findViewById<TextView>(R.id.driverNumberText1)
         val nearbyCountText = view.findViewById<TextView>(R.id.nearbyCountText)
 
-        val routeView = view.findViewById<StepsView>(R.id.routeView)
-
         rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
             if (rides != null) {
                 rideViewModel.currentNearby?.observe(viewLifecycleOwner, Observer { index ->
