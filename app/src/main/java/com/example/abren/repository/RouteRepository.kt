@@ -22,6 +22,8 @@ class RouteRepository {
     }
 
     private val data = MutableLiveData<Route>()
+    private val listData = MutableLiveData<List<Route>>()
+
 
     fun createRoute(route: Route, context: Context): MutableLiveData<Route> {
         Log.i("Route Repo: Create Request", route.toString())
@@ -53,4 +55,38 @@ class RouteRepository {
 
         return data
     }
+
+
+
+    fun listRoutes(context: Context): MutableLiveData<List<Route>> {
+        Log.i("Route Repo: Create Request", context.toString())
+
+        prefs = context.getSharedPreferences("ABREN", Context.MODE_PRIVATE)
+
+        routeService?.listRoutes("Bearer ${prefs.getString("TOKEN", null)}")?.enqueue(object : Callback<List<Route>> {
+            override fun onFailure(call: Call<List<Route>>, t: Throwable) {
+                Log.d("Route Repo: ONFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<List<Route>>, response: Response<List<Route>>) {
+                val gson = Gson()
+                if (response.code() == 200) {
+                    listData.value = response.body()
+                    Log.d("Route Repo: On 200:", response.body().toString())
+                }else {
+                    Log.d("Route Repo: Header on listView = ", response.headers().toString())
+
+                    if(response.code() != 401){
+                        val errorResponse = gson.fromJson(response.errorBody()?.string(), BadRequestResponse::class.java)
+                        Log.d("Route Repo: Error Body listView", errorResponse.message)
+                    }else{
+                        Log.d("Route Repo: Error - ", "Unauthorized")
+                    }
+                }
+            }
+        })
+
+        return listData
+    }
+
 }

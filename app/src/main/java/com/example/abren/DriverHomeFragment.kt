@@ -1,84 +1,97 @@
 package com.example.abren
 
-import android.os.Bundle
 import android.content.Context
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.anton46.stepsview.StepsView
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.example.abren.viewmodel.RouteViewModel
 
 
 class DriverHomeFragment : Fragment() {
 
-    private val views = arrayOf("View 1")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val routeViewModel: RouteViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        routeViewModel.listRoutes(requireContext())
         return inflater.inflate(R.layout.fragment_driver_home, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mListView = view.findViewById<View>(R.id.list_listView) as ListView
-        val adapter = MyAdapter(requireContext(),0)
-        adapter.addAll(*views)
-        mListView.adapter = adapter
+        routeViewModel.createdRouteLiveDataList?.observe(viewLifecycleOwner, Observer { routeList ->
+            Log.d("Calling on listRoute: Returned Route = ", routeList.toString())
+            Log.d("check routeList length = ", routeList.size.toString())
+            Log.d("check routeList[0] of name = ", routeList[0].startingLocation?.name.toString())
 
-//        view.findViewById<Button>(R.id.create_route_button).setOnClickListener{
-//            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
-//        }
+            val views = arrayOfNulls<String>(routeList.size)
+            val mListView = view.findViewById<View>(R.id.list_listView) as ListView
+
+            val allRouteLabels: ArrayList<Array<String>> = ArrayList()
+
+            for (i in routeList.indices) {
+                val labels: ArrayList<String> = ArrayList()
+                labels.add(routeList[i].startingLocation?.name?.substringBefore(",")!!)
+
+                for (j in 0 until routeList[i].waypointLocations.size) {
+                    labels.add(routeList[i].waypointLocations[j].name?.substringBefore(",")!!)
+                }
+
+                labels.add(routeList[i].destinationLocation?.name?.substringBefore(",")!!)
+
+                allRouteLabels.add(labels.toTypedArray())
+            }
+
+
+            val adapter = MyAdapter(requireContext(), 0, allRouteLabels)
+            adapter.addAll(*views)
+            Log.d("views = ", views.toString())
+            mListView.adapter = adapter
+        })
+
+        view.findViewById<Button>(R.id.create_route_button).setOnClickListener {
+            findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
+        }
     }
 
-    class MyAdapter(context: Context?, resource: Int) :
-        ArrayAdapter<String?>(context!!, resource) {
-        private val labels = arrayOf("5kilo", "Stadium", "Dembel", "WeloSefer", "Bole")
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
-            val holder: MyAdapter.ViewHolder
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.row, null)
-                holder = MyAdapter.ViewHolder(convertView)
-                convertView!!.tag = holder
-            } else {
-                holder = convertView.tag as MyAdapter.ViewHolder
-            }
-//            holder.mLabel.text = getItem(position)
-            holder.mStepsView.setCompletedPosition(position % labels.size)
-                .setLabels(labels)
-                .setBarColorIndicator(
-                    context.resources.getColor(android.R.color.darker_gray))
-                .setProgressColorIndicator(context.resources.getColor(R.color.orange))
-                .setLabelColorIndicator(context.resources.getColor(R.color.orange))
-                .drawView()
-            return convertView
-        }
+}
 
-        internal class ViewHolder(view: View?) {
-//            var mLabel: TextView
-            var mStepsView: StepsView
+class MyAdapter(context: Context?, resource: Int, private val labels: ArrayList<Array<String>>) :
+    ArrayAdapter<String?>(context!!, resource) {
 
-            init {
-//                mLabel = view!!.findViewById<View>(R.id.label) as TextView
-                mStepsView = view?.findViewById<View>(R.id.routeView) as StepsView
-//                mLabel.rotation = (-45).toFloat()
-            }
-        }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val inflater: LayoutInflater = LayoutInflater.from(context)
+        val rowView: View = inflater.inflate(R.layout.row, null, true)
 
+        val mLabel: TextView = rowView.findViewById<View>(R.id.label) as TextView
+        val mStepsView: StepsView = rowView.findViewById<View>(R.id.stepsView) as StepsView
+
+        val current = labels[position]
+        mLabel.text = getItem(position)
+        mStepsView.setCompletedPosition(current.size - 1)
+            .setLabels(current)
+            .setBarColorIndicator(
+                context.resources.getColor(android.R.color.darker_gray)
+            )
+            .setProgressColorIndicator(context.resources.getColor(R.color.orange))
+            .setLabelColorIndicator(context.resources.getColor(R.color.orange))
+            .drawView()
+
+        return rowView
     }
 }
