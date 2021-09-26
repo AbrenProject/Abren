@@ -13,4 +13,11 @@ interface UserService {
 
     @POST("auth/login")
     fun login(@Body user: User): Call<AuthResponse>
+
+    @POST("users/rate/{id}/{rating}")
+    fun rate(
+        @Path("id") id: String,
+        @Path("rating") rating: String,
+        @Header("Authorization") token: String
+    ): Call<User>
 }

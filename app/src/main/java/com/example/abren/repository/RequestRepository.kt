@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Request
 import com.example.abren.models.Ride
 import com.example.abren.network.RequestService
-import com.example.abren.network.RetrofitClient
+import com.example.abren.network.MainAPIClient
 import com.example.abren.responses.BadRequestResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +19,7 @@ class RequestRepository {
     private lateinit var prefs: SharedPreferences
 
     init {
-        requestService = RetrofitClient.getApiClient().create(RequestService::class.java)
+        requestService = MainAPIClient.getApiClient().create(RequestService::class.java)
     }
 
     private val data = MutableLiveData<Request>()

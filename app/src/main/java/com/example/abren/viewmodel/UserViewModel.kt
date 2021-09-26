@@ -1,5 +1,6 @@
 package com.example.abren.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +33,9 @@ class UserViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
         registeredUserLiveData = userRepository?.login(user)
     }
 
+    fun rate(id: String, rating: String, context: Context) {
+        userRepository?.rate(id, rating, context)
+    }
 
     fun selectUser(user: User) {
         mutableSelectedItem.value = user

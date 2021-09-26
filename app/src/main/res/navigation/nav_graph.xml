@@ -131,11 +131,6 @@
         android:label="app_bar_rider_routes_home"
 
         tools:layout="@layout/app_bar_rider_routes_home" />
-    <activity
-        android:id="@+id/cloudinaryUpload2Activity"
-        android:name="com.example.abren.CloudinaryUpload2Activity"
-        android:label="activity_cloudinary_upload2"
-        tools:layout="@layout/activity_cloudinary_upload2" />
     <fragment
         android:id="@+id/otpFragment"
         android:name="com.example.abren.OtpFragment"

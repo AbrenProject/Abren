@@ -5,10 +5,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.abren.models.Location
-import com.example.abren.models.Route
-import com.example.abren.network.RetrofitClient
+import com.example.abren.network.MainAPIClient
 import com.example.abren.network.RideService
-import com.example.abren.network.RouteService
 import com.example.abren.responses.BadRequestResponse
 import com.example.abren.responses.RidesResponse
 import retrofit2.Call
@@ -21,7 +19,7 @@ class RideRepository {
     private lateinit var prefs: SharedPreferences
 
     init {
-        rideService = RetrofitClient.getApiClient().create(RideService::class.java)
+        rideService = MainAPIClient.getApiClient().create(RideService::class.java)
     }
 
     private val nearbyData = MutableLiveData<RidesResponse?>()

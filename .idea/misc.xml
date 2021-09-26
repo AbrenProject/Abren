@@ -4,10 +4,26 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/layout_bg.xml" value="0.2203125" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/activity_cloudinary_upload2.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_accepted.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml" value="0.25" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_auth.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_driver_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_first.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers_list_screen.xml" value="0.25" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_riders.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_register.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_requested_drivers.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_accepted.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_request_tab_activity.xml" value="0.15" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_requests.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_second.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/otp.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/profile_page.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/row.xml" value="0.20416666666666666" />
       </map>
     </option>

@@ -10,14 +10,17 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
+import com.example.abren.viewmodel.UserViewModel
 import com.mapbox.mapboxsdk.style.layers.Property
 
 class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver_viewing_screen) {
 
     private val rideViewModel: RideViewModel by activityViewModels()
     private val requestViewModel: RequestViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +36,9 @@ class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver
         val finishedLayout = view.findViewById<LinearLayout>(R.id.finishedLayout)
 
         val validateButton = view.findViewById<ImageButton>(R.id.validateButton)
+        val rateButton = view.findViewById<Button>(R.id.rateButton)
+
+        val ratingBarInput = view.findViewById<RatingBar>(R.id.ratingBarInput)
 
         val genderText = view.findViewById<TextView>(R.id.driverGenderText3)
         val ageGroupText = view.findViewById<TextView>(R.id.driverAgeGroupText3)
@@ -59,14 +65,17 @@ class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver
 
                     routeWaypointText.text = ""
 
-                    for(i in 0 until rides.accepted?.route?.waypointLocations?.size!!){
-                        routeWaypointText.text = routeWaypointText.text.toString() + "${rides.accepted?.route?.waypointLocations?.get(i)?.name!!} > "
+                    for (i in 0 until rides.accepted?.route?.waypointLocations?.size!!) {
+                        routeWaypointText.text = routeWaypointText.text.toString() + "${
+                            rides.accepted?.route?.waypointLocations?.get(i)?.name!!
+                        } > "
                     }
 
                     routeStartText.text = "${rides.accepted?.route?.startingLocation?.name!!} > "
-                    routeDestinationText.text = "${rides.accepted?.route?.destinationLocation?.name!!}"
+                    routeDestinationText.text =
+                        "${rides.accepted?.route?.destinationLocation?.name!!}"
 
-                    if(rides.accepted?.status == "FINISHED"){
+                    if (rides.accepted?.status == "FINISHED") {
                         finishedLayout.visibility = View.VISIBLE
                         amountText.text = "${String.format("%.2f", rides.accepted?.cost)} birr"
                     }
@@ -77,15 +86,22 @@ class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver
         validateButton.setOnClickListener {
             makeStartRideApiCall(codeText.text.toString())
 
-            requestViewModel.acceptedRequestLiveData?.observe(viewLifecycleOwner, Observer { request ->
-                if (request != null) {
-                    if (request.status == "STARTED") {
-                        codeText.setText("Validated")
-                        codeText.isEnabled = false
-                        validateButton.setImageResource(R.drawable.ic_tick_white)
+            requestViewModel.acceptedRequestLiveData?.observe(
+                viewLifecycleOwner,
+                Observer { request ->
+                    if (request != null) {
+                        if (request.status == "STARTED") {
+                            codeText.setText("Validated")
+                            codeText.isEnabled = false
+                            validateButton.setImageResource(R.drawable.ic_tick_white)
+                        }
                     }
-                }
-            })
+                })
+        }
+
+        rateButton.setOnClickListener {
+            makeRateDriverApiCall(ratingBarInput.rating.toInt().toString())
+            findNavController().popBackStack()
         }
     }
 
@@ -114,6 +130,16 @@ class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver
                     .show()
             }
         })
+    }
+
+    private fun makeRateDriverApiCall(rating: String) {
+        Log.d("REQUEST", "Making api call - rate user")
+
+        userViewModel.rate(
+            rideViewModel.nearbyRidesLiveData?.value?.accepted?.driverId!!,
+            rating,
+            requireContext()
+        )
     }
 
 }

@@ -223,6 +223,8 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
         rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
             if (rides != null) {
                 if (rides.accepted != null) {
+                    tabLayout.getTabAt(0)?.view?.isClickable = false
+                    tabLayout.getTabAt(1)?.view?.isClickable = false
                     if(tabLayout.selectedTabPosition == 2) {
                         symbolManager?.deleteAll()
                         val nearbyOptions = SymbolOptions()

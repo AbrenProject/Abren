@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.abren.models.Request
 import com.example.abren.models.Route
-import com.example.abren.network.RequestService
-import com.example.abren.network.RetrofitClient
+import com.example.abren.network.MainAPIClient
 import com.example.abren.network.RouteService
 import com.example.abren.responses.BadRequestResponse
 import retrofit2.Call
@@ -20,7 +18,7 @@ class RouteRepository {
     private lateinit var prefs: SharedPreferences
 
     init {
-        routeService = RetrofitClient.getApiClient().create(RouteService::class.java)
+        routeService = MainAPIClient.getApiClient().create(RouteService::class.java)
     }
 
     private val data = MutableLiveData<Route>()
