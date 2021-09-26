@@ -95,8 +95,8 @@ class HomeFragment : Fragment() {
         val userId=User()._id
         val gson = Gson()
         val json: String = sharedPref?.getString(userId, "Place Name").toString()
-//        val type: Type = object : TypeToken<ArrayList<Location?>?>() {}.type
-//        mLocation = gson.fromJson(json, type)
+        val type: Type = object : TypeToken<ArrayList<Location?>?>() {}.type
+        mLocation = gson.fromJson(json, type)
 
         if (mLocation == null) {
             mLocation = ArrayList()
@@ -179,7 +179,7 @@ class HomeFragment : Fragment() {
                     }
 //                    editor.putString(userId, location)
 //                    editor.apply();
-                    Toast.makeText(this.requireContext(), "shared preference done", Toast.LENGTH_SHORT)
+                    Toast.makeText(this.requireContext(), "shared preference added", Toast.LENGTH_SHORT)
                             .show()
                     findNavController().navigate(R.id.action_nav_home_to_nav_gallery)
 
