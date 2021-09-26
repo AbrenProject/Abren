@@ -107,5 +107,6 @@
     <string name="title_activity_requests">Requests</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-
+    <!--Strings for Shared preferenece-->
+    <string name="location">location</string>
 </resources>
