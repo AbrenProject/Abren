@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -30,7 +32,9 @@ class DriverHomeFragment : Fragment() {
 
     private lateinit var startingLocation: com.example.abren.models.Location
     private lateinit var destinationLocation: com.example.abren.models.Location
+    private lateinit var midLoc: com.example.abren.models.Location
     private lateinit var wayPointLocations: ArrayList<com.example.abren.models.Location>
+    private lateinit var lables:Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,22 +65,27 @@ class DriverHomeFragment : Fragment() {
             val views = arrayOfNulls<String>(routeList.size)
             val mListView = view.findViewById<View>(R.id.list_listView) as ListView
 
+            for(i in routeList.indices) {
+                startingLocation = routeList[i].startingLocation!!                        // routeList[i] = start,end,[mid1,mid2]
+                destinationLocation = routeList[i].destinationLocation!!
+                wayPointLocations = routeList[i].waypointLocations // waypoint = [goro,piassa]
 
-                 ///
+                for(j in wayPointLocations.indices){
+                   midLoc =  wayPointLocations[j]
+                    lables = arrayOf(
+                        startingLocation.name!!.substringBefore(","),
+                        destinationLocation.name!!.substringBefore(","),
+                        midLoc.name!!.substringBefore(","))
+                }
 
-            for(routee in routeList) {
-                routee.startingLocation
-                routee.destinationLocation
-                routee.waypointLocations.size
-                val lables = arrayOfNulls<String>(routee.waypointLocations.size+2)
             }
 
+//            val lables = arrayOfNulls<String>(wayPointLocations.size + 10)       //  lables = [start,end,[mid1,mid2]]
 
-            val adapter = MyAdapter(requireContext(), 0)
+            val adapter = MyAdapter(requireContext(), 0,lables)
             adapter.addAll(*views)
             Log.d("views = ",views.toString())
             mListView.adapter = adapter
-
         })
 
 
@@ -88,31 +97,31 @@ class DriverHomeFragment : Fragment() {
             findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
         }
 
+
     }
 
 }
 
-
-    class MyAdapter(context: Context?, resource: Int) : ArrayAdapter<String?>(context!!, resource) {
-
-//        private val labels = arrayOf("Stadium", "Dembel", "WeloSefer", "Bole")
-        val labels = arrayOfNulls<String>(5)
-//        private val labels = arrayOf(list)
-
+    class MyAdapter(context: Context?, resource: Int, labels: Array<String>) : ArrayAdapter<String?>(context!!, resource) {
+        val lables = labels
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            labels[0] = "dembel"
+//            labels[0] = "dembel"
             var convertView = convertView
-            val holder: MyAdapter.ViewHolder
+            val holder: ViewHolder
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.row, null)
                 holder = ViewHolder(convertView)
                 convertView!!.tag = holder
+                Log.d("converview.tag : ",convertView.tag.toString())     ////
+                Log.d("converview : ",getPosition(convertView.toString()).toString())
+                    ////
             } else {
-                holder = convertView.tag as MyAdapter.ViewHolder
+                holder = convertView.tag as ViewHolder
             }
-//            holder.mLabel.text = getItem(position)
-            holder.mStepsView.setCompletedPosition(position % labels.size)
-                .setLabels(labels)
+            holder.mLabel.text = getItem(position)
+            Log.d("holder.meStepsView[0]", holder.mStepsView[0].toString() )
+            holder.mStepsView.setCompletedPosition(position % lables.size)
+                .setLabels(lables)
                 .setBarColorIndicator(
                     context.resources.getColor(android.R.color.darker_gray)
                 )
@@ -123,11 +132,11 @@ class DriverHomeFragment : Fragment() {
         }
 
         internal class ViewHolder(view: View?) {
-            //            var mLabel: TextView
+            var mLabel: TextView
             var mStepsView: StepsView
 
             init {
-//                mLabel = view!!.findViewById<View>(R.id.label) as TextView
+                mLabel = view!!.findViewById<View>(R.id.label) as TextView
                 mStepsView = view?.findViewById<View>(R.id.stepsView) as StepsView
 //                mLabel.rotation = (-45).toFloat()
             }
