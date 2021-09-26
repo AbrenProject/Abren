@@ -114,6 +114,9 @@
         <action
             android:id="@+id/action_driverHomeFragment_to_createRouteFragment"
             app:destination="@id/createRouteFragment" />
+        <action
+            android:id="@+id/action_driverHomeFragment_to_nearbyRidersFragment"
+            app:destination="@id/nearbyRidersFragment" />
     </fragment>
     <fragment
         android:id="@+id/createRouteFragment"
@@ -143,6 +146,11 @@
             android:id="@+id/action_otpFragment_to_driverHomeFragment"
             app:destination="@id/driverHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/nearbyRidersFragment"
+        android:name="com.example.abren.NearbyRidersFragment"
+        android:label="fragment_nearby_riders"
+        tools:layout="@layout/fragment_nearby_riders" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/HomeFragment"-->

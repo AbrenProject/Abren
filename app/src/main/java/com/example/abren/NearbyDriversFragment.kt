@@ -71,10 +71,6 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
     private var permissionManager: PermissionsManager? = null
     private var locationComponent: LocationComponent? = null
 
-    private val SOURCE_ID = "SOURCE_ID"
-    private val ICON_ID = "ICON_ID"
-    private val LAYER_ID = "LAYER_ID"
-
     private lateinit var tabAdapter: RiderTabPageAdapter
     private lateinit var viewPager: ViewPager2
 
@@ -113,13 +109,11 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
         mapView = view.findViewById(R.id.mapView)
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync(this)
-//            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-//                // add data or make other map adjustments
-//            }
+
         tabAdapter = RiderTabPageAdapter(this, 3)
         viewPager = view.findViewById(R.id.viewPager)
         viewPager.adapter = tabAdapter
-//
+
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
@@ -241,11 +235,8 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
     }
 
     private fun enableLocationComponent(loadedMapStyle: Style?) {
-        //check if permission enabled if not request
         context?.let {
             if (PermissionsManager.areLocationPermissionsGranted(it.applicationContext)) {
-                // activity the mapboxmap locationComponent to show userlocation
-                // adding in locationcomponentOptions is also an optional paramenter
                 locationComponent = mapboxMap!!.locationComponent
                 context?.let {
                     locationComponent?.activateLocationComponent(
@@ -265,8 +256,6 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
                     }
                     locationComponent?.isLocationComponentEnabled = true
                     locationComponent?.lastKnownLocation
-
-                    //set the component's camera mode
                     locationComponent?.cameraMode = CameraMode.TRACKING
 
                 }
@@ -339,7 +328,7 @@ class NearbyDriversFragment : Fragment(), OnMapReadyCallback, PermissionsListene
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        locationHandler.removeCallbacks(apiCallTask)
+        locationHandler.removeCallbacks(apiCallTask)
         mapView?.onDestroy()
     }
 

@@ -32,31 +32,32 @@ class RequestedRidersFragment:Fragment(R.layout.fragment_rider_requests) {
         super.onViewCreated(view, savedInstanceState)
 
         val acceptButton = view.findViewById<Button>(R.id.acceptButton)
-        val nextButton = view.findViewById<Button>(R.id.riderNextButton)
-        val prevButton = view.findViewById<Button>(R.id.riderPrevButton)
+        val nextButton = view.findViewById<Button>(R.id.driverNextButton)
+        val prevButton = view.findViewById<Button>(R.id.driverPrevButton)
 
         val riderGenderText = view.findViewById<TextView>(R.id.riderGenderText)
         val riderAgeGroupText = view.findViewById<TextView>(R.id.riderAgeGroupText)
         val riderRatingBar = view.findViewById<RatingBar>(R.id.riderRatingBar)
-        val riderDestinationAnswer = view.findViewById<TextView>(R.id.riderDestinationAnswer)
-        val noOfRequestedRiders = view.findViewById<TextView>(R.id.noOfRequestedRiders)
-        val noOfRequestedRidersText = view.findViewById<TextView>(R.id.noOfRequestedRidersText)
+        val riderDestinationText = view.findViewById<TextView>(R.id.riderDestinationText)
+        val requestedNumber = view.findViewById<TextView>(R.id.requestsCountText)
+        val riderNumber = view.findViewById<TextView>(R.id.riderNumber)
 
 
-        requestViewModel.requestedLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+        requestViewModel.currentRequestsLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRidersRequest?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
                         nextButton.isEnabled = index > 0 && index != requests.requested.size - 1
 
                         if(!requests.requested.isNullOrEmpty()){
-                            noOfRequestedRiders.text = requests.requested.size.toString()
+                            requestedNumber.text = requests.requested.size.toString()
                             val current = requests.requested[index]
+                            riderNumber.text = "${index + 1}"
                             riderGenderText.text = current?.riderGender
                             riderAgeGroupText.text = current?.riderAgeGroup
                             riderRatingBar.rating = calculateRating(current?.riderRating!!)
-                            riderDestinationAnswer.text= current?.destination.toString()
+                            riderDestinationText.text= current.destination?.name.toString()
                         }
                     } else {
                         Toast.makeText(

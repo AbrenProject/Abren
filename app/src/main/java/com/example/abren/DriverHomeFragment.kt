@@ -86,7 +86,7 @@ class DriverHomeFragment : Fragment() {
                 rideViewModel.createRide(ride, requireContext())
 
                 rideViewModel.createdRideLiveData?.observe(viewLifecycleOwner, Observer {
-                    findNavController().navigate(R.id.action_driverHomeFragment_to_createRouteFragment)
+                    findNavController().navigate(R.id.action_driverHomeFragment_to_nearbyRidersFragment)
                 })
             })
 

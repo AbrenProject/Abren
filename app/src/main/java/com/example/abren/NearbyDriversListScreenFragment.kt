@@ -9,12 +9,9 @@ import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.anton46.stepsview.StepsView
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
 
@@ -35,17 +32,17 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         super.onViewCreated(view, savedInstanceState)
 
 
-        val sendButton = view.findViewById<Button>(R.id.sendButton)
-        val nextButton = view.findViewById<Button>(R.id.riderNextButton)
-        val prevButton = view.findViewById<Button>(R.id.riderPrevButton)
+        val sendButton = view.findViewById<Button>(R.id.acceptButton)
+        val nextButton = view.findViewById<Button>(R.id.driverNextButton)
+        val prevButton = view.findViewById<Button>(R.id.driverPrevButton)
 
-        val genderText = view.findViewById<TextView>(R.id.driverGenderText1)
-        val ageGroupText = view.findViewById<TextView>(R.id.driverAgeGroupText1)
-        val ratingBar = view.findViewById<RatingBar>(R.id.driverRatingBar1)
+        val genderText = view.findViewById<TextView>(R.id.riderGenderText)
+        val ageGroupText = view.findViewById<TextView>(R.id.riderAgeGroupText)
+        val ratingBar = view.findViewById<RatingBar>(R.id.driverRatingBar)
         val routeStartText = view.findViewById<TextView>(R.id.routeStartText)
         val routeWaypointText = view.findViewById<TextView>(R.id.routeWaypointText)
         val routeDestinationText = view.findViewById<TextView>(R.id.routeDestinationText)
-        val numberText = view.findViewById<TextView>(R.id.driverNumberText1)
+        val numberText = view.findViewById<TextView>(R.id.driverNumber)
         val nearbyCountText = view.findViewById<TextView>(R.id.nearbyCountText)
 
         rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->

@@ -4,6 +4,7 @@ package com.example.abren
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -26,15 +27,22 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.location.LocationComponent
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
+import com.mapbox.mapboxsdk.utils.ColorUtils
+import kotlinx.android.synthetic.main.fragment_nearby_drivers.*
 
 
-class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListener {
+class NearbyRidersFragment : Fragment(), OnMapReadyCallback, PermissionsListener {
 
     private var mapView: MapView? = null
     private var mapboxMap: MapboxMap? = null
@@ -69,6 +77,7 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
                 getString(R.string.mapbox_access_token)
             )
         }
+        makeApiCall()
         return inflater.inflate(R.layout.fragment_nearby_riders, container, false)
     }
 
@@ -78,15 +87,11 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
         mapView = view.findViewById(R.id.mapView)
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync(this)
-//            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-//                //
-    //add data or make other map adjustments
-//            }
 
-        tabAdapter = DriverTabPageAdapter(this, 3)
+        tabAdapter = DriverTabPageAdapter(this, 2)
         viewPager = view.findViewById(R.id.viewPager)
         viewPager.adapter = tabAdapter
-//
+
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
@@ -108,26 +113,108 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
     }
 
 
-
-
-
-
     override fun onMapReady(mapboxMap: MapboxMap) {
-        this.mapboxMap = mapboxMap
-        mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
+        var symbolManager: SymbolManager? = null
+        var geoJsonOptions: GeoJsonOptions? = null
+
+        mapboxMap.setStyle( Style.Builder()
+            .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")) { style ->
+            geoJsonOptions= GeoJsonOptions().withTolerance(0.4f)
+            symbolManager = SymbolManager(mapView!!, mapboxMap, style, null, geoJsonOptions)
+
+            symbolManager?.iconAllowOverlap = true
+            symbolManager?.iconIgnorePlacement = true
+
             enableLocationComponent(style)
         }
+
+        mapboxMap.cameraPosition = CameraPosition.Builder()
+            .zoom(14.0)
+            .build()
+
+        this.mapboxMap = mapboxMap
+
+//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
+//            if (rides != null) {
+//                rideViewModel.currentNearby?.observe(viewLifecycleOwner, Observer { index ->
+//                    if (index != null) {
+//                        if(!rides.nearby.isNullOrEmpty()) {
+//                            val current = rides.nearby[index]
+//                            mapboxMap.setStyle(
+//                                Style.Builder()
+//                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
+//                            ) { style ->
+//                                if(tabLayout.selectedTabPosition == 0){
+//                                    symbolManager?.deleteAll()
+//                                    val nearbyOptions = SymbolOptions()
+//                                        .withLatLng(LatLng(current?.driverLocation?.latitude!!, current.driverLocation?.longitude!!))
+//                                        .withIconImage("marker")
+//                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
+//                                        .withIconSize(0.07f)
+//                                        .withSymbolSortKey(5.0f)
+//                                    symbolManager?.create(nearbyOptions)
+//                                }
+//                            }
+//                        }
+//                    }
+//                })
+//            }
+//        })
+
+//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
+//            if (rides != null) {
+//                rideViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
+//                    if (index != null) {
+//                        if(!rides.requested.isNullOrEmpty()) {
+//                            val current = rides.requested[index]
+//                            mapboxMap.setStyle(
+//                                Style.Builder()
+//                                    .fromUri("mapbox://styles/lydiag/ckbey6dzy3mmj1ipgwlpmi7sv")
+//                            ) { style ->
+//
+//                                if(tabLayout.selectedTabPosition == 1) {
+//                                    symbolManager?.deleteAll()
+//                                    val nearbyOptions = SymbolOptions()
+//                                        .withLatLng(LatLng(current?.driverLocation?.latitude!!, current.driverLocation?.longitude!!))
+//                                        .withIconImage("marker")
+//                                        .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
+//                                        .withIconSize(0.07f)
+//                                        .withSymbolSortKey(5.0f)
+//                                    symbolManager?.create(nearbyOptions)
+//                                }
+//                            }
+//                        }
+//                    }
+//                })
+//            }
+//        })
+
+//        rideViewModel.nearbyRidesLiveData?.observe(viewLifecycleOwner, Observer { rides ->
+//            if (rides != null) {
+//                if (rides.accepted != null) {
+//                    tabLayout.getTabAt(0)?.view?.isClickable = false
+//                    tabLayout.getTabAt(1)?.view?.isClickable = false
+//                    if(tabLayout.selectedTabPosition == 2) {
+//                        symbolManager?.deleteAll()
+//                        val nearbyOptions = SymbolOptions()
+//                            .withLatLng(LatLng(rides.accepted?.driverLocation?.latitude!!, rides.accepted?.driverLocation?.longitude!!))
+//                            .withIconImage("marker")
+//                            .withIconColor(ColorUtils.colorToRgbaString(Color.YELLOW))
+//                            .withIconSize(0.07f)
+//                            .withSymbolSortKey(5.0f)
+//                        symbolManager?.create(nearbyOptions)
+//                    }
+//                }
+//            }
+//        })
     }
 
     private fun enableLocationComponent(loadedMapStyle: Style?) {
-        //check if permission enabled if not request
         context?.let {
             if (PermissionsManager.areLocationPermissionsGranted(it.applicationContext)) {
-                // activity the mapboxmap locationComponent to show userlocation
-                // adding in locationcomponentOptions is also an optional paramenter
                 locationComponent = mapboxMap!!.locationComponent
                 context?.let {
-                    locationComponent!!.activateLocationComponent(
+                    locationComponent?.activateLocationComponent(
                         it.applicationContext,
                         loadedMapStyle!!
                     )
@@ -140,26 +227,18 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
                             Manifest.permission.ACCESS_COARSE_LOCATION
                         ) != PackageManager.PERMISSION_GRANTED
                     ) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
                         return
                     }
-                    locationComponent!!.setLocationComponentEnabled(true)
+                    locationComponent?.isLocationComponentEnabled = true
+                    locationComponent?.lastKnownLocation
+                    locationComponent?.cameraMode = CameraMode.TRACKING
 
-                    //set the component's camera mode
-                    locationComponent!!.setCameraMode(CameraMode.TRACKING)
                 }
             } else {
                 permissionManager = PermissionsManager(this)
                 permissionManager!!.requestLocationPermissions(context as Activity?)
             }
         }
-
     }
 
     override fun onExplanationNeeded(p0: MutableList<String>?) {
@@ -191,21 +270,25 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
     private fun makeApiCall() {
         Log.d("RIDE", "Making api call")
 
-        requestViewModel.createdRequestLiveData?.observe(viewLifecycleOwner, Observer { request ->
-            if (request != null) {
+        rideViewModel.createdRideLiveData?.observe(viewLifecycleOwner, Observer { ride ->
+            if (ride != null) {
                 Log.d("RIDE", "Making api call after observe")
 
-                if(locationComponent == null){
-                    rideViewModel.fetchNearbyRides(
-                        request._id!!,
-                        request.riderLocation!!,
+                if (locationComponent == null) {
+                    requestViewModel.fetchRequests(
+                        ride._id!!,
+                        ride.driverLocation!!,
                         requireContext()
                     )
-                }else{
+                } else {
                     val currentLocation = locationComponent?.lastKnownLocation
-                    val location = Location(name=" ", latitude = currentLocation?.latitude, longitude = currentLocation?.longitude)
-                    rideViewModel.fetchNearbyRides(
-                        request._id!!,
+                    val location = Location(
+                        name = " ",
+                        latitude = currentLocation?.latitude,
+                        longitude = currentLocation?.longitude
+                    )
+                    requestViewModel.fetchRequests(
+                        ride._id!!,
                         location,
                         requireContext()
                     )
@@ -255,11 +338,9 @@ class NearbyRidersFragment : Fragment() , OnMapReadyCallback, PermissionsListene
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        locationHandler.removeCallbacks(apiCallTask)
+        locationHandler.removeCallbacks(apiCallTask)
         mapView?.onDestroy()
     }
-
-
 
 
 }

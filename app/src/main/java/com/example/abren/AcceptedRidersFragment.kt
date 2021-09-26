@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.abren.R
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
@@ -28,74 +26,74 @@ class AcceptedRidersFragment:Fragment(R.layout.fragment_rider_accepted) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val otpDetail = view.findViewById<TextView>(R.id.OTPcodeText)
-        val nextButton = view.findViewById<Button>(R.id.riderNextButton)
-        val prevButton = view.findViewById<Button>(R.id.riderPrevButton)
-
-        val riderGenderText = view.findViewById<TextView>(R.id.riderGenderText)
-        val riderAgeGroupText = view.findViewById<TextView>(R.id.riderAgeGroupText)
-        val riderRatingBar = view.findViewById<RatingBar>(R.id.riderRatingBar)
-        val riderDestinationAnswer = view.findViewById<TextView>(R.id.riderDestinationAnswer)
-
-
-
-
-
-        requestViewModel.acceptedRiderRequestLiveData?.observe(viewLifecycleOwner, Observer { requests ->
-            if (requests != null) {
-                requestViewModel.currentRiderAcceptedRequest?.observe(viewLifecycleOwner, Observer { index ->
-                    if (index != null) {
-                        prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index > 0 && index != requests.accepted.size - 1
-
-                        if(!requests.accepted.isNullOrEmpty()){
-                            val current = requests.accepted[index]
-                            riderGenderText.text = current?.riderGender
-                            riderAgeGroupText.text = current?.riderAgeGroup
-                            riderRatingBar.rating = calculateRating(current?.riderRating!!)
-                            riderDestinationAnswer.text= current?.destination.toString()
-                         //   otpDetail.text= rideViewModel.acceptedRidesLiveData?
-                        }
-                    } else {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "Something Went Wrong",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                })
-            } else {
-                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-        )
+//        val otpDetail = view.findViewById<TextView>(R.id.OTPcodeText)
+//        val nextButton = view.findViewById<Button>(R.id.driverNextButton)
+//        val prevButton = view.findViewById<Button>(R.id.driverPrevButton)
+//
+//        val riderGenderText = view.findViewById<TextView>(R.id.riderGenderText2)
+//        val riderAgeGroupText = view.findViewById<TextView>(R.id.riderDestinationText2)
+//        val riderRatingBar = view.findViewById<RatingBar>(R.id.riderRatingBar2)
+//        val riderDestinationAnswer = view.findViewById<TextView>(R.id.riderDestinationAnswer)
 
 
 
 
 
-        nextButton.setOnClickListener {
-            requestViewModel.setNextRequested()
-        }
+//        requestViewModel.acceptedRiderRequestLiveData?.observe(viewLifecycleOwner, Observer { requests ->
+//            if (requests != null) {
+//                requestViewModel.currentRiderAcceptedRequest?.observe(viewLifecycleOwner, Observer { index ->
+//                    if (index != null) {
+//                        prevButton.isEnabled = index != 0
+//                        nextButton.isEnabled = index > 0 && index != requests.accepted.size - 1
+//
+//                        if(!requests.accepted.isNullOrEmpty()){
+//                            val current = requests.accepted[index]
+//                            riderGenderText.text = current?.riderGender
+//                            riderAgeGroupText.text = current?.riderAgeGroup
+//                            riderRatingBar.rating = calculateRating(current?.riderRating!!)
+//                            riderDestinationAnswer.text= current?.destination.toString()
+//                         //   otpDetail.text= rideViewModel.acceptedRidesLiveData?
+//                        }
+//                    } else {
+//                        Toast.makeText(
+//                            this.requireContext(),
+//                            "Something Went Wrong",
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                    }
+//                })
+//            } else {
+//                Toast.makeText(this.requireContext(), "Something Went Wrong", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        }
+//
+//        )
 
-        prevButton.setOnClickListener {
-            requestViewModel.setPrevRequested()
-        }
+
+
+
+
+//        nextButton.setOnClickListener {
+//            requestViewModel.setNextRequested()
+//        }
+//
+//        prevButton.setOnClickListener {
+//            requestViewModel.setPrevRequested()
+//        }
 
 
     }
 
-    private fun calculateRating(ratingInput: MutableList<Int>): Float {
-        var prod = 0
-        for(i in 0 until ratingInput.size){
-            prod += ((i+1) * ratingInput[i])
-        }
-
-        return (prod.toFloat()) / ratingInput.sum()
-    }
+//    private fun calculateRating(ratingInput: MutableList<Int>): Float {
+//        var prod = 0
+//        for(i in 0 until ratingInput.size){
+//            prod += ((i+1) * ratingInput[i])
+//        }
+//
+//        return (prod.toFloat()) / ratingInput.sum()
+//    }
 
 
 

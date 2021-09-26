@@ -1,7 +1,10 @@
 package com.example.abren.network
 
+import com.example.abren.models.Location
 import com.example.abren.models.Request
 import com.example.abren.models.Ride
+import com.example.abren.responses.RequestsResponse
+import com.example.abren.responses.RidesResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,10 +26,10 @@ interface RequestService {
         @Header("Authorization") token: String
     ): Call<Request>
 
-    @GET("/api/requests/")
-    fun getRequests(
-        @Path("id") requestId:String,
-        @Path("riderId") rideId: String,
+    @POST("requests/current/{id}")
+    fun fetchRequests(
+        @Path("id") rideId: String,
+        @Body location: Location,
         @Header("Authorization") token: String
-    ): Call<Request>
+    ): Call<RequestsResponse>
 }

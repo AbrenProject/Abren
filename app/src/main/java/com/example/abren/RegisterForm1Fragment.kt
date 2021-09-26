@@ -23,7 +23,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.abren.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_form1.*
-import okhttp3.*
 import java.io.File
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
@@ -73,12 +72,12 @@ class RegisterForm1Fragment : Fragment() {
         val idCardBackPicture = view.findViewById<TextView>(R.id.kebele_id_back_textView)
 
 
-        view.findViewById<Button>(R.id.riderPrevButton).setOnClickListener {
+        view.findViewById<Button>(R.id.driverPrevButton).setOnClickListener {
             findNavController().navigate(R.id.action_RegisterForm1Fragment_to_RegisterFragment)
         }
 
         // call registerUser network call when continue button clicked for rider
-        view.findViewById<Button>(R.id.riderNextButton).setOnClickListener {
+        view.findViewById<Button>(R.id.driverNextButton).setOnClickListener {
             Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())

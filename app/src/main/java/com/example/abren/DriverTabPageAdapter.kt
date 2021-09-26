@@ -13,10 +13,9 @@ class DriverTabPageAdapter(fragment: Fragment, private val tabCount: Int) :
     override fun createFragment(position: Int): Fragment {
 
         return when(position){
-            0 -> NearbyRidersFragment()
-            1 -> RequestedRidersFragment()
-            2 -> AcceptedRidersFragment()
-            else -> NearbyRidersFragment()
+            0 -> RequestedRidersFragment()
+            1 -> AcceptedRidersFragment()
+            else -> RequestedRidersFragment()
         }
     }
 }

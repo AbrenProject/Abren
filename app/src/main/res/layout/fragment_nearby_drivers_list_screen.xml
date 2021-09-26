@@ -67,7 +67,7 @@
                 android:paddingBottom="7dp">
 
                 <TextView
-                    android:id="@+id/driverNumberText1"
+                    android:id="@+id/driverNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -84,7 +84,7 @@
                     android:id="@+id/gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverNumberText1"
+                    android:layout_below="@+id/driverNumber"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:includeFontPadding="false"
@@ -95,7 +95,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverGenderText1"
+                    android:id="@+id/driverGenderText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/gender"
@@ -109,7 +109,7 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverGenderText1"
+                    android:layout_below="@+id/driverGenderText"
                     android:layout_marginStart="10dp"
                     android:includeFontPadding="false"
                     android:paddingBottom="5dp"
@@ -122,7 +122,7 @@
                     android:id="@+id/route"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverRatingBar1"
+                    android:layout_below="@+id/driverRatingBar"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
@@ -134,7 +134,7 @@
                     android:textStyle="bold" />
 
                 <RatingBar
-                    android:id="@+id/driverRatingBar1"
+                    android:id="@+id/driverRatingBar"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                     android:id="@+id/ageGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/driverNumberText1"
+                    android:layout_below="@+id/driverNumber"
                     android:layout_marginStart="175dp"
                     android:layout_marginTop="5dp"
                     android:includeFontPadding="false"
@@ -157,7 +157,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/driverAgeGroupText1"
+                    android:id="@+id/driverAgeGroupText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ageGroup"
@@ -233,7 +233,6 @@
             style="@style/App_Button.send"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_gravity="start"
             android:layout_marginBottom="5dp"
             android:layout_weight="4"
             android:text="Send"
