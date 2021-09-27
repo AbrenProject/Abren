@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/layout_bg.xml" value="0.2203125" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/layout_bg_orange.xml" value="0.2203125" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/round_orange.xml" value="0.2203125" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/drawable/rounded_edittext.xml" value="0.2203125" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_accepted_driver_viewing_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_driver_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_drivers_list_screen.xml" value="0.33" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_nearby_riders.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_accepted.xml" value="0.33" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_accepted.xml" value="0.25" />
         <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/fragment_rider_requests.xml" value="0.2" />
+        <entry key="..\:/Users/Gashu/Documents/AbrenFinalProject/Frontend/app/src/main/res/layout/row.xml" value="0.25" />
       </map>
     </option>
   </component>

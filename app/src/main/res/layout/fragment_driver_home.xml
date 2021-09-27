@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
         android:text="Select one of your saved routes to start giving a ride"
-        android:textColor="@color/dark"
-        android:textSize="18sp" />
+        android:textSize="17sp" />
 
     <ListView
         android:id="@+id/list_listView"
@@ -24,7 +24,9 @@
         android:layout_height="509dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="0dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -34,8 +36,8 @@
         android:background="#FDFDFB"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:cardElevation="30dp"
-        app:cardMaxElevation="30dp">
+        app:cardElevation="50dp"
+        app:cardMaxElevation="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"

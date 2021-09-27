@@ -16,7 +16,7 @@ import com.example.abren.responses.RidesResponse
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
+class RideViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private var rideRepository: RideRepository? = null
 
     private val mutableSelectedRide = MutableLiveData<Ride>()
@@ -25,9 +25,11 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
     var nearbyRidesLiveData: MutableLiveData<RidesResponse?>? = null
     var currentNearby: MutableLiveData<Int>? = null
     var currentRequested: MutableLiveData<Int>? = null
-    var acceptedRidesLiveData: MutableLiveData<RidesResponse?>? = null
 
     var createdRideLiveData: MutableLiveData<Ride?>? = null
+    var finishedRideLiveData: MutableLiveData<Ride?>? = null
+
+    var kmLiveData: MutableLiveData<Double>? = null
 
     init {
         rideRepository = RideRepository()
@@ -37,7 +39,9 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         currentRequested = MutableLiveData()
         currentRequested?.value = 0
         createdRideLiveData = MutableLiveData()
-        acceptedRidesLiveData = MutableLiveData()
+        finishedRideLiveData = MutableLiveData()
+        kmLiveData = MutableLiveData()
+        kmLiveData?.value = 0.0
     }
 
     fun setRide(ride: Ride) {
@@ -51,6 +55,14 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
 
     fun createRide(ride: Ride, context: Context) {
         createdRideLiveData = rideRepository?.createRide(ride, context)
+    }
+
+    fun acceptRequest(id: String, requestId: String, context: Context) {
+        rideRepository?.acceptedRequest(id, requestId, context)
+    }
+
+    fun finishRide(id: String, km: String, context: Context) {
+        finishedRideLiveData = rideRepository?.finishRide(id, km, context)
     }
 
     fun setDriverLocation(location: Location) {
@@ -77,9 +89,9 @@ class RideViewModel (savedStateHandle: SavedStateHandle) : ViewModel()  {
         currentRequested?.value = currentRequested?.value?.minus(1)
     }
 
-    fun acceptRides(rideId: String, context: Context)
-    {
-
-
+    fun setKm(km: Double) {
+        kmLiveData?.value = km
     }
+
+
 }

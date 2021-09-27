@@ -1,51 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="5dp">
 
-        <com.anton46.stepsview.StepsView
-            android:id="@+id/stepsView"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-10dp"
-            android:layout_marginBottom="@dimen/app_margin" >
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FDFDFB"
+            android:padding="5dp"
+            app:cardElevation="5dp"
+            app:cardMaxElevation="5dp">
 
-        </com.anton46.stepsview.StepsView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="StepsView 1"
-            android:textColor="@color/orange"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+                        <com.anton46.stepsview.StepsView
+                            android:id="@+id/stepsView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-10dp">
+
+                        </com.anton46.stepsview.StepsView>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="#f5f5f5" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text="StepsView 1"
+                                    android:textColor="@color/orange"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                        </LinearLayout>
+
+                </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
 
         <!--        <params.com.stepview.StatusViewScroller-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:stepCount="5"-->
-<!--            app:currentCount="4"-->
-<!--            app:drawLabels="true"-->
-<!--            app:circleColorType="fillStroke"-->
-<!--            app:lineGap="5dp"-->
-<!--            app:lineWidth="3dp"-->
-<!--            app:lineColor="@android:color/black"-->
-<!--            app:lineColorIncomplete="#B4B7BA"-->
-<!--            app:lineColorCurrent="#91A8D0"-->
-<!--            app:circleColor="#CC004B8D"-->
-<!--            app:circleColorCurrent="#004B8D"-->
-<!--            app:circleColorIncomplete="#BCBCBE"-->
-<!--            app:textColorLabels="@android:color/white"-->
-<!--            app:textColorLabelsCurrent="@android:color/white"-->
-<!--            app:textColorLabelsIncomplete="@android:color/black"-->
-<!--            app:circleStrokeWidth="4dp"-->
-<!--            app:circleStrokeColorCurrent="#91A8D0"-->
-<!--            app:textSizeLabels="15sp"-->
-<!--            />-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:stepCount="5"-->
+        <!--            app:currentCount="4"-->
+        <!--            app:drawLabels="true"-->
+        <!--            app:circleColorType="fillStroke"-->
+        <!--            app:lineGap="5dp"-->
+        <!--            app:lineWidth="3dp"-->
+        <!--            app:lineColor="@android:color/black"-->
+        <!--            app:lineColorIncomplete="#B4B7BA"-->
+        <!--            app:lineColorCurrent="#91A8D0"-->
+        <!--            app:circleColor="#CC004B8D"-->
+        <!--            app:circleColorCurrent="#004B8D"-->
+        <!--            app:circleColorIncomplete="#BCBCBE"-->
+        <!--            app:textColorLabels="@android:color/white"-->
+        <!--            app:textColorLabelsCurrent="@android:color/white"-->
+        <!--            app:textColorLabelsIncomplete="@android:color/black"-->
+        <!--            app:circleStrokeWidth="4dp"-->
+        <!--            app:circleStrokeColorCurrent="#91A8D0"-->
+        <!--            app:textSizeLabels="15sp"-->
+        <!--            />-->
 
 
 </LinearLayout>

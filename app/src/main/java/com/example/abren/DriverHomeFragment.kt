@@ -26,6 +26,8 @@ import com.example.abren.models.Location
 import com.example.abren.models.Ride
 import com.example.abren.viewmodel.RideViewModel
 import com.google.android.gms.location.*
+import com.mapbox.geojson.Point
+import com.mapbox.turf.TurfMeasurement
 
 private var PERMISSION_ID = 44
 
@@ -86,6 +88,18 @@ class DriverHomeFragment : Fragment() {
                 rideViewModel.createRide(ride, requireContext())
 
                 rideViewModel.createdRideLiveData?.observe(viewLifecycleOwner, Observer {
+                    val destination = selectedRoute.destinationLocation
+
+                    val distance = TurfMeasurement.distance(
+                        Point.fromLngLat(ride.driverLocation?.longitude!!,
+                            ride.driverLocation?.latitude!!
+                        ), Point.fromLngLat(destination?.longitude!!,
+                            destination.latitude!!
+                        ))
+
+                    rideViewModel.setKm(distance)
+                    Log.d("DISTANCE", distance.toString())
+
                     findNavController().navigate(R.id.action_driverHomeFragment_to_nearbyRidersFragment)
                 })
             })
