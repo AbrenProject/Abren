@@ -7,17 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
 import com.example.abren.viewmodel.UserViewModel
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.android.synthetic.main.fragment_auth.*
 import java.util.concurrent.TimeUnit
 
 class AuthFragment : Fragment() {
@@ -46,15 +49,18 @@ class AuthFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
+            view.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth).visibility = View.VISIBLE
             login()
         }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                view.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth).visibility = View.GONE
                 Toast.makeText(context?.applicationContext, "Verification Successful", Toast.LENGTH_LONG).show()
                 activity?.finish()
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
+                view.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth).visibility = View.GONE
                 Toast.makeText(context?.applicationContext, e.message, Toast.LENGTH_LONG).show()
                 Log.d("FIREBASE", e.message.toString())
             }

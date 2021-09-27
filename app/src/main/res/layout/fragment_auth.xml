@@ -76,4 +76,14 @@
             android:background="@color/white"
             android:text="@string/Register" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimationView_auth"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        app:lottie_rawRes="@raw/loading"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
 </LinearLayout>

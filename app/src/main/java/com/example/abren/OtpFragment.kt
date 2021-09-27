@@ -25,8 +25,8 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.cloudinary.AccessControlRule.token
 
 import android.content.SharedPreferences
-
-
+import android.widget.ProgressBar
+import com.airbnb.lottie.LottieAnimationView
 
 
 class OtpFragment : Fragment() {
@@ -51,6 +51,7 @@ class OtpFragment : Fragment() {
 
 
         verify.setOnClickListener {
+            view.findViewById<LottieAnimationView>(R.id.loadingAnimationView_otp).visibility = View.VISIBLE
             val otp = otpGiven.text.toString().trim()
             if (otp.isNotEmpty()) {
                 val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
@@ -80,12 +81,15 @@ class OtpFragment : Fragment() {
                             if (authResponse != null) {
                                 val preferences = requireActivity().getSharedPreferences("ABREN", Context.MODE_PRIVATE)
                                 preferences.edit().putString("TOKEN", authResponse.token).apply()
+                                view?.findViewById<LottieAnimationView>(R.id.loadingAnimationView_otp)?.visibility = View.GONE
                                 if (authResponse.user.role == "DRIVER") {
                                     findNavController().navigate(R.id.action_otpFragment_to_driverHomeFragment)
                                 } else {
+                                    view?.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth)?.visibility = View.GONE
                                     findNavController().navigate(R.id.action_otpFragment_to_riderRoutesHome)
                                 }
                             } else {
+                                view?.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth)?.visibility = View.GONE
                                 Toast.makeText(
                                     this.requireContext(),
                                     "Something Went Wrong",
@@ -101,7 +105,9 @@ class OtpFragment : Fragment() {
                             "Invalid OTP",
                             Toast.LENGTH_LONG
                         ).show()
+                        view?.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth)?.visibility = View.GONE
                     }
+                    view?.findViewById<LottieAnimationView>(R.id.loadingAnimationView_auth)?.visibility = View.GONE
                 }
             }
     }
