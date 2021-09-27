@@ -1,38 +1,48 @@
 package com.example.abren
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.abren.adapter.LocationSuggestionAdapter
-import com.example.abren.viewmodel.LocationViewModel
-import android.content.pm.PackageManager
-import android.location.LocationManager
-import androidx.core.app.ActivityCompat
-import android.os.Looper
-import android.annotation.SuppressLint
-import android.location.Location
-import android.util.Log
-import android.widget.Button
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.activityViewModels
 import com.example.abren.models.Request
+import com.example.abren.models.User
+import com.example.abren.viewmodel.LocationViewModel
 import com.example.abren.viewmodel.RequestViewModel
 import com.google.android.gms.location.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import com.example.abren.models.Location as LocationModel
+
 
 private val TRIGGER_AUTO_COMPLETE = 100
 private val AUTO_COMPLETE_DELAY: Long = 300
@@ -41,13 +51,22 @@ private var PERMISSION_ID = 44
 class HomeFragment : Fragment() {
 
     private val requestViewModel: RequestViewModel by activityViewModels()
-
+    var mLocation: ArrayList<Location>? = null
+//    var mAdapter:LocationAdapter? =null
     private lateinit var destinationLocationSuggestionAdapter: LocationSuggestionAdapter
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var destinationHandler: Handler
-
+    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        view?.findViewById<TextView>(R.id.last_traveled_textview)?.setText("this is the text")
+//        var mCardView = view?.findViewById<RecyclerView>(R.id.recent_destinations_cardView);
+//        var mLayoutManager = LinearLayoutManager(context);
+//        mAdapter =LocationSuggestionAdapter(mLocation);
+//        mCardView?.setLayoutManager(mLayoutManager);
+//        mCardView?.setAdapter(mAdapter);
+
 
         destinationLocationSuggestionAdapter = LocationSuggestionAdapter(
             this.requireContext(),
@@ -64,12 +83,28 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//
+//        val userId=User()._id
+        val locationName=sharedPref?.getString("Location Name","location")
+//        Log.d("location get:", location.toString())
+//        view?.findViewById<TextView>(R.id.last_traveled_textview)?.setText("this is the text")
 
+//        val gson = Gson()
+//        val json: String = sharedPref?.getString(userId, "Place Name").toString()
+//        val type: Type = object : TypeToken<ArrayList<Location?>?>() {}.type
+//        mLocation = gson.fromJson(json, type)
+//
+        if (locationName == null) {
+            Toast.makeText(this.requireContext(), "location empty", Toast.LENGTH_SHORT)
+                .show()
+        }
+        view?.findViewById<TextView>(R.id.last_traveled_textview)?.setText(locationName)
         val request = Request()
         requestViewModel.setRequest(request)
 
@@ -133,7 +168,21 @@ class HomeFragment : Fragment() {
 
                 requestViewModel.createdRequestLiveData?.observe(viewLifecycleOwner, Observer {
                     Log.d("Created Request:", request.toString())
+                    Toast.makeText(this.requireContext(), "request created", Toast.LENGTH_SHORT)
+                            .show()
+
+                    Toast.makeText(this.requireContext(), "shared preference added", Toast.LENGTH_SHORT)
+                            .show()
+                    var locationName=LocationModel().displayName
                     findNavController().navigate(R.id.action_nav_home_to_nav_gallery)
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return@Observer
+                    with (sharedPref.edit()) {
+                        putString("Location Name", locationName)
+                        apply()
+                    }
+                    val locationNameout=sharedPref?.getString("Location Name","location")
+                    Toast.makeText(this.requireContext(), locationNameout, Toast.LENGTH_SHORT)
+                        .show()
                 })
             })
 

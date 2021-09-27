@@ -109,4 +109,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="waiting">Waiting</string>
 
+    <!--Strings for Shared preferenece-->
+    <string name="location">location</string>
 </resources>
