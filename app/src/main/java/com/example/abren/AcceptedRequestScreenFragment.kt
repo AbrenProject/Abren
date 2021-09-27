@@ -67,13 +67,13 @@ class AcceptedRequestScreenFragment : Fragment(R.layout.fragment_accepted_driver
 
                     for (i in 0 until rides.accepted?.route?.waypointLocations?.size!!) {
                         routeWaypointText.text = routeWaypointText.text.toString() + "${
-                            rides.accepted?.route?.waypointLocations?.get(i)?.name!!
+                            rides.accepted?.route?.waypointLocations?.get(i)?.name?.substringBefore(",")!!
                         } > "
                     }
 
-                    routeStartText.text = "${rides.accepted?.route?.startingLocation?.name!!} > "
+                    routeStartText.text = "${rides.accepted?.route?.startingLocation?.name?.substringBefore(",")!!} > "
                     routeDestinationText.text =
-                        "${rides.accepted?.route?.destinationLocation?.name!!}"
+                        "${rides.accepted?.route?.destinationLocation?.name?.substringBefore(",")!!}"
 
                     if (rides.accepted?.status == "FINISHED") {
                         finishedLayout.visibility = View.VISIBLE

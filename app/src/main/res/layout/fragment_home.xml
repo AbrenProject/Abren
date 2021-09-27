@@ -57,62 +57,31 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/recent_destinations_cardView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/middle_space"
-            android:layout_height="wrap_content">
+            android:visibility="invisible">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/app_padding"
                 android:background="@drawable/rounded_edittext"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/app_padding">
 
                 <TextView
-                    android:id="@+id/destination_name_text_view"
+                    android:id="@+id/destination_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:text="@string/place_name" />
+                    android:text="@string/place_name"
+                    android:textColor="@color/orange" />
 
                 <TextView
                     android:id="@+id/last_traveled_textview"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_continue_darker"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_traveled" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/recent_destinations_cardView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/middle_space">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/app_padding"
-                android:background="@drawable/rounded_edittext"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/destination_name_text_view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange"
-                    android:text="@string/place_name" />
-
-                <TextView
-                    android:id="@+id/last_traveled_textview2"
-                    android:layout_width="match_parent"
-                    android:drawableRight="@drawable/ic_continue_darker"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_traveled" />
+                    android:text="Last traveled on:" />
 
             </LinearLayout>
 

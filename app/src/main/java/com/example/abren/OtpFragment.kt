@@ -80,6 +80,7 @@ class OtpFragment : Fragment() {
                             if (authResponse != null) {
                                 val preferences = requireActivity().getSharedPreferences("ABREN", Context.MODE_PRIVATE)
                                 preferences.edit().putString("TOKEN", authResponse.token).apply()
+                                preferences.edit().remove("RECENT_DESTINATION").apply()
                                 if (authResponse.user.role == "DRIVER") {
                                     findNavController().navigate(R.id.action_otpFragment_to_driverHomeFragment)
                                 } else {

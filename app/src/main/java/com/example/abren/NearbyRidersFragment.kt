@@ -20,7 +20,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.abren.models.Location
-import com.example.abren.models.Route
 import com.example.abren.viewmodel.RequestViewModel
 import com.example.abren.viewmodel.RideViewModel
 import com.example.abren.viewmodel.RouteViewModel
@@ -28,7 +27,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
-import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -42,7 +40,6 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.utils.ColorUtils
-import com.mapbox.turf.TurfMeasurement
 import kotlinx.android.synthetic.main.fragment_nearby_drivers.*
 
 
@@ -141,7 +138,7 @@ class NearbyRidersFragment : Fragment(), OnMapReadyCallback, PermissionsListener
 
         requestViewModel.currentRequestsLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRequestedRider?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         if(!requests.requested.isNullOrEmpty()) {
                             val current = requests.requested[index]

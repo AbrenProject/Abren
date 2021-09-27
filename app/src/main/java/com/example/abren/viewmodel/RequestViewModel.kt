@@ -19,7 +19,7 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
     var createdRequestLiveData: MutableLiveData<Request>? = null
     var acceptedRequestLiveData: MutableLiveData<Request>? = null
 
-    var currentRequested: MutableLiveData<Int>? = null
+    var currentRequestedRider: MutableLiveData<Int>? = null
     var currentAccepted: MutableLiveData<Int>? = null
 
     var currentRequestsLiveData:  MutableLiveData<RequestsResponse>? = null
@@ -28,8 +28,8 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
         requestRepository = RequestRepository()
         createdRequestLiveData = MutableLiveData()
         acceptedRequestLiveData = MutableLiveData()
-        currentRequested = MutableLiveData()
-        currentRequested?.value = 0
+        currentRequestedRider = MutableLiveData()
+        currentRequestedRider?.value = 0
         currentAccepted = MutableLiveData()
         currentAccepted?.value = 0
         currentRequestsLiveData = MutableLiveData()
@@ -64,11 +64,11 @@ class RequestViewModel(savedStateHandle: SavedStateHandle) : ViewModel()  {
     }
 
     fun setNextRequested() {
-        currentRequested?.value = currentRequested?.value?.plus(1)
+        currentRequestedRider?.value = currentRequestedRider?.value?.plus(1)
     }
 
     fun setPrevRequested() {
-        currentRequested?.value = currentRequested?.value?.minus(1)
+        currentRequestedRider?.value = currentRequestedRider?.value?.minus(1)
     }
 
     fun setNextAccepted() {

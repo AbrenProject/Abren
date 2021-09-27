@@ -45,13 +45,15 @@ class RequestedRidersFragment : Fragment(R.layout.fragment_rider_requests) {
 
         requestViewModel.currentRequestsLiveData?.observe(viewLifecycleOwner, Observer { requests ->
             if (requests != null) {
-                requestViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
+                requestViewModel.currentRequestedRider?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index > 0 && index != requests.requested.size - 1
+                        nextButton.isEnabled = index >= 0 && index != requests.requested.size - 1
 
                         if (!requests.requested.isNullOrEmpty()) {
                             requestedNumber.text = requests.requested.size.toString()
+                            Log.d("SIZE", requests.requested.size.toString())
+                            Log.d("INDEX", index.toString())
                             val current = requests.requested[index]
                             riderNumber.text = "${index + 1}"
                             riderGenderText.text = current?.riderGender

@@ -49,7 +49,7 @@ class RequestedDriversScreenFragment : Fragment(R.layout.fragment_requested_driv
                 rideViewModel.currentRequested?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index > 0 && index != rides.requested.size - 1
+                        nextButton.isEnabled = index >= 0 && index != rides.requested.size - 1
 
                         if(!rides.requested.isNullOrEmpty()){
                             requestedCountText.text = rides.requested.size.toString()
@@ -62,11 +62,11 @@ class RequestedDriversScreenFragment : Fragment(R.layout.fragment_requested_driv
                             routeWaypointText.text = ""
 
                             for(i in 0 until current.route?.waypointLocations?.size!!){
-                                routeWaypointText.text = routeWaypointText.text.toString() + "${current.route?.waypointLocations?.get(i)?.name!!} > "
+                                routeWaypointText.text = routeWaypointText.text.toString() + "${current.route?.waypointLocations?.get(i)?.name?.substringBefore(",")!!} > "
                             }
 
-                            routeStartText.text = "${current.route?.startingLocation?.name!!} > "
-                            routeDestinationText.text = "${current.route?.destinationLocation?.name!!}"
+                            routeStartText.text = "${current.route?.startingLocation?.name?.substringBefore(",")!!} > "
+                            routeDestinationText.text = "${current.route?.destinationLocation?.name?.substringBefore(",")!!}"
                         }
                     } else {
                         Toast.makeText(

@@ -32,12 +32,12 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         super.onViewCreated(view, savedInstanceState)
 
 
-        val sendButton = view.findViewById<Button>(R.id.acceptButton)
-        val nextButton = view.findViewById<Button>(R.id.driverNextButton)
-        val prevButton = view.findViewById<Button>(R.id.driverPrevButton)
+        val sendButton = view.findViewById<Button>(R.id.sendButton)
+        val nextButton = view.findViewById<Button>(R.id.riderNextButton)
+        val prevButton = view.findViewById<Button>(R.id.riderPrevButton)
 
-        val genderText = view.findViewById<TextView>(R.id.riderGenderText)
-        val ageGroupText = view.findViewById<TextView>(R.id.riderAgeGroupText)
+        val genderText = view.findViewById<TextView>(R.id.driverGenderText)
+        val ageGroupText = view.findViewById<TextView>(R.id.driverAgeGroupText)
         val ratingBar = view.findViewById<RatingBar>(R.id.driverRatingBar)
         val routeStartText = view.findViewById<TextView>(R.id.routeStartText)
         val routeWaypointText = view.findViewById<TextView>(R.id.routeWaypointText)
@@ -63,11 +63,11 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
                             routeWaypointText.text = ""
 
                             for(i in 0 until current.route?.waypointLocations?.size!!){
-                                routeWaypointText.text = routeWaypointText.text.toString() + "${current.route?.waypointLocations?.get(i)?.name!!} > "
+                                routeWaypointText.text = routeWaypointText.text.toString() + "${current.route?.waypointLocations?.get(i)?.name?.substringBefore(",")!!} > "
                             }
 
-                            routeStartText.text = "${current.route?.startingLocation?.name!!} > "
-                            routeDestinationText.text = "${current.route?.destinationLocation?.name!!}"
+                            routeStartText.text = "${current.route?.startingLocation?.name?.substringBefore(",")!!} > "
+                            routeDestinationText.text = "${current.route?.destinationLocation?.name?.substringBefore(",")!!}"
 
                         }
                     } else {

@@ -81,7 +81,7 @@ class RegisterForm1Fragment : Fragment() {
             Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
             viewModel.setPhoneNumber("251" + phoneNumber.text.toString())
             viewModel.setEmergencyPhoneNumber("251" + emergencyPhoneNumber.text.toString())
-            viewModel.setPassword("1234")
+            viewModel.setPassword("983479347568576374653")
 
             //TODO: Set the images urls
 

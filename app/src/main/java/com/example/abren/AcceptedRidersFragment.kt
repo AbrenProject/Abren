@@ -52,7 +52,7 @@ class AcceptedRidersFragment : Fragment(R.layout.fragment_rider_accepted) {
                 requestViewModel.currentAccepted?.observe(viewLifecycleOwner, Observer { index ->
                     if (index != null) {
                         prevButton.isEnabled = index != 0
-                        nextButton.isEnabled = index > 0 && index != requests.accepted.size - 1
+                        nextButton.isEnabled = index >= 0 && index != requests.accepted.size - 1
 
                         if (!requests.accepted.isNullOrEmpty()) {
                             val inRide = requests.accepted.count { it?.status == "ACCEPTED" }
@@ -89,7 +89,7 @@ class AcceptedRidersFragment : Fragment(R.layout.fragment_rider_accepted) {
         }
 
         prevButton.setOnClickListener {
-            requestViewModel.setNextRequested()
+            requestViewModel.setPrevAccepted()
         }
 
         driverFinishButton.setOnClickListener {
