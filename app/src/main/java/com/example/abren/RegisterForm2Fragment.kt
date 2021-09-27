@@ -140,11 +140,6 @@ class RegisterForm2Fragment : Fragment() {
                 id: Long
             ) {
                 userViewModel.setVehicleModel(vehicleModelAdapter.getObject(position).value)
-                Toast.makeText(
-                    requireContext(),
-                    vehicleModelAdapter.getObject(position).value,
-                    Toast.LENGTH_LONG
-                ).show()
 
                 userViewModel.selectedUser.observe(viewLifecycleOwner, Observer { user ->
                     makeApiCall(
@@ -349,11 +344,7 @@ class RegisterForm2Fragment : Fragment() {
                                 Observer { vehicle ->
                                     if (vehicle != null) {
                                         userViewModel.setKml(vehicle.comb08!! / 2.352)
-                                        Toast.makeText(
-                                            this.requireContext(),
-                                            "KML: ${vehicle.comb08!! / 2.352}",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+
                                     } else {
                                         Toast.makeText(
                                             this.requireContext(),
@@ -491,11 +482,6 @@ class RegisterForm2Fragment : Fragment() {
         MediaManager.get().upload(filepath).callback(object : UploadCallback {
 
             override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
-                Toast.makeText(
-                    requireContext(),
-                    resultData["secure_url"] as String,
-                    Toast.LENGTH_LONG
-                ).show()
                 result.value = resultData["secure_url"] as String
             }
 

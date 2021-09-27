@@ -64,9 +64,6 @@ class DriverHomeFragment : Fragment() {
         val mListView = view.findViewById<View>(R.id.list_listView) as ListView
 
         routeViewModel.createdRouteLiveDataList?.observe(viewLifecycleOwner, Observer { routeList ->
-            Log.d("Calling on listRoute: Returned Route = ", routeList.toString())
-            Log.d("check routeList length = ", routeList.size.toString())
-            Log.d("check routeList[0] of name = ", routeList[0].startingLocation?.name.toString())
 
             val views = arrayOfNulls<String>(routeList.size)
 
@@ -226,4 +223,15 @@ class DriverHomeFragment : Fragment() {
             }
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        getLastLocation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
+    }
 }
+

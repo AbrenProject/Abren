@@ -75,6 +75,8 @@ class RequestedRidersFragment : Fragment(R.layout.fragment_rider_requests) {
         })
 
         acceptButton.setOnClickListener {
+            Toast.makeText(this.requireContext(), "Accepting Request", Toast.LENGTH_SHORT)
+                .show()
             makeAcceptedRequestApiCall()
         }
 

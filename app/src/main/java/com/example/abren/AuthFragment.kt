@@ -41,9 +41,6 @@ class AuthFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val loginButton = view.findViewById<Button>(R.id.send_authorization_code_button)
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            Toast.makeText(requireContext(), "signed in", Toast.LENGTH_SHORT).show()
-        }
 
         loginButton.setOnClickListener {
             login()

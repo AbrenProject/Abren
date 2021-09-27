@@ -86,6 +86,8 @@ class NearbyDriversListScreenFragment : Fragment(R.layout.fragment_nearby_driver
         })
 
         sendButton.setOnClickListener {
+            Toast.makeText(this.requireContext(), "Sending Request", Toast.LENGTH_SHORT)
+                .show()
             makeSendRequestApiCall()
         }
 

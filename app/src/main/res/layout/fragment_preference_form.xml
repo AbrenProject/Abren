@@ -8,37 +8,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_margin"
+        android:layout_marginEnd="@dimen/app_margin"
         android:orientation="vertical"
-        android:layout_margin="@dimen/app_margin"
+        android:paddingTop="10dp"
         tools:context=".PreferenceFormFragment">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/app_margin"
-            android:gravity="center_vertical"
-            tools:context=".PreferenceFormFragment">
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
         <TextView
+            style="@style/App_TextView.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
-            style="@style/App_TextView.Title"
             android:text="@string/preferences" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/app_margin"
-            android:text="@string/Select_types_of_people"/>
+            android:text="@string/Select_types_of_people" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -60,33 +47,33 @@
                     android:padding="@dimen/app_padding"
                     android:text="@string/age_group1" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/app_padding"
-                android:paddingEnd="@dimen/app_padding"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/app_padding"
+                    android:paddingEnd="@dimen/app_padding">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_female"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="0dp"
                         android:layout_marginEnd="@dimen/app_padding"
-                        android:switchPadding="@dimen/app_padding"
                         android:checked="true"
-                        style="@style/App_TextView"
+                        android:padding="0dp"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/female" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_male"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:switchPadding="@dimen/app_padding"
                         android:padding="0dp"
-                        style="@style/App_TextView"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/male" />
-            </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -115,28 +102,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/app_padding"
-                    android:paddingEnd="@dimen/app_padding"
-                    android:orientation="horizontal">
+                    android:paddingEnd="@dimen/app_padding">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_female2"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="0dp"
                         android:layout_marginEnd="@dimen/app_padding"
-                        android:switchPadding="@dimen/app_padding"
                         android:checked="true"
-                        style="@style/App_TextView"
+                        android:padding="0dp"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/female" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_male2"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:switchPadding="@dimen/app_padding"
                         android:padding="0dp"
-                        style="@style/App_TextView"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/male" />
                 </LinearLayout>
             </LinearLayout>
@@ -167,28 +154,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/app_padding"
-                    android:paddingEnd="@dimen/app_padding"
-                    android:orientation="horizontal">
+                    android:paddingEnd="@dimen/app_padding">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_female3"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="0dp"
                         android:layout_marginEnd="@dimen/app_padding"
-                        android:switchPadding="@dimen/app_padding"
                         android:checked="true"
-                        style="@style/App_TextView"
+                        android:padding="0dp"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/female" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_male3"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:switchPadding="@dimen/app_padding"
                         android:padding="0dp"
-                        style="@style/App_TextView"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/male" />
                 </LinearLayout>
             </LinearLayout>
@@ -219,28 +206,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/app_padding"
-                    android:paddingEnd="@dimen/app_padding"
-                    android:orientation="horizontal">
+                    android:paddingEnd="@dimen/app_padding">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_female4"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="0dp"
                         android:layout_marginEnd="@dimen/app_padding"
+                        android:padding="0dp"
                         android:switchPadding="@dimen/app_padding"
-                        style="@style/App_TextView"
                         android:text="@string/female" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switch_male4"
+                        style="@style/App_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:switchPadding="@dimen/app_padding"
                         android:checked="true"
                         android:padding="0dp"
-                        style="@style/App_TextView"
+                        android:switchPadding="@dimen/app_padding"
                         android:text="@string/male" />
                 </LinearLayout>
             </LinearLayout>
@@ -252,9 +239,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/app_margin"
+            android:drawablePadding="@dimen/app_padding"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:drawablePadding="@dimen/app_padding"
             android:text="@string/change_preference_anytime"
             app:drawableStartCompat="@drawable/ic_info" />
 
@@ -266,22 +253,22 @@
 
             <Button
                 android:id="@+id/back_button_preference"
+                style="@style/App_Button.drawableStart"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textAlignment="viewStart"
                 android:layout_gravity="start"
-                style="@style/App_Button.drawableStart" />
+                android:layout_weight="1"
+                android:textAlignment="viewStart" />
 
             <Button
                 android:id="@+id/finish_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/finish"
                 style="@style/App_Button.drawableFinish"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:text="@string/finish"
+                android:textAlignment="textEnd" />
 
         </LinearLayout>
 

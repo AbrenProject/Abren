@@ -39,6 +39,7 @@ class RouteRepository {
                 val gson = Gson()
                 if (response.code() == 200) {
                     data.value = response.body()
+                    Log.d("Route Repo: On 200:", "Successful")
                     Log.d("Route Repo: On 200:", response.body().toString())
                 }else {
                     Log.d("Route Repo: Header = ", response.headers().toString())

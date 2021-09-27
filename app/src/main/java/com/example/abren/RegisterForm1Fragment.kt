@@ -267,7 +267,6 @@ class RegisterForm1Fragment : Fragment() {
         MediaManager.get().upload(filepath).callback(object : UploadCallback {
 
             override fun onSuccess(requestId: String, resultData: MutableMap<Any?, Any?>) {
-                Toast.makeText(requireContext(), resultData["secure_url"] as String, Toast.LENGTH_LONG).show()
                 result.value = resultData["secure_url"] as String
             }
 
