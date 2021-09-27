@@ -3,6 +3,7 @@ package com.example.abren
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -89,19 +90,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //
-//        val location=sharedPref?.getString(userId,"location")
+//        val userId=User()._id
+        val locationName=sharedPref?.getString("Location Name","location")
 //        Log.d("location get:", location.toString())
 //        view?.findViewById<TextView>(R.id.last_traveled_textview)?.setText("this is the text")
-        val userId=User()._id
-        val gson = Gson()
-        val json: String = sharedPref?.getString(userId, "Place Name").toString()
-        val type: Type = object : TypeToken<ArrayList<Location?>?>() {}.type
-        mLocation = gson.fromJson(json, type)
 
-        if (mLocation == null) {
-            mLocation = ArrayList()
+//        val gson = Gson()
+//        val json: String = sharedPref?.getString(userId, "Place Name").toString()
+//        val type: Type = object : TypeToken<ArrayList<Location?>?>() {}.type
+//        mLocation = gson.fromJson(json, type)
+//
+        if (locationName == null) {
+            Toast.makeText(this.requireContext(), "location empty", Toast.LENGTH_SHORT)
+                .show()
         }
-        view?.findViewById<TextView>(R.id.destination_name_text_view)?.setText(json)
+        view?.findViewById<TextView>(R.id.last_traveled_textview)?.setText(locationName)
         val request = Request()
         requestViewModel.setRequest(request)
 
@@ -167,22 +170,19 @@ class HomeFragment : Fragment() {
                     Log.d("Created Request:", request.toString())
                     Toast.makeText(this.requireContext(), "request created", Toast.LENGTH_SHORT)
                             .show()
-//                    val editor: SharedPreferences.Editor = sharedPref.edit()
-                    val userId = User()._id
-                    val location=LocationModel().toString()
-                    val gson = Gson()
-                    val json = gson.toJson(mLocation)
 
-                    with (sharedPref?.edit()) {
-                        this?.putString(userId,json)
-                        this?.apply()
-                    }
-//                    editor.putString(userId, location)
-//                    editor.apply();
                     Toast.makeText(this.requireContext(), "shared preference added", Toast.LENGTH_SHORT)
                             .show()
+                    var locationName=LocationModel().displayName
                     findNavController().navigate(R.id.action_nav_home_to_nav_gallery)
-
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return@Observer
+                    with (sharedPref.edit()) {
+                        putString("Location Name", locationName)
+                        apply()
+                    }
+                    val locationNameout=sharedPref?.getString("Location Name","location")
+                    Toast.makeText(this.requireContext(), locationNameout, Toast.LENGTH_SHORT)
+                        .show()
                 })
             })
 
